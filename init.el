@@ -178,6 +178,29 @@
 
 (set-frame-font "Ubuntu Mono" nil t)
 
+(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+
+(use-package evil
+  :init
+  (setq evil-want-integration t)
+  (setq evil-want-keybinding nil)
+  (setq evil-shift-width 2)
+  :bind
+  (:map evil-motion-state-map
+    ("q" . nil))
+  :config
+  (evil-mode 1)
+  (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
+  (define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char-and-join)
+
+  (evil-global-set-key 'motion "j" 'evil-next-visual-line)
+  (evil-global-set-key 'motion "k" 'evil-previous-visual-line))
+
+(use-package evil-collection
+  :after evil
+  :config
+  (evil-collection-init))
+
 (use-package dired
   :ensure nil
   :config
