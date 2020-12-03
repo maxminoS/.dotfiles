@@ -108,8 +108,6 @@
 
 (define-key global-map [remap kill-buffer] 'emax/kill-buffer)
 
-(global-set-key (kbd "C-x C-b") 'ibuffer)
-
 (use-package which-key
   :init (which-key-mode)
   :diminish which-key-mode
@@ -247,6 +245,30 @@
 
 (use-package counsel-projectile
   :config (counsel-projectile-mode))
+
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+(setq ibuffer-saved-filter-groups
+      (quote (("Default"
+              ("Dired" (mode . dired-mode))
+              ("Magit" (name . "^magit"))
+              ("Emacs" (or
+                         (name . "^\\*scratch\\*$")
+                         (name . "^\\*Messages\\*$")
+                         (filename . ".emacs.d")
+                         (mode . eshell-mode)
+                         (mode . shell-mode)
+                         (mode . term-mode)))
+             ("Org" (mode . org-mode))
+             ("Help" (or
+                        (mode . help-mode)
+                        (mode . helpful-mode)
+                        (mode . Info-mode)
+                        (mode . apropos-mode)))))))
+
+(add-hook 'ibuffer-mode-hook
+          (lambda ()
+            (ibuffer-auto-mode 1)
+            (ibuffer-switch-to-saved-filter-groups "Default")))
 
 (use-package dired-sidebar
   :bind (("C-x C-n" . dired-sidebar-toggle-sidebar))

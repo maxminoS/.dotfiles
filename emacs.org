@@ -142,11 +142,6 @@ Place custom scripts under =~/.emacs.d/lisp=
       (define-key global-map [remap kill-buffer] 'emax/kill-buffer)
 #+END_SRC
 
-** IBuffer
-#+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "C-x C-b") 'ibuffer)
-#+END_SRC
-
 ** Which Key
 #+BEGIN_SRC emacs-lisp
   (use-package which-key
@@ -330,6 +325,34 @@ Place custom scripts under =~/.emacs.d/lisp=
 
   (use-package counsel-projectile
     :config (counsel-projectile-mode))
+#+END_SRC
+
+** IBuffer
+*** Grouping
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-x C-b") 'ibuffer)
+  (setq ibuffer-saved-filter-groups
+        (quote (("Default"
+                ("Dired" (mode . dired-mode))
+                ("Magit" (name . "^magit"))
+                ("Emacs" (or
+                           (name . "^\\*scratch\\*$")
+                           (name . "^\\*Messages\\*$")
+                           (filename . ".emacs.d")
+                           (mode . eshell-mode)
+                           (mode . shell-mode)
+                           (mode . term-mode)))
+               ("Org" (mode . org-mode))
+               ("Help" (or
+                          (mode . help-mode)
+                          (mode . helpful-mode)
+                          (mode . Info-mode)
+                          (mode . apropos-mode)))))))
+
+  (add-hook 'ibuffer-mode-hook
+            (lambda ()
+              (ibuffer-auto-mode 1)
+              (ibuffer-switch-to-saved-filter-groups "Default")))
 #+END_SRC
 
 ** Dired Sidebar
