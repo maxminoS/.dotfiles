@@ -331,7 +331,7 @@
 
 (use-package pyvenv
   :config
-  (pyenv-mode 1))
+  (pyvenv-mode 1))
 
 (setq tab-always-indent 'complete)
 

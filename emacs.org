@@ -433,7 +433,7 @@ Place custom scripts under =~/.emacs.d/lisp=
 
   (use-package pyvenv
     :config
-    (pyenv-mode 1))
+    (pyvenv-mode 1))
 #+END_SRC
 
 ** Minor Modes
