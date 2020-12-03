@@ -301,10 +301,10 @@
     (setq eshell-destroy-buffer-when-process-dies t)
     (setq eshell-visual-commands '("htop" "zsh" "vi"))))
 
+
 (use-package eshell-toggle
-  :bind ("C-M-'" . eshell-toggle)
+  :bind ("<f4>" . eshell-toggle)
   :custom
-  (eshell-toggle-size-fraction 3)
   (eshell-toggle-use-projectile-root t)
   (eshell-toggle-run-command nil))
 
