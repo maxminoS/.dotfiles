@@ -146,13 +146,6 @@ Place custom scripts under =~/.emacs.d/lisp=
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "C-x C-b") 'ibuffer)
 #+END_SRC
-#+BEGIN_SRC emacs-lisp
-  (use-package windmove
-    :bind (("C-c <C-left>" . windmove-left)
-           ("C-c <C-right>" . windmove-right)
-           ("C-c <C-up>" . windmove-up)
-           ("C-c <C-down>" . windmove-down)))
-#+END_SRC
 
 ** Which Key
 #+BEGIN_SRC emacs-lisp

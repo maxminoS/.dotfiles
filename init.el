@@ -110,12 +110,6 @@
 
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
-(use-package windmove
-  :bind (("C-c <C-left>" . windmove-left)
-         ("C-c <C-right>" . windmove-right)
-         ("C-c <C-up>" . windmove-up)
-         ("C-c <C-down>" . windmove-down)))
-
 (use-package which-key
   :init (which-key-mode)
   :diminish which-key-mode
