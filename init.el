@@ -278,13 +278,19 @@
 
 (use-package dap-mode
   :custom
-  (lsp-enable-dap-auto-configure nil)
+  (lsp-enable-dap-auto-configure nil))
+
+(use-package python-mode
+  :custom
+  (python-shell-interpreter "python3")
+  (dap-python-executable "python3")
+  (dap-python-debugger 'debugpy)
   :config
   (require 'dap-python))
 
-(setq python-shell-interpreter "python3")
-
-(use-package pyvenv)
+(use-package pyvenv
+  :config
+  (pyenv-mode 1))
 
 (setq tab-always-indent 'complete)
 

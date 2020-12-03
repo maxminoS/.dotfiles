@@ -371,16 +371,23 @@ Place custom scripts under =~/.emacs.d/lisp=
 #+BEGIN_SRC emacs-lisp
   (use-package dap-mode
     :custom
-    (lsp-enable-dap-auto-configure nil)
-    :config
-    (require 'dap-python))
+    (lsp-enable-dap-auto-configure nil))
 #+END_SRC
+
 ** Languages
 *** Python
 #+BEGIN_SRC emacs-lisp
-  (setq python-shell-interpreter "python3")
+  (use-package python-mode
+    :custom
+    (python-shell-interpreter "python3")
+    (dap-python-executable "python3")
+    (dap-python-debugger 'debugpy)
+    :config
+    (require 'dap-python))
 
-  (use-package pyvenv)
+  (use-package pyvenv
+    :config
+    (pyenv-mode 1))
 #+END_SRC
 
 ** Minor Modes
