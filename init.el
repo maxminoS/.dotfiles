@@ -278,7 +278,9 @@
                         (mode . help-mode)
                         (mode . helpful-mode)
                         (mode . Info-mode)
-                        (mode . apropos-mode)))))))
+                        (mode . apropos-mode)
+                        (mode . debugger-mode)
+                        (mode . Man-mode)))))))
 
 (add-hook 'ibuffer-mode-hook
           (lambda ()
