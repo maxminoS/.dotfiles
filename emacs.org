@@ -328,6 +328,24 @@ Place custom scripts under =~/.emacs.d/lisp=
 #+END_SRC
 
 ** IBuffer
+*** Format
+#+BEGIN_SRC emacs-lisp
+  (with-eval-after-load 'ibuffer
+    (define-ibuffer-column size-h
+      (:name "Size" :inline t)
+      (file-size-human-readable (buffer-size))))
+
+  (setq ibuffer-formats
+        '((mark modified read-only locked " "
+                (name 22 22 :left :elide) " "
+                (size-h 9 -1 :right) " "
+                (mode 10 10 :left :elide) " "
+                filename-and-process)
+          (mark " " (name 16 16) "   " (mode 8 8))))
+
+  (setq ibuffer-filter-group-name-face 'font-lock-doc-face)
+#+END_SRC
+
 *** Grouping
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "C-x C-b") 'ibuffer)
