@@ -375,6 +375,12 @@ Place custom scripts under =~/.emacs.d/lisp=
               (ibuffer-switch-to-saved-filter-groups "Default")))
 #+END_SRC
 
+*** Motion
+#+BEGIN_SRC emacs-lisp
+  (evil-define-key 'normal ibuffer-mode-map "j" 'ibuffer-forward-line)
+  (evil-define-key 'normal ibuffer-mode-map "k" 'ibuffer-backward-line)
+#+END_SRC
+
 ** Dired Sidebar
 #+BEGIN_SRC emacs-lisp
   (use-package dired-sidebar

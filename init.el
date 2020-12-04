@@ -287,6 +287,9 @@
             (ibuffer-auto-mode 1)
             (ibuffer-switch-to-saved-filter-groups "Default")))
 
+(evil-define-key 'normal ibuffer-mode-map "j" 'ibuffer-forward-line)
+(evil-define-key 'normal ibuffer-mode-map "k" 'ibuffer-backward-line)
+
 (use-package dired-sidebar
   :bind (("C-x C-n" . dired-sidebar-toggle-sidebar))
   :commands (dired-sidebar-toggle-sidebar)
