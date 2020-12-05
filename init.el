@@ -390,7 +390,9 @@
 (use-package smartparens
   :diminish smartparens-mode
   :config
-  (progn
-    (require 'smartparens-config)
-    (smartparens-global-mode 1)
-    (show-paren-mode t)))
+  (require 'smartparens-config)
+  (smartparens-global-mode 1)
+  (show-paren-mode t))
+
+(use-package rainbow-delimiters
+  :hook (prog-mode . rainbow-delimiters-mode))
