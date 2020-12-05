@@ -478,7 +478,7 @@ Place custom scripts under =~/.emacs.d/lisp=
     (pyvenv-mode 1))
 #+END_SRC
 
-** Minor Modes
+** Other
 *** Company
 #+BEGIN_SRC emacs-lisp
    (setq tab-always-indent 'complete)
@@ -496,6 +496,12 @@ Place custom scripts under =~/.emacs.d/lisp=
    (use-package company-box
      :hook (company-mode . company-box-mode))
  #+END_SRC
+
+*** Comment
+#+BEGIN_SRC emacs-lisp
+  (use-package evil-nerd-commenter
+    :bind (("M-;" . evilnc-comment-or-uncomment-lines)))
+#+END_SRC
 
 *** Smartparens
 #+BEGIN_SRC emacs-lisp
