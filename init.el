@@ -230,6 +230,33 @@
   :bind (:map dired-mode-map
             ("P" . peep-dired)))
 
+(use-package org
+  :bind (("C-c l" . org-store-link)
+        ("C-c a" . org-agenda)
+        ("C-c c" . org-capture))
+  :hook ((org-mode . org-indent-mode)
+        (org-mode . visual-line-mode))
+  :custom
+  (org-ellipsis " ▾")
+  (org-odd-levels-only t)
+  (org-todo-keywords '((sequence "TODO(t)" "DOING(d)" "|" "DONE(x)")))
+  :config
+  ;; Replace dashes to bullet
+  (font-lock-add-keywords 'org-mode '(("^ *\\([-]\\) "
+                          (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
+  ;; Resize headlines
+  (set-face-attribute 'org-level-1 nil :height 1.25)
+  (set-face-attribute 'org-level-2 nil :height 1.15)
+  (set-face-attribute 'org-level-3 nil :height 1.12)
+  (set-face-attribute 'org-level-4 nil :height 1.1)
+  (set-face-attribute 'org-level-5 nil :height 1.05)
+  (set-face-attribute 'org-level-6 nil :height 1.05)
+
+(use-package org-bullets
+  :hook (org-mode . org-bullets-mode)
+  :custom
+  (org-bullets-bullet-list '("◉" "○" "◎" "⊗" "⊙" "·")))
+
 (use-package magit
   :custom
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
