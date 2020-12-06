@@ -391,10 +391,33 @@
 
 (use-package smartparens
   :diminish smartparens-mode
+  :hook (prog-mode . smartparens-strict-mode)
+  :bind (:map smartparens-mode-map
+            ;; Wrap
+            ("C-c ("  . sp-wrap-round)
+            ("C-c ["  . sp-wrap-square)
+            ("C-c {"  . sp-wrap-curly)
+            ("C-c \""  . (lambda (&optional arg) (interactive "P") (sp-wrap-with-pair "\"")))
+            ;; Unwrap
+            ("C-c ," . sp-backward-unwrap-sexp)
+            ("C-c ." . sp-unwrap-sexp)
+            ;; Slurp / Barf
+            ("C-<left>"  . sp-backward-slurp-sexp)
+            ("C-<right>" . sp-forward-slurp-sexp)
+            ("M-<left>"  . sp-backward-barf-sexp)
+            ("M-<right>" . sp-forward-barf-sexp)
+            ;; Swap
+            ("C-c t" . sp-transpose-sexp))
   :config
   (require 'smartparens-config)
   (smartparens-global-mode 1)
   (show-paren-mode t))
+
+(use-package evil-smartparens
+  :diminish evil-smartparens-mode
+  :hook (smartparens-strict-mode . evil-smartparens-mode)
+  :bind (:map evil-smartparens-mode-map
+            ("o" . evil-open-below)))
 
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
