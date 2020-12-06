@@ -289,18 +289,8 @@
 
 (evil-define-key 'normal ibuffer-mode-map "j" 'ibuffer-forward-line)
 (evil-define-key 'normal ibuffer-mode-map "k" 'ibuffer-backward-line)
-(evil-define-key 'normal ibuffer-mode-map "h" 'emax/ibuffer-backward)
-(evil-define-key 'normal ibuffer-mode-map "l" 'emax/ibuffer-forward)
-
-(defun emax/ibuffer-forward ()
-  (interactive)
-  (evil-forward-word)
-  (skip-chars-forward "^a-zA-z0-9"))
-
-(defun emax/ibuffer-backward ()
-  (interactive)
-  (evil-backward-word-begin)
-  (skip-chars-backward "^a-zA-z0-9"))
+(evil-define-key 'normal ibuffer-mode-map "h" 'evil-backward-WORD-begin)
+(evil-define-key 'normal ibuffer-mode-map "l" 'evil-forward-WORD-begin)
 
 (use-package dired-sidebar
   :bind (("C-x C-n" . dired-sidebar-toggle-sidebar))
