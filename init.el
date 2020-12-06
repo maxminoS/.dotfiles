@@ -396,3 +396,7 @@
 
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
+
+(use-package expand-region
+  :bind (("M-[" . er/contract-region))
+  :bind (("M-]" . er/expand-region)))

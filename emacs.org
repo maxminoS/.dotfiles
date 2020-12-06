@@ -515,3 +515,9 @@ Place custom scripts under =~/.emacs.d/lisp=
   (use-package rainbow-delimiters
     :hook (prog-mode . rainbow-delimiters-mode))
 #+END_SRC
+*** Expand Region
+#+BEGIN_SRC emacs-lisp
+  (use-package expand-region
+    :bind (("M-[" . er/contract-region))
+    :bind (("M-]" . er/expand-region)))
+#+END_SRC
