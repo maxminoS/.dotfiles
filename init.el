@@ -232,10 +232,10 @@
 
 (use-package org
   :bind (("C-c l" . org-store-link)
-        ("C-c a" . org-agenda)
-        ("C-c c" . org-capture))
+         ("C-c a" . org-agenda)
+         ("C-c c" . org-capture))
   :hook ((org-mode . org-indent-mode)
-        (org-mode . visual-line-mode))
+         (org-mode . visual-line-mode))
   :custom
   (org-ellipsis " ▾")
   (org-odd-levels-only t)
@@ -250,7 +250,7 @@
   (set-face-attribute 'org-level-3 nil :height 1.12)
   (set-face-attribute 'org-level-4 nil :height 1.1)
   (set-face-attribute 'org-level-5 nil :height 1.05)
-  (set-face-attribute 'org-level-6 nil :height 1.05)
+  (set-face-attribute 'org-level-6 nil :height 1.05))
 
 (use-package org-bullets
   :hook (org-mode . org-bullets-mode)
