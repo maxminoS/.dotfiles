@@ -418,7 +418,8 @@
 
 (use-package smartparens
   :diminish smartparens-mode
-  :hook (prog-mode . smartparens-strict-mode)
+  :hook ((prog-mode . smartparens-strict-mode)
+         (text-mode . smartparens-strict-mode))
   :bind (:map smartparens-mode-map
             ;; Wrap
             ("C-c ("  . sp-wrap-round)
@@ -442,9 +443,7 @@
 
 (use-package evil-smartparens
   :diminish evil-smartparens-mode
-  :hook (smartparens-strict-mode . evil-smartparens-mode)
-  :bind (:map evil-smartparens-mode-map
-            ("o" . evil-open-below)))
+  :hook (smartparens-strict-mode . evil-smartparens-mode))
 
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
