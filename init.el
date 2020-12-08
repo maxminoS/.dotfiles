@@ -240,7 +240,9 @@
   :custom
   (org-ellipsis " ▾")
   (org-odd-levels-only t)
-  (org-todo-keywords '((sequence "TODO(t)" "DOING(d)" "|" "DONE(x)")))
+  (org-todo-keywords
+        '((sequence "TODO(t)" "DOING(d)" "|" "DONE(x)")
+          (sequence "|" "CANCELED(c)")))
   :config
   ;; Replace dashes to bullet
   (font-lock-add-keywords 'org-mode '(("^ *\\([-]\\) "
