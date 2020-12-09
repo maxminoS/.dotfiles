@@ -237,7 +237,7 @@ Place custom scripts under =~/.emacs.d/lisp=
     (setq evil-want-keybinding nil)
     (setq evil-shift-width 2)
     :bind
-    (:map evil-motion-state-map
+    (:map evil-normal-state-map
       ("q" . nil))
     :config
     (evil-mode 1)
@@ -253,7 +253,24 @@ Place custom scripts under =~/.emacs.d/lisp=
   (use-package evil-collection
     :after evil
     :config
-    (evil-collection-init))
+    (evil-collection-init)
+    :custom
+    (evil-collection-setup-minibuffer t))
+#+END_SRC
+
+*** Evil Org
+#+BEGIN_SRC emacs-lisp
+  (use-package evil-org
+    :after (evil org)
+    :hook (org-mode . evil-org-mode)
+    :config
+    (add-hook 'evil-org-mode-hook
+            (lambda () (evil-org-set-key-theme '(navigation insert additional))))
+    (require 'evil-org-agenda)
+    (evil-org-agenda-set-keys))
+
+  (evil-define-key 'motion org-agenda-mode-map "\M-j" 'org-agenda-later)
+  (evil-define-key 'motion org-agenda-mode-map "\M-k" 'org-agenda-earlier)
 #+END_SRC
 
 
@@ -307,36 +324,34 @@ Place custom scripts under =~/.emacs.d/lisp=
 
 * Tools
 ** Org Mode
-#+BEGIN_SRC emacs-lisp
-  (use-package org
-    :bind (("C-c l" . org-store-link)
-           ("C-c a" . org-agenda)
-           ("C-c c" . org-capture))
-    :hook ((org-mode . org-indent-mode)
-           (org-mode . visual-line-mode))
-    :custom
-    (org-ellipsis " ▾")
-    (org-odd-levels-only t)
-    (org-todo-keywords
-          '((sequence "TODO(t)" "DOING(d)" "|" "DONE(x)")
-            (sequence "|" "CANCELED(c)")))
-    :config
-    ;; Replace dashes to bullet
-    (font-lock-add-keywords 'org-mode '(("^ *\\([-]\\) "
-                            (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
-    ;; Resize headlines
-    (set-face-attribute 'org-level-1 nil :height 1.25)
-    (set-face-attribute 'org-level-2 nil :height 1.15)
-    (set-face-attribute 'org-level-3 nil :height 1.12)
-    (set-face-attribute 'org-level-4 nil :height 1.1)
-    (set-face-attribute 'org-level-5 nil :height 1.05)
-    (set-face-attribute 'org-level-6 nil :height 1.05))
+   #+BEGIN_SRC emacs-lisp
+     (use-package org
+       :bind (("C-c l" . org-store-link)
+              ("C-c a" . org-agenda)
+              ("C-c c" . org-capture))
+       :hook ((org-mode . org-indent-mode)
+              (org-mode . visual-line-mode))
+       :custom
+       (org-ellipsis " ▾")
+       (org-todo-keywords
+            '((sequence "TODO(t)" "DOING(d)" "|" "DONE(x)")
+              (sequence "|" "CANCELED(c)")))
+       :config
+       ;; Replace dashes to bullet
+       (font-lock-add-keywords 'org-mode
+             '(("^ *\\([-]\\) " (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
+       ;; Resize headlines
+       (set-face-attribute 'org-level-1 nil :height 1.25)
+       (set-face-attribute 'org-level-2 nil :height 1.15)
+       (set-face-attribute 'org-level-3 nil :height 1.12)
+       (set-face-attribute 'org-level-4 nil :height 1.1)
+       (set-face-attribute 'org-level-5 nil :height 1.05)
+       (set-face-attribute 'org-level-6 nil :height 1.05))
 
-  (use-package org-bullets
-    :hook (org-mode . org-bullets-mode)
-    :custom
-    (org-bullets-bullet-list '("◉" "○" "◎" "⊗" "⊙" "·")))
-#+END_SRC
+     (use-package org-bullets
+       :hook (org-mode . org-bullets-mode)
+       :custom (org-bullets-bullet-list '("◉" "○" "◎" "⊗" "⊙" "·")))
+   #+END_SRC
 ** Magit
 #+BEGIN_SRC emacs-lisp
   (use-package magit
