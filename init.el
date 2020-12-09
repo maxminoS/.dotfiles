@@ -430,8 +430,8 @@
             ("C-c {"  . sp-wrap-curly)
             ("C-c \""  . (lambda (&optional arg) (interactive "P") (sp-wrap-with-pair "\"")))
             ;; Unwrap
-            ("C-c ," . sp-backward-unwrap-sexp)
-            ("C-c ." . sp-unwrap-sexp)
+            ("C-<" . sp-backward-unwrap-sexp)
+            ("C->" . sp-unwrap-sexp)
             ;; Slurp / Barf
             ("C-<left>"  . sp-backward-slurp-sexp)
             ("C-<right>" . sp-forward-slurp-sexp)
