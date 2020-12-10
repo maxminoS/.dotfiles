@@ -204,8 +204,8 @@
         ("k" . org-agenda-previous-line)
         ("h" . evil-backward-char)
         ("l" . evil-forward-char)
-        ("M-h" . org-agenda-later)
-        ("M-l" . org-agenda-earlier)
+        ("M-h" . org-agenda-earlier)
+        ("M-l" . org-agenda-later)
         ("C-j" . org-agenda-goto-date))
   :config
   (add-hook 'evil-org-mode-hook
