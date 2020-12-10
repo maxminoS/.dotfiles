@@ -263,14 +263,17 @@ Place custom scripts under =~/.emacs.d/lisp=
   (use-package evil-org
     :after (evil org)
     :hook (org-mode . evil-org-mode)
+    :bind (:map org-agenda-mode-map
+          ("j" . org-agenda-next-line)
+          ("k" . org-agenda-previous-line)
+          ("h" . evil-backward-char)
+          ("l" . evil-forward-char)
+          ("M-h" . org-agenda-later)
+          ("M-l" . org-agenda-earlier)
+          ("C-j" . org-agenda-goto-date))
     :config
     (add-hook 'evil-org-mode-hook
-            (lambda () (evil-org-set-key-theme '(navigation insert additional))))
-    (require 'evil-org-agenda)
-    (evil-org-agenda-set-keys))
-
-  (evil-define-key 'motion org-agenda-mode-map "\M-j" 'org-agenda-later)
-  (evil-define-key 'motion org-agenda-mode-map "\M-k" 'org-agenda-earlier)
+            (lambda () (evil-org-set-key-theme '(navigation insert additional)))))
 #+END_SRC
 
 
@@ -336,6 +339,7 @@ Place custom scripts under =~/.emacs.d/lisp=
        (org-todo-keywords
             '((sequence "TODO(t)" "DOING(d)" "|" "DONE(x)")
               (sequence "|" "CANCELED(c)")))
+       (org-agenda-span 'day)
        :config
        ;; Replace dashes to bullet
        (font-lock-add-keywords 'org-mode
