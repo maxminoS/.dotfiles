@@ -197,19 +197,15 @@
   (evil-collection-setup-minibuffer t))
 
 (use-package evil-org
-  :after (evil org)
-  :hook (org-mode . evil-org-mode)
-  :bind (:map org-agenda-mode-map
-        ("j" . org-agenda-next-line)
-        ("k" . org-agenda-previous-line)
-        ("h" . evil-backward-char)
-        ("l" . evil-forward-char)
-        ("M-h" . org-agenda-earlier)
-        ("M-l" . org-agenda-later)
-        ("C-j" . org-agenda-goto-date))
+  :after org
   :config
+  (add-hook 'org-mode-hook 'evil-org-mode)
   (add-hook 'evil-org-mode-hook
-          (lambda () (evil-org-set-key-theme '(navigation insert additional)))))
+          (lambda () (evil-org-set-key-theme)))
+  (require 'evil-org-agenda)
+  (evil-org-agenda-set-keys)
+  (evil-define-key 'motion org-agenda-mode-map "\M-h" 'org-agenda-earlier)
+  (evil-define-key 'motion org-agenda-mode-map "\M-l" 'org-agenda-later))
 
 (use-package dired
   :ensure nil
