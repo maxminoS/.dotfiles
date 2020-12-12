@@ -206,9 +206,7 @@
   (evil-org-agenda-set-keys)
   (evil-define-key 'motion org-agenda-mode-map "\M-h" 'org-agenda-earlier)
   (evil-define-key 'motion org-agenda-mode-map "\M-l" 'org-agenda-later)
-  (evil-define-key 'motion org-agenda-mode-map "\M-v" 'org-agenda-view-mode-dispatch)
-  (evil-define-key 'motion org-agenda-mode-map "J" 'org-shift-down)
-  (evil-define-key 'motion org-agenda-mode-map "K" 'org-shift-up))
+  (evil-define-key 'motion org-agenda-mode-map "\M-v" 'org-agenda-view-mode-dispatch))
 
 (use-package dired
   :ensure nil
@@ -321,7 +319,7 @@
           ("ll" "Other" item (file+headline "~/Dropbox/org/notes/others/bookmarks.org" "Others")
                 "- [[https://%^{Link}][%^{Name}]]")))
 
-(defun emax/org-capture-existing-heading()
+(defun emax/org-capture-existing-heading ()
   "Find or create heading for a subheading"
   (interactive "P")
   (let* ((heading (read-string "Search Heading: ")))
