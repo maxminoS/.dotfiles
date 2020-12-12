@@ -246,16 +246,20 @@
 
 (use-package org
   :bind (("C-c l" . org-store-link)
-         ("C-c a" . org-agenda)
-         ("C-c c" . org-capture))
+        ("C-c a" . org-agenda)
+        ("C-c c" . org-capture))
   :hook ((org-mode . org-indent-mode)
-         (org-mode . visual-line-mode))
+        (org-mode . visual-line-mode))
   :custom
   (org-ellipsis " ▾")
   (org-todo-keywords
-       '((sequence "TODO(t)" "DOING(d)" "|" "DONE(x)")
-         (sequence "|" "CANCELED(c)")))
+      '((sequence "TODO(t)" "DOING(d)" "|" "DONE(x)")
+        (sequence "WAITING(w)" "|" "CANCELED(c)")))
   (org-agenda-span 'day)
+  (org-directory "~/Dropbox/org")
+  (org-default-notes-file "~/Dropbox/org/scratch.org")
+  (org-agenda-files '("~/Dropbox/org/agenda"))
+  (org-refile-targets '(("~/Dropbox/org/archive.org" :maxlevel . 1)))
   :config
   ;; Replace dashes to bullet
   (font-lock-add-keywords 'org-mode
@@ -271,6 +275,60 @@
 (use-package org-bullets
   :hook (org-mode . org-bullets-mode)
   :custom (org-bullets-bullet-list '("◉" "○" "◎" "⊗" "⊙" "·")))
+
+(setq org-capture-templates
+        '(("c" "Scratch" item (file+headline "~/Dropbox/org/scratch.org" "Untracked")
+                "- %?")
+
+          ;; ("j" "Journal")
+
+          ("t" "Task" entry (file+headline "~/Dropbox/org/agenda/tasks.org" "Task Manager")
+                "** TODO %?\n   SCHEDULED: %t")
+          ("d" "Deadline" entry (file+headline "~/Dropbox/org/agenda/tasks.org" "Task Manager")
+                "** TODO %?\n   DEADLINE: %^t")
+
+          ("e" "Essay Title" entry (file "~/Dropbox/org/notes/others/essays.org")
+                "* %? %^g\n %u" :empty-lines 1 :jump-to-captured t)
+
+          ("r" "Review")
+          ("rf" "Film" entry (file "~/Dropbox/org/reviews/film.org")
+                "* %^{Film Title} (%^{Year Released}) %^g\n%?" :empty-lines 1 :jump-to-captured t)
+          ("rm" "Album" plain (file+function "~/Dropbox/org/reviews/music.org" emax/org-capture-existing-heading)
+                "** %^{Album Title} %^g\n\n*** %? %^g" :jump-to-captured t)
+          ("rb" "Book" entry (file "~/Dropbox/org/reviews/book.org")
+                "* %^{Book Title} - %^{Author} %^g\n** Chapter 1\n** Review\n%?" :empty-lines 1 :jump-to-captured t)
+          ("rs" "Show" entry (file "~/Dropbox/org/reviews/show.org")
+                "* %^{Show Title} (YYYY)-(YYYY) %^g\n** Season 1\n** Review\n%?" :empty-lines 1 :jump-to-captured t)
+
+          ("l" "Link")
+          ("la" "Article" item (file+headline "~/Dropbox/org/notes/others/bookmarks.org" "Articles")
+                "- [[https://%^{Link}][%^{Name}]]")
+          ("lb" "Blog" item (file+headline "~/Dropbox/org/notes/others/bookmarks.org" "Blogs")
+                "- [[https://%^{Link}][%^{Name}]]")
+          ("le" "Entertainment" item (file+headline "~/Dropbox/org/notes/others/bookmarks.org" "Entertainment")
+                "- [[https://%^{Link}][%^{Name}]]")
+          ("lr" "Resource" item (file+headline "~/Dropbox/org/notes/others/bookmarks.org" "Resources")
+                "- [[https://%^{Link}][%^{Name}]]")
+          ("ls" "Social" item (file+headline "~/Dropbox/org/notes/others/bookmarks.org" "Social")
+                "- [[https://%^{Link}][%^{Name}]]")
+          ("lt" "Technology" item (file+headline "~/Dropbox/org/notes/others/bookmarks.org" "Technology")
+                "- [[https://%^{Link}][%^{Name}]]")
+          ("lv" "Video" item (file+headline "~/Dropbox/org/notes/others/bookmarks.org" "Videos")
+                "- [[https://%^{Link}][%^{Name}]]")
+          ("ll" "Other" item (file+headline "~/Dropbox/org/notes/others/bookmarks.org" "Others")
+                "- [[https://%^{Link}][%^{Name}]]")))
+
+
+(defun emax/org-capture-existing-heading()
+  "Find or create heading for a subheading"
+  (interactive "P")
+  (let* ((heading (read-string "Search Heading: ")))
+  (goto-char (point-min))
+  (if (search-forward (format "* %s" heading) nil t)
+      (progn (goto-char (point-at-eol))
+      (insert "\n"))
+    (progn (goto-char (point-max))
+    (insert (format "\n\n* %s\n" heading))))))
 
 (use-package magit
   :custom
