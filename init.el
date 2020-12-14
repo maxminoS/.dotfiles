@@ -308,14 +308,6 @@
           `(("c" "Scratch" item (file+headline ,(concat org-directory "/org/scratch.org") "Untracked")
                   "- %?")
 
-            ("j" "Journal")
-            ("jt" "Today" plain (file+olp+datetree ,(concat org-directory "/agenda/day.org"))
-                  "%?" :tree-type month :kill-buffer t :unnarrowed t)
-            ("jm" "This Month" plain (file+function ,(concat org-directory "/agenda/month.org") (lambda () (emax/org-datetree-find-date-create t)))
-                  "" :kill-buffer t :unnarrowed t)
-            ("jy" "This Year" plain (file+function ,(concat org-directory "/agenda/year.org") (lambda () (emax/org-datetree-find-date-create)))
-                  "" :kill-buffer t :unnarrowed t)
-
             ("t" "Task" entry (file+headline ,(concat org-directory "/agenda/tasks.org") "Task Manager")
                   "** TODO %?\n   SCHEDULED: %t" :kill-buffer t)
             ("d" "Deadline" entry (file+headline ,(concat org-directory "/agenda/tasks.org") "Task Manager")
@@ -333,6 +325,14 @@
                   "* %^{Book Title} - %^{Author} %^g\n** Chapter 1\n** Review\n%?" :empty-lines 1 :jump-to-captured t)
             ("rs" "Show" entry (file ,(concat org-directory "/reviews/show.org"))
                   "* %^{Show Title} (YYYY)-(YYYY) %^g\n** Season 1\n** Review\n%?" :empty-lines 1 :jump-to-captured t)
+
+            ("j" "Journal")
+            ("jd" "Today" plain (file+olp+datetree ,(concat org-directory "/agenda/day.org"))
+                  "%?" :tree-type month :kill-buffer t :unnarrowed t)
+            ("jm" "This Month" plain (file+function ,(concat org-directory "/agenda/month.org") (lambda () (emax/org-datetree-find-date-create t)))
+                  "" :kill-buffer t :unnarrowed t)
+            ("jy" "This Year" plain (file+function ,(concat org-directory "/agenda/year.org") (lambda () (emax/org-datetree-find-date-create)))
+                  "" :kill-buffer t :unnarrowed t)
 
             ("l" "Link")))
 
@@ -377,8 +377,9 @@
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 (setq ibuffer-saved-filter-groups
       (quote (("Default"
-              ("Dired" (mode . dired-mode))
-              ("Magit" (name . "^magit"))
+              ("Agenda" (and
+                          (filename . "agenda")
+                          (filename . ".org")))
               ("Emacs" (or
                          (name . "^\\*scratch\\*$")
                          (name . "^\\*Messages\\*$")
@@ -386,8 +387,10 @@
                          (mode . eshell-mode)
                          (mode . shell-mode)
                          (mode . term-mode)))
-             ("Org" (mode . org-mode))
-             ("Help" (or
+              ("Org" (mode . org-mode))
+              ("Dired" (mode . dired-mode))
+              ("Magit" (name . "^magit"))
+              ("Help" (or
                         (mode . help-mode)
                         (mode . helpful-mode)
                         (mode . Info-mode)
