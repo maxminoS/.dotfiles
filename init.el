@@ -256,7 +256,7 @@
   (org-todo-keywords
       '((sequence "TODO(t)" "DOING(d)" "|" "DONE(x)")
         (sequence "WAITING(w)" "|" "CANCELED(c)")))
-  (org-agenda-span 'day)
+  (org-agenda-span 'week)
   (org-directory "~/Dropbox/org")
   (org-default-notes-file "~/Dropbox/org/scratch.org")
   (org-agenda-files '("~/Dropbox/org/agenda"))
@@ -277,58 +277,71 @@
   :hook (org-mode . org-bullets-mode)
   :custom (org-bullets-bullet-list '("◉" "○" "◎" "⊗" "⊙" "·")))
 
-(setq org-capture-templates
-        '(("c" "Scratch" item (file+headline "~/Dropbox/org/scratch.org" "Untracked")
-                "- %?")
+(defun emax/org-capture-existing-heading (&optional head)
+    "Find or create heading for a subheading"
+    (interactive "P")
+    (let* ((goto-char (point-min))
+           (heading (read-string (format "Search %s: " head))))
+    (if (search-forward (format "* %s" heading) nil t)
+        (progn (goto-char (point-at-eol))
+        (insert "\n"))
+      (progn (goto-char (point-max))
+      (insert (format "\n\n* %s\n" heading))))))
 
-          ;; ("j" "Journal")
+  (require 'org-datetree)
+  (defun emax/org-datetree-find-date-create (&optional m)
+    "Find or create a year entry as a datetree.
+    If M is a non-nil value, it will include the month in the datetree."
+    (let ((year (calendar-extract-year (calendar-current-date)))
+          (month (calendar-extract-month (calendar-current-date))))
+      (org-datetree--find-create
+      "^\\*+[ \t]+\\([12][0-9]\\{3\\}\\)\\(\\s-*?\
+\\([ \t]:[[:alnum:]:_@#%%]+:\\)?\\s-*$\\)"
+      year)
+      (when m
+        (org-datetree--find-create
+        "^\\*+[ \t]+%d-\\([01][0-9]\\) \\w+$"
+        year month))))
 
-          ("t" "Task" entry (file+headline "~/Dropbox/org/agenda/tasks.org" "Task Manager")
-                "** TODO %?\n   SCHEDULED: %t")
-          ("d" "Deadline" entry (file+headline "~/Dropbox/org/agenda/tasks.org" "Task Manager")
-                "** TODO %?\n   DEADLINE: %^t")
 
-          ("e" "Essay Title" entry (file "~/Dropbox/org/notes/others/essays.org")
-                "* %? %^g\n %u" :empty-lines 1 :jump-to-captured t)
+  (setq org-capture-templates
+          `(("c" "Scratch" item (file+headline ,(concat org-directory "/org/scratch.org") "Untracked")
+                  "- %?")
 
-          ("r" "Review")
-          ("rf" "Film" entry (file "~/Dropbox/org/reviews/film.org")
-                "* %^{Film Title} (%^{Year Released}) %^g\n%?" :empty-lines 1 :jump-to-captured t)
-          ("rm" "Album" plain (file+function "~/Dropbox/org/reviews/music.org" emax/org-capture-existing-heading)
-                "** %^{Album Title} %^g\n\n*** %? %^g" :jump-to-captured t)
-          ("rb" "Book" entry (file "~/Dropbox/org/reviews/book.org")
-                "* %^{Book Title} - %^{Author} %^g\n** Chapter 1\n** Review\n%?" :empty-lines 1 :jump-to-captured t)
-          ("rs" "Show" entry (file "~/Dropbox/org/reviews/show.org")
-                "* %^{Show Title} (YYYY)-(YYYY) %^g\n** Season 1\n** Review\n%?" :empty-lines 1 :jump-to-captured t)
+            ("j" "Journal")
+            ("jt" "Today" plain (file+olp+datetree ,(concat org-directory "/agenda/day.org"))
+                  "%?" :tree-type month :kill-buffer t :unnarrowed t)
+            ("jm" "This Month" plain (file+function ,(concat org-directory "/agenda/month.org") (lambda () (emax/org-datetree-find-date-create t)))
+                  "" :kill-buffer t :unnarrowed t)
+            ("jy" "This Year" plain (file+function ,(concat org-directory "/agenda/year.org") (lambda () (emax/org-datetree-find-date-create)))
+                  "" :kill-buffer t :unnarrowed t)
 
-          ("l" "Link")
-          ("la" "Article" item (file+headline "~/Dropbox/org/notes/others/bookmarks.org" "Articles")
-                "- [[https://%^{Link}][%^{Name}]]")
-          ("lb" "Blog" item (file+headline "~/Dropbox/org/notes/others/bookmarks.org" "Blogs")
-                "- [[https://%^{Link}][%^{Name}]]")
-          ("le" "Entertainment" item (file+headline "~/Dropbox/org/notes/others/bookmarks.org" "Entertainment")
-                "- [[https://%^{Link}][%^{Name}]]")
-          ("lr" "Resource" item (file+headline "~/Dropbox/org/notes/others/bookmarks.org" "Resources")
-                "- [[https://%^{Link}][%^{Name}]]")
-          ("ls" "Social" item (file+headline "~/Dropbox/org/notes/others/bookmarks.org" "Social")
-                "- [[https://%^{Link}][%^{Name}]]")
-          ("lt" "Technology" item (file+headline "~/Dropbox/org/notes/others/bookmarks.org" "Technology")
-                "- [[https://%^{Link}][%^{Name}]]")
-          ("lv" "Video" item (file+headline "~/Dropbox/org/notes/others/bookmarks.org" "Videos")
-                "- [[https://%^{Link}][%^{Name}]]")
-          ("ll" "Other" item (file+headline "~/Dropbox/org/notes/others/bookmarks.org" "Others")
-                "- [[https://%^{Link}][%^{Name}]]")))
+            ("t" "Task" entry (file+headline ,(concat org-directory "/agenda/tasks.org") "Task Manager")
+                  "** TODO %?\n   SCHEDULED: %t" :kill-buffer t)
+            ("d" "Deadline" entry (file+headline ,(concat org-directory "/agenda/tasks.org") "Task Manager")
+                  "** TODO %?\n   DEADLINE: %^t" :kill-buffer t)
 
-(defun emax/org-capture-existing-heading ()
-  "Find or create heading for a subheading"
-  (interactive "P")
-  (let* ((heading (read-string "Search Heading: ")))
-  (goto-char (point-min))
-  (if (search-forward (format "* %s" heading) nil t)
-      (progn (goto-char (point-at-eol))
-      (insert "\n"))
-    (progn (goto-char (point-max))
-    (insert (format "\n\n* %s\n" heading))))))
+            ("e" "Essay Title" entry (file ,(concat org-directory "/notes/others/essays.org"))
+                  "* %? %^g\n %u" :empty-lines 1 :jump-to-captured t)
+
+            ("r" "Review")
+            ("rf" "Film" entry (file ,(concat org-directory "/reviews/film.org"))
+                  "* %^{Film Title} (%^{Year Released}) %^g\n%?" :empty-lines 1 :jump-to-captured t)
+            ("ra" "Album" plain (file+function ,(concat org-directory "/reviews/music.org") (lambda () (emax/org-capture-existing-heading "Artist")))
+                  "** %^{Album Title} %^g\n\n*** %? %^g" :jump-to-captured t)
+            ("rb" "Book" entry (file ,(concat org-directory "/reviews/book.org"))
+                  "* %^{Book Title} - %^{Author} %^g\n** Chapter 1\n** Review\n%?" :empty-lines 1 :jump-to-captured t)
+            ("rs" "Show" entry (file ,(concat org-directory "/reviews/show.org"))
+                  "* %^{Show Title} (YYYY)-(YYYY) %^g\n** Season 1\n** Review\n%?" :empty-lines 1 :jump-to-captured t)
+
+            ("l" "Link")))
+
+  (dolist (bookmarks '("Articles" "Blogs" "Entertainment"
+                       "Resources" "Social" "Technology"
+                       "Videos" "Others"))
+       (add-to-list 'org-capture-templates
+                   `(,(concat "l" (downcase (substring bookmarks 0 1))) ,bookmarks item (file+headline ,(concat org-directory "/notes/others/bookmarks.org") ,bookmarks)
+                          "- [[https://%^{Link}][%^{Name}]]" :kill-buffer t) t))
 
 (use-package magit
   :custom
