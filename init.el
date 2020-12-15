@@ -132,7 +132,7 @@
 (tooltip-mode -1)
 (set-fringe-mode 2)
 (menu-bar-mode -1)
-(setq visible-bell t)
+(setq visible-bell nil)
 
 (column-number-mode)
 (dolist (mode '(text-mode-hook
