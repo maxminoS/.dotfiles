@@ -514,14 +514,15 @@
 
 (use-package smartparens
   :diminish smartparens-mode
-  :hook ((prog-mode . smartparens-strict-mode)
-         (text-mode . smartparens-strict-mode))
+  :hook ((prog-mode . smartparens-mode)
+         (text-mode . smartparens-mode))
   :bind (:map smartparens-mode-map
             ;; Wrap
             ("C-c ("  . sp-wrap-round)
             ("C-c ["  . sp-wrap-square)
             ("C-c {"  . sp-wrap-curly)
-            ("C-c \""  . (lambda (&optional arg) (interactive "P") (sp-wrap-with-pair "\"")))
+            ("C-c \""  . (lambda (&optional arg)
+                            (interactive "P") (sp-wrap-with-pair "\"")))
             ;; Unwrap
             ("C-<" . sp-backward-unwrap-sexp)
             ("C->" . sp-unwrap-sexp)
@@ -539,7 +540,7 @@
 
 (use-package evil-smartparens
   :diminish evil-smartparens-mode
-  :hook (smartparens-strict-mode . evil-smartparens-mode))
+  :hook (smartparens-mode . evil-smartparens-mode))
 
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
