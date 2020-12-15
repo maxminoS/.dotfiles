@@ -24,7 +24,6 @@
 (delete-selection-mode t)
 
 (require 'package)
-
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
                          ("org" . "https://orgmode.org/elpa/")
                          ("elpa" . "https://elpa.gnu.org/packages/")))
@@ -87,7 +86,7 @@
 (use-package counsel
   :diminish counsel-mode
   :bind (("M-x" . counsel-M-x)
-         ("C-x b" . 'counsel-switch-buffer))
+          ("C-x b" . 'counsel-switch-buffer))
   :config
   (counsel-mode 1)
   (setq-default counsel-mode-override-describe-bindings t))
@@ -180,11 +179,10 @@
   (setq evil-shift-width 2)
   :bind
   (:map evil-normal-state-map
-    ("q" . nil))
+    ("q" . nil)) ;; Disable 'q' for macro
   :config
   (evil-mode 1)
   (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
-  (define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char-and-join)
 
   (evil-global-set-key 'motion "j" 'evil-next-visual-line)
   (evil-global-set-key 'motion "k" 'evil-previous-visual-line))
@@ -313,7 +311,7 @@
             ("d" "Deadline" entry (file+headline ,(concat org-directory "/agenda/tasks.org") "Task Manager")
                   "** TODO %?\n   DEADLINE: %^t" :kill-buffer t)
 
-            ("e" "Essay Title" entry (file ,(concat org-directory "/notes/others/essays.org"))
+            ("e" "Essay" entry (file ,(concat org-directory "/notes/others/essays.org"))
                   "* %? %^g\n %u" :empty-lines 1 :jump-to-captured t)
 
             ("r" "Review")
