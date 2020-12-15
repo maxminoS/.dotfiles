@@ -343,6 +343,15 @@
                    `(,(concat "l" (downcase (substring bookmarks 0 1))) ,bookmarks item (file+headline ,(concat org-directory "/notes/others/bookmarks.org") ,bookmarks)
                           "- [[https://%^{Link}][%^{Name}]]" :kill-buffer t) t))
 
+(setq org-agenda-custom-commands
+  '(("a" "Dashboard"
+    ((agenda ""
+      ((org-agenda-overriding-header "  Week Agenda\n -------------\n")))))
+
+  ("c" "Completed Tasks"
+    ((todo "DONE"
+      ((org-agenda-overriding-header "  Completed Tasks\n -----------------\n")))))))
+
 (use-package magit
   :custom
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
