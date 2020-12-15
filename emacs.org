@@ -295,9 +295,9 @@ Place custom scripts under =~/.emacs.d/lisp=
               ("H" . dired-hide-dotfiles-mode)))
 
   (use-package dired-single
-    :bind (:map dired-mode-map
-              ("ret" . dired-single-buffer)
-              ("h" . dired-single-up-directory)))
+    :config
+    (evil-define-key 'normal dired-mode-map "h" 'dired-single-up-directory)
+    (evil-define-key 'normal dired-mode-map "l" 'dired-single-buffer))
 #+END_SRC
 
 ** Subtree

@@ -226,9 +226,9 @@
             ("H" . dired-hide-dotfiles-mode)))
 
 (use-package dired-single
-  :bind (:map dired-mode-map
-            ("ret" . dired-single-buffer)
-            ("h" . dired-single-up-directory)))
+  :config
+  (evil-define-key 'normal dired-mode-map "h" 'dired-single-up-directory)
+  (evil-define-key 'normal dired-mode-map "l" 'dired-single-buffer))
 
 (use-package dired-subtree
   :bind (:map dired-mode-map
