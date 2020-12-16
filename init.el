@@ -303,8 +303,10 @@
 
 
   (setq org-capture-templates
-          `(("c" "Scratch" item (file+headline ,(concat org-directory "/org/scratch.org") "Untracked")
+          `(("c" "Scratch" item (file+headline ,(concat org-directory "/scratch.org") "Untracked")
                   "- %?")
+            ("i" "Idea" entry (file ,(concat org-directory "/notes/others/ideas.org"))
+                  "* %?" :empty-lines 1)
 
             ("t" "Task" entry (file+headline ,(concat org-directory "/agenda/tasks.org") "Task Manager")
                   "** TODO %?\n   SCHEDULED: %t" :kill-buffer t)
