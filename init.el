@@ -170,6 +170,13 @@
 
 (set-frame-font "Ubuntu Mono" nil t)
 
+(use-package visual-fill-column
+  :config
+  (defun emax/visual-fill ()
+    (setq visual-fill-column-width 100
+          visual-fill-column-center-text t)
+    (visual-fill-column-mode 1)))
+
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
 (use-package evil
@@ -248,7 +255,8 @@
         ("C-c a" . org-agenda)
         ("C-c c" . org-capture))
   :hook ((org-mode . org-indent-mode)
-        (org-mode . visual-line-mode))
+         (org-mode . visual-line-mode)
+         (org-mode . emax/visual-fill))
   :custom
   (org-ellipsis " ▾")
   (org-todo-keywords
@@ -550,3 +558,24 @@
 (use-package expand-region
   :bind (("M-[" . er/contract-region))
   :bind (("M-]" . er/expand-region)))
+
+(use-package nov
+  :init (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
+  :hook ((nov-mode . emax/nov-read-mode)
+         (nov-mode . emax/visual-fill))
+  :custom
+  (nov-text-width t)
+  :config
+  (defun emax/nov-read-mode ()
+    (if (eq (frame-parameter (selected-frame) 'width) 70)
+        (progn
+          (set-frame-parameter (selected-frame) 'width 100)
+          (variable-pitch-mode 0)
+          (setq line-spacing nil)
+          (setq word-wrap nil))
+      (progn
+        (set-frame-parameter (selected-frame) 'width 70)
+        (variable-pitch-mode 1)
+        (setq line-spacing 0.4)
+        (setq word-wrap t)))
+    (redraw-frame (selected-frame))))
