@@ -559,6 +559,19 @@
   :bind (("M-[" . er/contract-region))
   :bind (("M-]" . er/expand-region)))
 
+(use-package pdf-tools
+  :bind (:map pdf-view-mode-map
+            ("j" . evil-collection-pdf-view-previous-line-or-previous-page)
+            ("k" . evil-collection-pdf-view-next-line-or-next-page)
+            ("d" . (lambda ()
+                      (interactive "P") (pdf-view-dark-minor-mode) (pdf-view-midnight-minor-mode)))
+            ("o" . pdf-outline)
+            ("i" . pdf-misc-display-metadata)
+            ("s" . pdf-occur))
+  :config
+  (pdf-tools-install)
+  (setq-default pdf-view-display-size 'fit-page))
+
 (use-package nov
   :init (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
   :hook ((nov-mode . emax/nov-read-mode)
