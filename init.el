@@ -23,6 +23,9 @@
 ;; Delete selection
 (delete-selection-mode t)
 
+;; Enable narrowing
+(put 'narrow-to-region 'disabled nil)
+
 (require 'package)
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
                          ("org" . "https://orgmode.org/elpa/")

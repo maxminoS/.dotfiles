@@ -31,6 +31,9 @@
 
   ;; Delete selection
   (delete-selection-mode t)
+
+  ;; Enable narrowing
+  (put 'narrow-to-region 'disabled nil)
 #+END_SRC
 
 ** Manage Windows
