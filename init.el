@@ -230,8 +230,8 @@
 
 (use-package dired-hide-dotfiles
   :hook (dired-mode . dired-hide-dotfiles-mode)
-  :bind (:map dired-mode-map
-            ("H" . dired-hide-dotfiles-mode)))
+  :config
+  (evil-define-key 'normal dired-mode-map "H" 'dired-hide-dotfiles-mode))
 
 (use-package dired-single
   :config
