@@ -713,17 +713,41 @@ Place custom scripts under =~/.emacs.d/lisp=
 #+BEGIN_SRC emacs-lisp
   (use-package lsp-mode
     :init
-    (setq lsp-keymap-prefix "s-l")
+    (setq lsp-keymap-prefix "C-c l")
     :commands (lsp lsp-deferred)
-    :hook ((lsp-mode . lsp-enable-which-key-integration)
-           (python-mode . lsp))
-    :config
-    (setq lsp-modeline-diagnostics-enable t))
+    :hook ((lsp-mode . emax/lsp-mode-setup-hook)
+            (lsp-mode . lsp-enable-which-key-integration)
+            (python-mode . lsp))
+    :custom
+    (lsp-ui-sideline-enable nil)
+    (lsp-modeline-diagnostics-enable t)
+    (lsp-before-save-edits nil))
+
+  (defun emax/lsp-mode-setup-hook ()
+    (setq lsp-modeline-code-actions-segments '(count icon))
+    (lsp-modeline-code-actions-mode)
+    (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
+    (lsp-headerline-breadcrumb-mode))
+
+  (use-package lsp-ui
+    :hook (lsp-mode . lsp-ui-mode)
+    :custom
+    (lsp-ui-doc-position 'at-point))
 #+END_SRC
 
 ** DAP Mode
 #+BEGIN_SRC emacs-lisp
   (use-package dap-mode
+    :hook (dap-stopped-hook . (lambda (arg) (call-interactively #'dap-hydra)))
+    :config
+    (dap-mode 1)
+    (dap-ui-mode 1)
+    (dap-tooltip-mode 1)
+    (dap-ui-controls-mode 1)
+    (require 'dap-chrome)
+    (dap-chrome-setup)
+    (require 'dap-node)
+    (dap-node-setup)
     :custom
     (lsp-enable-dap-auto-configure nil))
 #+END_SRC
