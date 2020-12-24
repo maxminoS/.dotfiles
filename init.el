@@ -216,7 +216,11 @@
   (evil-define-key 'motion org-agenda-mode-map "\M-l" 'org-agenda-later)
   (evil-define-key 'motion org-agenda-mode-map "\M-v" 'org-agenda-view-mode-dispatch))
 
-(defhydra hydra-applications (:color red :exit t)
+(use-package hydra
+    :custom
+    (hydra-default-hint nil))
+
+  (defhydra hydra-applications (:color red :exit t)
     "
   ^System^        ^Media^        ^Documents^    ^Development^
 -------------------------------------------------------------------------------------
@@ -231,7 +235,7 @@
 
   (global-set-key (kbd "C-a") 'hydra-applications/body)
 
-(defhydra hydra-lsp (:exit t :hint nil)
+(defhydra hydra-lsp (:exit t)
   "
  ^Buffer^               ^Server^                   ^Symbol^
 -------------------------------------------------------------------------------------

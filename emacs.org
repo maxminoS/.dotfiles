@@ -300,6 +300,10 @@ Place custom scripts under =~/.emacs.d/lisp=
 
 ** Hydra
 #+BEGIN_SRC emacs-lisp
+  (use-package hydra
+    :custom
+    (hydra-default-hint nil))
+
   (defhydra hydra-applications (:color red :exit t)
     "
   ^System^        ^Media^        ^Documents^    ^Development^
@@ -318,7 +322,7 @@ Place custom scripts under =~/.emacs.d/lisp=
 
 *** LSP Mode
 #+BEGIN_SRC emacs-lisp
-  (defhydra hydra-lsp (:exit t :hint nil)
+  (defhydra hydra-lsp (:exit t)
     "
    ^Buffer^               ^Server^                   ^Symbol^
   -------------------------------------------------------------------------------------
