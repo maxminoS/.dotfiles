@@ -166,10 +166,10 @@
   :custom
   (doom-modeline-height 15)
   ; (doom-modeline-mu4e t) ; Requires mu4e-alert
+  (display-time-default-load-average nil)
   :config
   (display-battery-mode t)
-  (display-time-mode t)
-  (setq display-time-default-load-average nil))
+  (display-time-mode t))
 
 (set-frame-font "Ubuntu Mono" nil t)
 
