@@ -589,6 +589,12 @@
   :config
   (pyvenv-mode 1))
 
+(use-package json-mode
+  :mode "\\.json\\'")
+
+(use-package yaml-mode
+  :mode "\\.ya?ml\\'")
+
 (setq tab-always-indent 'complete)
 
 (use-package company
