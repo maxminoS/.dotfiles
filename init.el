@@ -531,8 +531,10 @@
   (setq lsp-keymap-prefix "C-c l")
   :commands (lsp lsp-deferred)
   :hook ((lsp-mode . emax/lsp-mode-setup-hook)
-          (lsp-mode . lsp-enable-which-key-integration)
-          (python-mode . lsp))
+         (lsp-mode . lsp-enable-which-key-integration)
+         (python-mode . lsp)
+         (rjsx-mode . lsp)
+         (web-mode . lsp))
   :custom
   (lsp-ui-sideline-enable nil)
   (lsp-modeline-diagnostics-enable t)
@@ -562,6 +564,18 @@
   (dap-node-setup)
   :custom
   (lsp-enable-dap-auto-configure nil))
+
+(use-package web-mode
+  :mode ("\\.html?\\'" "\\.css\\'" "\\.php\\'" "\\.tsx?\\'")
+  :custom
+  (web-mode-markup-indent-offset 2)
+  (web-mode-css-indent-offset 2)
+  (web-mode-code-indent-offset 2))
+
+(use-package rjsx-mode
+  :mode "\\.jsx?\\'"
+  :custom
+  (js-indent-level 2))
 
 (use-package python-mode
   :custom

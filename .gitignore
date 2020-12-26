@@ -5,6 +5,6 @@ zsh/.config/zsh/.zsh_history
 zsh/.config/zsh/.zsh_sessions
 /cache/
 /elpa/
-/lisp/.config.el
+/lisp/.secret.el
 /url/
 .lsp-session-v1

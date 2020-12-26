@@ -717,8 +717,10 @@ Place custom scripts under =~/.emacs.d/lisp=
     (setq lsp-keymap-prefix "C-c l")
     :commands (lsp lsp-deferred)
     :hook ((lsp-mode . emax/lsp-mode-setup-hook)
-            (lsp-mode . lsp-enable-which-key-integration)
-            (python-mode . lsp))
+           (lsp-mode . lsp-enable-which-key-integration)
+           (python-mode . lsp)
+           (rjsx-mode . lsp)
+           (web-mode . lsp))
     :custom
     (lsp-ui-sideline-enable nil)
     (lsp-modeline-diagnostics-enable t)
@@ -754,6 +756,23 @@ Place custom scripts under =~/.emacs.d/lisp=
 #+END_SRC
 
 ** Language Modes
+*** Web
+| C-c C-f | Fold tag/block  |
+| C-c C-r | Rename HTML tag |
+#+BEGIN_SRC emacs-lisp
+  (use-package web-mode
+    :mode ("\\.html?\\'" "\\.css\\'" "\\.php\\'" "\\.tsx?\\'")
+    :custom
+    (web-mode-markup-indent-offset 2)
+    (web-mode-css-indent-offset 2)
+    (web-mode-code-indent-offset 2))
+
+  (use-package rjsx-mode
+    :mode "\\.jsx?\\'"
+    :custom
+    (js-indent-level 2))
+#+END_SRC
+
 *** Python
 #+BEGIN_SRC emacs-lisp
   (use-package python-mode
