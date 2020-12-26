@@ -686,6 +686,7 @@ Place custom scripts under =~/.emacs.d/lisp=
 
     (setq eshell-prompt-function      'emax/eshell-prompt
           eshell-prompt-regexp        "^λ "
+          eshell-banner-message       ""
           eshell-history-size         10000
           eshell-buffer-maximum-lines 10000
           eshell-hist-ignoredups t
@@ -752,7 +753,7 @@ Place custom scripts under =~/.emacs.d/lisp=
     (lsp-enable-dap-auto-configure nil))
 #+END_SRC
 
-** Languages
+** Language Modes
 *** Python
 #+BEGIN_SRC emacs-lisp
   (use-package python-mode
@@ -895,3 +896,15 @@ Place custom scripts under =~/.emacs.d/lisp=
           (setq word-wrap t)))
       (redraw-frame (selected-frame))))
 #+end_src
+
+** Dictionary
+| M-d | Define this word |
+#+BEGIN_SRC emacs-lisp
+  (use-package define-word
+    :bind ("M-d" . define-word-at-point))
+#+END_SRC
+
+** Try
+#+BEGIN_SRC emacs-lisp
+  (use-package try)
+#+END_SRC

@@ -505,6 +505,7 @@
 
   (setq eshell-prompt-function      'emax/eshell-prompt
         eshell-prompt-regexp        "^λ "
+        eshell-banner-message       ""
         eshell-history-size         10000
         eshell-buffer-maximum-lines 10000
         eshell-hist-ignoredups t
@@ -662,3 +663,8 @@
         (setq line-spacing 0.4)
         (setq word-wrap t)))
     (redraw-frame (selected-frame))))
+
+(use-package define-word
+  :bind ("M-d" . define-word-at-point))
+
+(use-package try)
