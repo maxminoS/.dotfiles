@@ -181,6 +181,15 @@
   (eyebrowse-mode-line-style 'always)
   (eyebrowse-new-workspace t))
 
+(use-package shackle
+  :config
+  (shackle-mode)
+  :custom
+  (shackle-inhibit-window-quit-on-same-windows t)
+  (shackle-rules '(((help-mode helpful-mode apropos-mode debugger-mode Man-mode)
+                      :select t :popup t :align 'below)))
+  (shackle-select-reused-windows t))
+
 (set-frame-font "Ubuntu Mono" nil t)
 
 (use-package visual-fill-column
