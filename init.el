@@ -164,31 +164,13 @@
 (use-package doom-modeline
   :init (doom-modeline-mode 1)
   :custom
-  (doom-modeline-height 15)
-  ; (doom-modeline-mu4e t) ; Requires mu4e-alert
   (display-time-default-load-average nil)
+  (doom-modeline-buffer-encoding nil)
+  (doom-modeline-workspace-name nil)
+  ;; (doom-modeline-mu4e t) ; Requires mu4e-alert
   :config
   (display-battery-mode t)
   (display-time-mode t))
-
-(use-package eyebrowse
-  :init
-  (setq eyebrowse-keymap-prefix (kbd "C-w"))
-  :config
-  (eyebrowse-mode t)
-  :custom
-  (eyebrowse-slot-format "[%s]")
-  (eyebrowse-mode-line-style 'always)
-  (eyebrowse-new-workspace t))
-
-(use-package shackle
-  :config
-  (shackle-mode)
-  :custom
-  (shackle-inhibit-window-quit-on-same-windows t)
-  (shackle-rules '(((help-mode helpful-mode apropos-mode debugger-mode Man-mode)
-                      :select t :popup t :align 'below)))
-  (shackle-select-reused-windows t))
 
 (set-frame-font "Ubuntu Mono" nil t)
 
@@ -440,6 +422,24 @@
 
 (use-package counsel-projectile
   :config (counsel-projectile-mode))
+
+(tab-bar-mode)
+(setq tab-bar-close-button-show nil
+      tab-bar-new-button-show nil)
+
+(define-key evil-window-map (kbd "n") 'tab-new)
+(define-key evil-window-map (kbd "r") 'tab-rename)
+(define-key evil-window-map (kbd "0") 'tab-close)
+(define-key evil-window-map (kbd "1") 'tab-close-other)
+
+(use-package shackle
+  :config
+  (shackle-mode)
+  :custom
+  (shackle-inhibit-window-quit-on-same-windows t)
+  (shackle-rules '(((help-mode helpful-mode apropos-mode debugger-mode Man-mode)
+                      :select t :popup t :align 'below)))
+  (shackle-select-reused-windows t))
 
 (with-eval-after-load 'ibuffer
   (define-ibuffer-column size-h

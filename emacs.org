@@ -210,56 +210,18 @@ Place custom scripts under =~/.emacs.d/lisp=
 
 ** Modeline
 #+BEGIN_SRC emacs-lisp
-(use-package all-the-icons)
+  (use-package all-the-icons)
 
-(use-package doom-modeline
-  :init (doom-modeline-mode 1)
-  :custom
-  (doom-modeline-height 15)
-  ; (doom-modeline-mu4e t) ; Requires mu4e-alert
-  (display-time-default-load-average nil)
-  :config
-  (display-battery-mode t)
-  (display-time-mode t))
-#+END_SRC
-
-** Window Management
-| C-w h/j/k/l | Switch window                 |
-| C-w C-w     | Next window                   |
-| C-w r       | Rotate windows                |
-| C-w o       | Only this window              |
-| C-w c       | Quit this window              |
-| C-w s/v     | Split horizontally/vertically |
-| C-w =       | Balance windows               |
-| +/i         | Increase/decrease height      |
-| </>         | Increase/decrease width       |
-*** Eyebrowse
-| C-w .     | Switch workspace           |
-| C-w <num> | Switch workspace <num>     |
-| C-w "     | Close workspace            |
-| C-w ,     | Rename workspace           |
-#+BEGIN_SRC emacs-lisp
-  (use-package eyebrowse
-    :init
-    (setq eyebrowse-keymap-prefix (kbd "C-w"))
-    :config
-    (eyebrowse-mode t)
+  (use-package doom-modeline
+    :init (doom-modeline-mode 1)
     :custom
-    (eyebrowse-slot-format "[%s]")
-    (eyebrowse-mode-line-style 'always)
-    (eyebrowse-new-workspace t))
-#+END_SRC
-
-*** Shackle
-#+BEGIN_SRC emacs-lisp
-  (use-package shackle
+    (display-time-default-load-average nil)
+    (doom-modeline-buffer-encoding nil)
+    (doom-modeline-workspace-name nil)
+    ;; (doom-modeline-mu4e t) ; Requires mu4e-alert
     :config
-    (shackle-mode)
-    :custom
-    (shackle-inhibit-window-quit-on-same-windows t)
-    (shackle-rules '(((help-mode helpful-mode apropos-mode debugger-mode Man-mode)
-                        :select t :popup t :align 'below)))
-    (shackle-select-reused-windows t))
+    (display-battery-mode t)
+    (display-time-mode t))
 #+END_SRC
 
 ** Text
@@ -612,6 +574,45 @@ Place custom scripts under =~/.emacs.d/lisp=
 
   (use-package counsel-projectile
     :config (counsel-projectile-mode))
+#+END_SRC
+
+** Window Management
+| C-w h/j/k/l | Switch window                 |
+| C-w C-w     | Next window                   |
+| C-w r       | Rotate windows                |
+| C-w o       | Only this window              |
+| C-w c       | Quit this window              |
+| C-w s/v     | Split horizontally/vertically |
+| C-w =       | Balance windows               |
+| +/i         | Increase/decrease height      |
+| </>         | Increase/decrease width       |
+*** Tab Bar Mode
+| C-w n | New tab              |
+| gt/T  | Next or previous tab |
+| C-w r | Rename tab           |
+| C-w 0 | Close tab            |
+| C-w 1 | Close other tabs     |
+#+BEGIN_SRC emacs-lisp
+  (tab-bar-mode)
+  (setq tab-bar-close-button-show nil
+        tab-bar-new-button-show nil)
+
+  (define-key evil-window-map (kbd "n") 'tab-new)
+  (define-key evil-window-map (kbd "r") 'tab-rename)
+  (define-key evil-window-map (kbd "0") 'tab-close)
+  (define-key evil-window-map (kbd "1") 'tab-close-other)
+#+END_SRC
+
+*** Shackle
+#+BEGIN_SRC emacs-lisp
+  (use-package shackle
+    :config
+    (shackle-mode)
+    :custom
+    (shackle-inhibit-window-quit-on-same-windows t)
+    (shackle-rules '(((help-mode helpful-mode apropos-mode debugger-mode Man-mode)
+                        :select t :popup t :align 'below)))
+    (shackle-select-reused-windows t))
 #+END_SRC
 
 ** IBuffer
