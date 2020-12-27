@@ -36,16 +36,6 @@
   (put 'narrow-to-region 'disabled nil)
 #+END_SRC
 
-** Manage Windows
-| C-w h/j/k/l | Switch window                 |
-| C-w C-w     | Next window                   |
-| C-w r       | Rotate windows                |
-| C-w o       | Only this window              |
-| C-w c       | Quit this window              |
-| C-w s/v     | Split horizontally/vertically |
-| C-w =       | Balance windows               |
-| +/i         | Increase/decrease height      |
-| </>         | Increase/decrease width       |
 ** Package Manager
 #+BEGIN_SRC emacs-lisp
   (require 'package)
@@ -231,6 +221,33 @@ Place custom scripts under =~/.emacs.d/lisp=
   :config
   (display-battery-mode t)
   (display-time-mode t))
+#+END_SRC
+
+** Window Management
+| C-w h/j/k/l | Switch window                 |
+| C-w C-w     | Next window                   |
+| C-w r       | Rotate windows                |
+| C-w o       | Only this window              |
+| C-w c       | Quit this window              |
+| C-w s/v     | Split horizontally/vertically |
+| C-w =       | Balance windows               |
+| +/i         | Increase/decrease height      |
+| </>         | Increase/decrease width       |
+*** Eyebrowse
+| C-w .     | Switch workspace           |
+| C-w <num> | Switch workspace <num>     |
+| C-w "     | Close workspace            |
+| C-w ,     | Rename workspace           |
+#+BEGIN_SRC emacs-lisp
+  (use-package eyebrowse
+    :init
+    (setq eyebrowse-keymap-prefix (kbd "C-w"))
+    :config
+    (eyebrowse-mode t)
+    :custom
+    (eyebrowse-slot-format "[%s]")
+    (eyebrowse-mode-line-style 'always)
+    (eyebrowse-new-workspace t))
 #+END_SRC
 
 ** Text

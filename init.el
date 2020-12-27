@@ -171,6 +171,16 @@
   (display-battery-mode t)
   (display-time-mode t))
 
+(use-package eyebrowse
+  :init
+  (setq eyebrowse-keymap-prefix (kbd "C-w"))
+  :config
+  (eyebrowse-mode t)
+  :custom
+  (eyebrowse-slot-format "[%s]")
+  (eyebrowse-mode-line-style 'always)
+  (eyebrowse-new-workspace t))
+
 (set-frame-font "Ubuntu Mono" nil t)
 
 (use-package visual-fill-column
