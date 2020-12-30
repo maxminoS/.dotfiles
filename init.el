@@ -263,7 +263,6 @@
   ("S" lsp-shutdown-workspace))
 
 (use-package dired
-  :ensure nil
   :config
   (setq dired-recursive-copies 'always)
   (setq dired-recursive-deletes 'always)
@@ -288,6 +287,12 @@
   :bind (:map dired-mode-map
               ("<tab>" . dired-subtree-toggle)
               ("<S-iso-lefttab>" . dired-subtree-cycle)))
+
+(use-package dired-open
+  :custom
+  (dired-open-extensions '(("png" . "feh")
+                           ("mkv" . "mpv")
+                           ("webm" . "mpv"))))
 
 (use-package peep-dired
   :config
