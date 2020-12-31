@@ -263,6 +263,7 @@
   ("S" lsp-shutdown-workspace))
 
 (use-package dired
+  :ensure nil
   :config
   (setq dired-recursive-copies 'always)
   (setq dired-recursive-deletes 'always)
@@ -295,14 +296,14 @@
                            ("webm" . "mpv"))))
 
 (use-package peep-dired
-  :config
-  (setq peep-dired-cleanup-on-disable t)
-  (setq peep-dired-cleanup-eagerly t)
-  (setq peep-dired-enable-on-directories nil)
-  (setq peep-dired-ignored-extensions
-      '("mkv" "webm" "mp4" "mp3" "ogg" "iso"))
   :bind (:map dired-mode-map
-            ("P" . peep-dired)))
+            ("P" . peep-dired))
+  :custom
+  (peep-dired-cleanup-on-disable t)
+  (peep-dired-cleanup-eagerly t)
+  (peep-dired-enable-on-directories nil)
+  (peep-dired-ignored-extensions
+      '("mkv" "webm" "mp4" "mp3" "ogg" "iso")))
 
 (use-package org
   :bind (("C-c l" . org-store-link)
