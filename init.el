@@ -475,14 +475,19 @@
               ("Emacs" (or
                          (name . "^\\*scratch\\*$")
                          (name . "^\\*Messages\\*$")
-                         (filename . ".emacs.d")
-                         (mode . eshell-mode)
-                         (mode . shell-mode)
-                         (mode . term-mode)))
-              ("Org" (mode . org-mode))
+                         (filename . ".emacs.d")))
+              ("Document" (or
+                           (mode . org-mode)
+                           (mode . nov-mode)
+                           (mode . doc-view-mode)))
+              ("Compile" (or
+                           (mode . eshell-mode)
+                           (mode . shell-mode)
+                           (mode . term-mode)))
               ("Dired" (mode . dired-mode))
               ("Magit" (name . "^magit"))
               ("Help" (or
+                        (name . "^\\*\\*$")
                         (mode . help-mode)
                         (mode . helpful-mode)
                         (mode . Info-mode)
