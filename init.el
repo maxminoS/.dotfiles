@@ -689,6 +689,25 @@
   :bind (("M-[" . er/contract-region))
   :bind (("M-]" . er/expand-region)))
 
+(use-package evil-multiedit
+  :bind
+  (:map evil-insert-state-map
+    ("M-d" . evil-multiedit-toggle-marker-here))
+  (:map evil-normal-state-map
+    ("M-d" . evil-multiedit-match-and-next)
+    ("M-D" . evil-multiedit-match-and-prev))
+  (:map evil-visual-state-map
+    ("R" . evil-multiedit-match-all)
+    ("M-d" . evil-multiedit-match-and-next)
+    ("M-D" . evil-multiedit-match-and-prev)
+  (:map evil-multiedit-state-map
+    ("C-n" . evil-multiedit-next)
+    ("C-p" . evil-multiedit-prev)
+    ("RET" . evil-multiedit-toggle-or-restrict-region))
+  (:map evil-multiedit-insert-state-map
+    ("C-n" . evil-multiedit-next)
+    ("C-p" . evil-multiedit-prev)))
+
 (use-package pdf-tools
   :bind (:map pdf-view-mode-map
             ("j" . evil-collection-pdf-view-previous-line-or-previous-page)
