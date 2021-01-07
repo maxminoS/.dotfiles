@@ -487,7 +487,7 @@
               ("Dired" (mode . dired-mode))
               ("Magit" (name . "^magit"))
               ("Help" (or
-                        (name . "^\\*\\*$")
+                        (name . "^*\\(.*\\)*$")
                         (mode . help-mode)
                         (mode . helpful-mode)
                         (mode . Info-mode)
