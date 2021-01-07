@@ -983,10 +983,10 @@ Place custom scripts under =~/.emacs.d/lisp=
 #+end_src
 
 ** Dictionary
-| M-d | Define this word |
+| C-c d | Define this word |
 #+BEGIN_SRC emacs-lisp
   (use-package define-word
-    :bind ("M-d" . define-word-at-point))
+    :bind ("C-c d" . define-word-at-point))
 #+END_SRC
 
 ** Try

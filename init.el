@@ -724,6 +724,6 @@
     (redraw-frame (selected-frame))))
 
 (use-package define-word
-  :bind ("M-d" . define-word-at-point))
+  :bind ("C-c d" . define-word-at-point))
 
 (use-package try)
