@@ -699,7 +699,7 @@
   (:map evil-visual-state-map
     ("R" . evil-multiedit-match-all)
     ("M-d" . evil-multiedit-match-and-next)
-    ("M-D" . evil-multiedit-match-and-prev)
+    ("M-D" . evil-multiedit-match-and-prev))
   (:map evil-multiedit-state-map
     ("C-n" . evil-multiedit-next)
     ("C-p" . evil-multiedit-prev)
