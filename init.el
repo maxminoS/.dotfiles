@@ -709,6 +709,7 @@
     ("C-p" . evil-multiedit-prev)))
 
 (use-package pdf-tools
+  :init (add-to-list 'auto-mode-alist '("\\.pdf\\'" . pdf-view-mode))
   :bind (:map pdf-view-mode-map
             ("j" . evil-collection-pdf-view-previous-line-or-previous-page)
             ("k" . evil-collection-pdf-view-next-line-or-next-page)
@@ -719,7 +720,8 @@
             ("s" . pdf-occur))
   :config
   (pdf-tools-install)
-  (setq-default pdf-view-display-size 'fit-page))
+  :custom
+  (pdf-view-display-size 'fit-page))
 
 (use-package nov
   :init (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
