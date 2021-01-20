@@ -15,6 +15,9 @@
   (set-terminal-coding-system 'utf-8)
   (set-keyboard-coding-system 'utf-8)
 
+  ;; Sets default directory
+  (setq default-directory "~/")
+
   ;; Spaces over tabs
   (setq-default tab-width 2
     indent-tabs-mode nil)
