@@ -176,7 +176,8 @@
   (display-battery-mode t)
   (display-time-mode t))
 
-(set-frame-font "Ubuntu Mono" nil t)
+(when (not (equal system-type 'darwin))
+  (set-frame-font "Ubuntu Mono" nil t))
 
 (use-package visual-fill-column
   :config
