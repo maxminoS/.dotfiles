@@ -345,12 +345,31 @@ Place custom scripts under =~/.emacs.d/lisp=
 
 * File Management
 ** Dired
-| C-x d | Dired Jump     |
-| h     | Back directory |
-| l     | Open directory |
-| j     | Next file      |
-| k     | Previous file  |
-| H     | Hide dotfiles  |
+|       | *Basic*        |   |               |
+| C-x d | Dired jump     | H | Hide dotfiles |
+| h     | Back directory | j | Next file     |
+| l     | Open directory | k | Previous file |
+
+|         | *Navigation*              |     | *Selection*    |
+| g O     | Open in other window      | U   | Unmark all     |
+| g o     | Open file in preview mode | t   | Invert marked  |
+| M-<RET> | Preview in other window   | % m | Mark by regexp |
+| g r     | Refresh                   | K   | Kill marked    |
+
+|     | *File Edit*      |   | *Archive*              |
+| C   | Copy             | Z | Compress or uncompress |
+| R   | Rename           | c | Compress               |
+| % R | Rename by regexp |   |                        |
+
+|         | *Others*                                            |
+| C-x C-q | Direct editor mode [Z Z] to confirm; [Z Q] to abort |
+| T       | Change timestamp                                    |
+| M       | Change file mode                                    |
+| O       | Change file owner                                   |
+| G       | Change file group                                   |
+| S       | Create symbolic link                                |
+| L       | Load Elisp file                                     |
+
 #+BEGIN_SRC emacs-lisp
   (use-package dired
     :ensure nil
