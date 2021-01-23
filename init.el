@@ -96,6 +96,8 @@
   :diminish counsel-mode
   :bind (("M-x" . counsel-M-x)
           ("C-x b" . 'counsel-switch-buffer))
+  :custom
+  (counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only)
   :config
   (counsel-mode 1)
   (setq-default counsel-mode-override-describe-bindings t))
