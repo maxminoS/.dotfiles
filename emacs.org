@@ -233,9 +233,6 @@ Place custom scripts under =~/.emacs.d/lisp=
 
 ** Text
 #+BEGIN_SRC emacs-lisp
-(when (not (equal system-type 'darwin))
-  (set-frame-font "Ubuntu Mono" nil t))
-
 (use-package visual-fill-column
   :config
   (defun emax/visual-fill ()

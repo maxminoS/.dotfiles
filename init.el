@@ -179,9 +179,6 @@
   (display-battery-mode t)
   (display-time-mode t))
 
-(when (not (equal system-type 'darwin))
-  (set-frame-font "Ubuntu Mono" nil t))
-
 (use-package visual-fill-column
   :config
   (defun emax/visual-fill ()
