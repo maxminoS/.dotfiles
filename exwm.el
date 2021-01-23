@@ -23,7 +23,8 @@
 
 (defun emax/exwm-update-title ()
   (pcase exwm-class-name
-    ("Firefox" (exwm-workspace-rename-buffer (format "Firefox: %s" exwm-title)))))
+    ("Firefox" (exwm-workspace-rename-buffer (format "Firefox: %s" exwm-title)))
+    ("Google-chrome" (exwm-workspace-rename-buffer exwm-title))))
 
 ;; Configure windows
 (defun emax/configure-window-by-class ()
@@ -35,12 +36,13 @@
 ;; EXWM Startup Hook
 (defun emax/exwm-init-hook ()
   (exwm-workspace-switch-create 0)
-;;  (emax/start-panel) ;; Polybar Panel
+
+  ;; Polybar
+  (emax/start-panel)
   ;; Background applets
-;;  (emax/run-in-background "nm-applet")
-;;  (emax/run-in-background "pasystray")
-;;  (emax/run-in-background "blueman-applet")
-)
+  (emax/run-in-background "nm-applet")
+  (emax/run-in-background "pasystray")
+  (emax/run-in-background "blueman-applet"))
 
 (use-package exwm
   :custom
@@ -72,7 +74,7 @@
 
   (define-key exwm-mode-map [?\C-q] 'exwm-input-send-next-key)
   (exwm-input-set-key (kbd "s-SPC") 'counsel-linux-app)
-  (emax/set-background "Wallpapers/br2049.png")
+  (emax/set-background "br2049.png")
   (exwm-enable))
 
 (use-package desktop-environment
@@ -85,3 +87,31 @@
   (desktop-environment-brightness-small-increment "1%+")
   (desktop-environment-brightness-small-decrement "1%-")
   (desktop-environment-screenshot-directory "~/Gallery"))
+
+(defvar emax/polybar-process nil)
+
+(defun emax/kill-panel ()
+  (interactive)
+  (when emax/polybar-process
+    (ignore-errors (kill-process emax/polybar-process)))
+  (setq emax/polybar-process nil))
+
+(defun emax/start-panel ()
+  (interactive)
+  (emax/kill-panel)
+  (setq emax/polybar-process (start-process-shell-command "polybar" nil "polybar panel")))
+
+(defun emax/restart-panel ()
+  (interactive)
+  (emax/kill-panel)
+  (emax/start-panel))
+
+;; Add polybar
+(defun emax/send-polybar-hook (module-name hook-index)
+  (start-process-shell-command "polybar-msg" nil (format "polybar-msg hook %s %s" module-name hook-index)))
+
+;; Workspace
+(defun emax/send-polybar-exwm-workspace ()
+  (emax/send-polybar-hook "exwm-workspace" 1))
+
+(add-hook 'exwm-workspace-switch-hook #'emax/send-polybar-exwm-workspace)

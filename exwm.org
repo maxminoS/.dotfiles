@@ -2,6 +2,12 @@
 #+PROPERTY: header-args:emacs-lisp :tangle ./exwm.el
 
 * Startup
+Run Emacs with this file:
+#+BEGIN_SRC bash
+emacs -l ~/.emacs.d/exwm.el
+#+END_SRC
+
+
 #+BEGIN_SRC emacs-lisp
 ;; Start compositor
 (start-process-shell-command "picom" nil "picom")
@@ -28,7 +34,8 @@
 
 (defun emax/exwm-update-title ()
   (pcase exwm-class-name
-    ("Firefox" (exwm-workspace-rename-buffer (format "Firefox: %s" exwm-title)))))
+    ("Firefox" (exwm-workspace-rename-buffer (format "Firefox: %s" exwm-title)))
+    ("Google-chrome" (exwm-workspace-rename-buffer exwm-title))))
 
 ;; Configure windows
 (defun emax/configure-window-by-class ()
@@ -40,12 +47,13 @@
 ;; EXWM Startup Hook
 (defun emax/exwm-init-hook ()
   (exwm-workspace-switch-create 0)
-;;  (emax/start-panel) ;; Polybar Panel
+
+  ;; Polybar
+  (emax/start-panel)
   ;; Background applets
-;;  (emax/run-in-background "nm-applet")
-;;  (emax/run-in-background "pasystray")
-;;  (emax/run-in-background "blueman-applet")
-)
+  (emax/run-in-background "nm-applet")
+  (emax/run-in-background "pasystray")
+  (emax/run-in-background "blueman-applet"))
 #+END_SRC
 
 
@@ -81,7 +89,7 @@
 
   (define-key exwm-mode-map [?\C-q] 'exwm-input-send-next-key)
   (exwm-input-set-key (kbd "s-SPC") 'counsel-linux-app)
-  (emax/set-background "Wallpapers/br2049.png")
+  (emax/set-background "br2049.png")
   (exwm-enable))
 #+END_SRC
 
@@ -98,4 +106,164 @@
   (desktop-environment-brightness-small-increment "1%+")
   (desktop-environment-brightness-small-decrement "1%-")
   (desktop-environment-screenshot-directory "~/Gallery"))
+#+END_SRC
+
+
+* Polybar
+#+BEGIN_SRC emacs-lisp
+(defvar emax/polybar-process nil)
+
+(defun emax/kill-panel ()
+  (interactive)
+  (when emax/polybar-process
+    (ignore-errors (kill-process emax/polybar-process)))
+  (setq emax/polybar-process nil))
+
+(defun emax/start-panel ()
+  (interactive)
+  (emax/kill-panel)
+  (setq emax/polybar-process (start-process-shell-command "polybar" nil "polybar panel")))
+
+(defun emax/restart-panel ()
+  (interactive)
+  (emax/kill-panel)
+  (emax/start-panel))
+
+;; Add polybar
+(defun emax/send-polybar-hook (module-name hook-index)
+  (start-process-shell-command "polybar-msg" nil (format "polybar-msg hook %s %s" module-name hook-index)))
+
+;; Workspace
+(defun emax/send-polybar-exwm-workspace ()
+  (emax/send-polybar-hook "exwm-workspace" 1))
+
+(add-hook 'exwm-workspace-switch-hook #'emax/send-polybar-exwm-workspace)
+#+END_SRC
+
+#+BEGIN_SRC conf :tangle ~/.config/polybar/config :mkdirp yes
+[setings]
+screenchange-reload = true
+
+[global/wm]
+margin-top = 0
+margin-bottom = 0
+
+[colors]
+background = #f0232635
+foreground = #A6Accd
+foreground-alt = #555
+primary = #ffb52a
+secondary = #e60053
+alert = #bd2c40
+underline = #c792ea
+
+[bar/panel]
+width = 100%
+height = 25
+offset-x = 0
+offset-y = 0
+fixed-center = true
+enable-ipc = true
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 2
+line-color = #f00
+
+border-size = 0
+border-color = #00000000
+
+padding-top = 5
+padding-left = 1
+padding-right = 1
+
+module-margin = 1
+
+font-0 = "Cantarell:size=14:weight=bold;2"
+font-1 = "FontAwesome:size=14;2"
+font-2 = "Material Icons:size=20;5"
+
+modules-left = exwm-workspace
+modules-right = cpu battery date
+
+tray-position = right
+tray-padding = 2
+tray-maxsize = 28
+
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+[module/exwm-workspace]
+type = custom/ipc
+hook-0 = emacsclient -e "exwm-workspace-current-index" | sed -e 's/^"//' -e 's/"$//'
+initial = 1
+format-underline = ${colors.underline-1}
+format-padding = 1
+
+
+[module/cpu]
+type = internal/cpu
+interval = 2
+format = <label> <ramp-coreload>
+format-underline = ${colors.underline-1}
+click-left = emacsclient -e "(proced)"
+label = %percentage:2%%
+ramp-coreload-spacing = 0
+ramp-coreload-0 = ▁
+ramp-coreload-0-foreground = ${colors.foreground-alt}
+ramp-coreload-1 = ▂
+ramp-coreload-2 = ▃
+ramp-coreload-3 = ▄
+ramp-coreload-4 = ▅
+ramp-coreload-5 = ▆
+ramp-coreload-6 = ▇
+
+
+[module/date]
+type = internal/date
+interval = 5
+
+date = "%a %b %e"
+date-alt = "%A %B %d %Y"
+
+time = %l:%M %p
+time-alt = %H:%M:%S
+
+format-prefix-foreground = ${colors.foreground-alt}
+format-underline = ${colors.underline-1}
+
+label = %date% %time%
+
+
+[module/battery]
+type = internal/battery
+battery = BAT0
+adapter = ADP1
+full-at = 94
+time-format = %-l:%M
+
+label-charging = %percentage%% / %time%
+format-charging = <animation-charging> <label-charging>
+format-charging-underline = ${colors.underline-1}
+
+label-discharging = %percentage%% / %time%
+format-discharging = <ramp-capacity> <label-discharging>
+format-discharging-underline = ${self.format-charging-underline}
+
+format-full = <ramp-capacity> <label-full>
+format-full-underline = ${self.format-charging-underline}
+
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
+animation-charging-framerate = 750
 #+END_SRC
