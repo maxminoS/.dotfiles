@@ -101,11 +101,10 @@ Place custom scripts under =~/.emacs.d/lisp=
 
   (push '("conf-unix" . conf-unix) org-src-lang-modes)
 
-  ;; Automatically tangle our Emacs.org config file when we save it
+  ;; Automatically tangle emacs.org on save
   (defun org-babel-tangle-config ()
-    (when (string-equal (buffer-file-name)
-                        (expand-file-name "~/.emacs.d/emacs.org"))
-      ;; Dynamic scoping to the rescue
+    (when (string-equal (file-name-directory (buffer-file-name))
+                        (expand-file-name "~/.emacs.d/"))
       (let ((org-confirm-babel-evaluate nil))
         (org-babel-tangle))))
 
