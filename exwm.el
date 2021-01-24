@@ -38,7 +38,8 @@
   (interactive)
   (pcase exwm-class-name
     ("mpv"  (exwm-floating-toggle-floating)
-            (exwm-layout-toggle-mode-line))))
+            (exwm-layout-toggle-mode-line))
+    ("Spotify" (exwm-workspace-move-window 9))))
 
 ;; EXWM Startup Hook
 (defun emax/exwm-init-hook ()
