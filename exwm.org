@@ -28,6 +28,12 @@ emacs -l ~/.emacs.d/exwm.el
   (interactive)
   (start-process-shell-command "feh" nil (concat "feh --bg-scale /usr/share/backgrounds/" background)))
 
+;; Pop in/out window (hides modeline)
+(defun emax/toggle-float-pop ()
+  (interactive)
+  (progn (exwm-layout-toggle-mode-line)
+  (exwm-floating-toggle-floating)))
+
 ;; Update class and title
 (defun emax/exwm-update-class ()
   (exwm-workspace-rename-buffer exwm-class-name))
