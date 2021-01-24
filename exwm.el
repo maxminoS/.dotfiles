@@ -42,6 +42,7 @@
 ;; EXWM Startup Hook
 (defun emax/exwm-init-hook ()
   (exwm-workspace-switch-create 0)
+  (tab-bar-mode 0)
 
   ;; Polybar
   (emax/start-panel)
