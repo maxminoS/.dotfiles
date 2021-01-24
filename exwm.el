@@ -70,7 +70,13 @@
                                         `(,(kbd (format "s-%d" i)) .
                                           (lambda () (interactive)
                                             (exwm-workspace-switch-create ,i))))
-                                      (number-sequence 0 9))))
+                                      (number-sequence 1 9))
+                            ;; Window management
+                            ([?\s-.] . exwm-layout-toggle-mode-line)
+                            ([?\s-p] . emax/toggle-float-pop)
+                            ([?\s-0] . exwm-floating-hide)
+                            ([?\s-m] . exwm-workspace-move-window)
+                            ([?\s-f] . exwm-layout-toggle-fullscreen)))
   (exwm-layout-show-all-buffers t) ;; Move selected EXWM buffer to current workspace
   (exwm-workspace-show-all-buffers t) ;; Display all EXWM buffers in all workspaces
   :config

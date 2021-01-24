@@ -1,6 +1,21 @@
 #+TITLE: EXWM Configuration
 #+PROPERTY: header-args:emacs-lisp :tangle ./exwm.el
 
+| s-[`-9]   | Switch workspace [0-9]        |
+| s-w       | Switch workspace              |
+| s-l       | Screen lock                   |
+| s-p       | Pop in/out floating           |
+| s-0       | Hide floating window          |
+| s-&       | Run shell command             |
+| s-m       | Move window to workspace      |
+| s-<left>  | Move floating window          |
+| s-<right> | Resize floating window        |
+| C-q       | Send key to X window          |
+| s-.       | Toggle modeline               |
+| s-f       | Toggle fullscreen             |
+| s-r       | Reset / Quit fullscreen       |
+| s-<SPC>   | Run application               |
+
 * Startup
 Run Emacs with this file:
 #+BEGIN_SRC bash
@@ -85,7 +100,13 @@ emacs -l ~/.emacs.d/exwm.el
                                         `(,(kbd (format "s-%d" i)) .
                                           (lambda () (interactive)
                                             (exwm-workspace-switch-create ,i))))
-                                      (number-sequence 0 9))))
+                                      (number-sequence 1 9))
+                            ;; Window management
+                            ([?\s-.] . exwm-layout-toggle-mode-line)
+                            ([?\s-p] . emax/toggle-float-pop)
+                            ([?\s-0] . exwm-floating-hide)
+                            ([?\s-m] . exwm-workspace-move-window)
+                            ([?\s-f] . exwm-layout-toggle-fullscreen)))
   (exwm-layout-show-all-buffers t) ;; Move selected EXWM buffer to current workspace
   (exwm-workspace-show-all-buffers t) ;; Display all EXWM buffers in all workspaces
   :config
