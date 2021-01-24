@@ -41,7 +41,8 @@ emacs -l ~/.emacs.d/exwm.el
 (defun emax/exwm-update-title ()
   (pcase exwm-class-name
     ("Firefox" (exwm-workspace-rename-buffer (format "Firefox: %s" exwm-title)))
-    ("Google-chrome" (exwm-workspace-rename-buffer exwm-title))))
+    ("Google-chrome" (exwm-workspace-rename-buffer exwm-title))
+    ("discord" (exwm-workspace-rename-buffer "Discord"))))
 
 ;; Configure windows
 (defun emax/configure-window-by-class ()
