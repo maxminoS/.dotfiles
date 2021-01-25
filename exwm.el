@@ -48,6 +48,8 @@
 
   ;; Polybar
   (emax/start-panel)
+  ;; Autostart Dropbox
+  (start-process-shell-command "dropbox" nil "dropbox")
   ;; Background applets
   (emax/run-in-background "nm-applet")
   (emax/run-in-background "pasystray")
