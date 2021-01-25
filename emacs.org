@@ -614,13 +614,20 @@ Place custom scripts under =~/.emacs.d/lisp=
 ** Window Management
 | C-w h/j/k/l | Switch window                 |
 | C-w C-w     | Next window                   |
-| C-w r       | Rotate windows                |
+| C-w C-R/r   | Rotate windows                |
 | C-w o       | Only this window              |
 | C-w c       | Quit this window              |
 | C-w s/v     | Split horizontally/vertically |
 | C-w =       | Balance windows               |
-| +/i         | Increase/decrease height      |
-| </>         | Increase/decrease width       |
+| C-w +/-     | Increase/decrease height      |
+| C-w >/<     | Increase/decrease width       |
+| C-w <arrow> | Swap window to                |
+#+BEGIN_SRC emacs-lisp
+  (define-key evil-window-map (kbd "<left>") 'windmove-swap-states-left)
+  (define-key evil-window-map (kbd "<down>") 'windmove-swap-states-down)
+  (define-key evil-window-map (kbd "<up>") 'windmove-swap-states-up)
+  (define-key evil-window-map (kbd "<right>") 'windmove-swap-states-right)
+#+END_SRC
 *** Tab Bar Mode
 | C-w n | New tab              |
 | gt/T  | Next or previous tab |

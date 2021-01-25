@@ -436,6 +436,11 @@
 (use-package counsel-projectile
   :config (counsel-projectile-mode))
 
+(define-key evil-window-map (kbd "<left>") 'windmove-swap-states-left)
+(define-key evil-window-map (kbd "<down>") 'windmove-swap-states-down)
+(define-key evil-window-map (kbd "<up>") 'windmove-swap-states-up)
+(define-key evil-window-map (kbd "<right>") 'windmove-swap-states-right)
+
 (tab-bar-mode)
 (setq tab-bar-close-button-show nil
       tab-bar-new-button-show nil)
