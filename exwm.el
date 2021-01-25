@@ -55,10 +55,11 @@
 
 (use-package exwm
   :custom
-  (exwm-workspace-number 5)
+  (exwm-workspace-number 9)
   (exwm-input-prefix-keys '(?\C-x ?\C-u ?\C-c
                             ?\C-h ?\C-w ?\M-x ?\M-:))
   (exwm-input-global-keys `(([?\s-r] . exwm-reset)
+                            ([?\s-k] . exwm-input-release-keyboard)
                             ;; Run shell
                             ([?\s-&] . (lambda (command)
                                           (interactive (list (read-shell-command "λ ")))

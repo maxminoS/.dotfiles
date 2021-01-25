@@ -1,20 +1,21 @@
 #+TITLE: EXWM Configuration
 #+PROPERTY: header-args:emacs-lisp :tangle ./exwm.el
 
-| s-[`-9]   | Switch workspace [0-9]        |
-| s-w       | Switch workspace              |
-| s-l       | Screen lock                   |
-| s-p       | Pop in/out floating           |
-| s-0       | Hide floating window          |
-| s-&       | Run shell command             |
-| s-m       | Move window to workspace      |
-| s-<left>  | Move floating window          |
-| s-<right> | Resize floating window        |
-| C-q       | Send key to X window          |
-| s-.       | Toggle modeline               |
-| s-f       | Toggle fullscreen             |
-| s-r       | Reset / Quit fullscreen       |
-| s-<SPC>   | Run application               |
+| s-[`-9]   | Switch workspace [0-9]   |
+| s-w       | Switch workspace         |
+| s-l       | Screen lock              |
+| s-p       | Pop in/out floating      |
+| s-0       | Hide floating window     |
+| s-&       | Run shell command        |
+| s-m       | Move window to workspace |
+| s-<left>  | Move floating window     |
+| s-<right> | Resize floating window   |
+| s-k       | Char mode                |
+| C-q       | Send key to X window     |
+| s-.       | Toggle modeline          |
+| s-f       | Toggle fullscreen        |
+| s-r       | Reset / Quit fullscreen  |
+| s-<SPC>   | Run application          |
 
 * Startup
 Run Emacs with this file:
@@ -85,10 +86,11 @@ emacs -l ~/.emacs.d/exwm.el
 #+BEGIN_SRC emacs-lisp
 (use-package exwm
   :custom
-  (exwm-workspace-number 5)
+  (exwm-workspace-number 9)
   (exwm-input-prefix-keys '(?\C-x ?\C-u ?\C-c
                             ?\C-h ?\C-w ?\M-x ?\M-:))
   (exwm-input-global-keys `(([?\s-r] . exwm-reset)
+                            ([?\s-k] . exwm-input-release-keyboard)
                             ;; Run shell
                             ([?\s-&] . (lambda (command)
                                           (interactive (list (read-shell-command "λ ")))
