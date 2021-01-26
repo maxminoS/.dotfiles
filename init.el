@@ -185,7 +185,7 @@
   (require 'cl)
   (global-yascroll-bar-mode 1)
   :custom
-  (delay-to-hide nil))
+  (yascroll:delay-to-hide nil))
 
 (use-package visual-fill-column
   :config
