@@ -76,6 +76,7 @@ emacs -l ~/.emacs.d/exwm.el
   ;; Polybar
   (emax/start-panel)
   ;; Autostart Dropbox
+  (start-process-shell-command "playerctld" nil "playerctld daemon")
   (start-process-shell-command "dropbox" nil "dropbox")
   ;; Background applets
   (emax/run-in-background "nm-applet")
@@ -134,6 +135,8 @@ emacs -l ~/.emacs.d/exwm.el
   :after exwm
   :config
   (desktop-environment-mode)
+  (define-key desktop-environment-mode-map (kbd "<XF86AudioStop>") (lambda () (interactive) (shell-command "playerctld shift")))
+  (define-key desktop-environment-mode-map (kbd "S-<XF86AudioStop>") (lambda () (interactive) (shell-command "playerctld unshift")))
   :custom
   (desktop-environment-brightness-normal-increment "5%+")
   (desktop-environment-brightness-normal-decrement "5%-")
