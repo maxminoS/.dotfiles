@@ -1046,18 +1046,8 @@ Place custom scripts under =~/.emacs.d/lisp=
     (nov-text-width t)
     :config
     (defun emax/nov-read-mode ()
-      (if (eq (frame-parameter (selected-frame) 'width) 70)
-          (progn
-            (set-frame-parameter (selected-frame) 'width 100)
-            (variable-pitch-mode 0)
-            (setq line-spacing nil)
-            (setq word-wrap nil))
-        (progn
-          (set-frame-parameter (selected-frame) 'width 70)
-          (variable-pitch-mode 1)
-          (setq line-spacing 0.4)
-          (setq word-wrap t)))
-      (redraw-frame (selected-frame))))
+      (setq line-spacing 0.3)
+      (setq word-wrap t)))
 #+end_src
 
 ** Dictionary
