@@ -304,6 +304,10 @@
 (use-package dired-open
   :custom
   (dired-open-extensions '(("png" . "feh")
+                           ("jpg" . "feh")
+                           ("opus" . "mpv")
+                           ("mp3" . "mpv")
+                           ("mp4" . "mpv")
                            ("mkv" . "mpv")
                            ("webm" . "mpv"))))
 
