@@ -59,6 +59,17 @@
   (setq use-package-always-ensure t)
 #+END_SRC
 
+** Package Updates
+#+BEGIN_SRC emacs-lisp
+  (use-package auto-package-update
+    :config
+    (auto-package-update-maybe)
+    :custom
+    (auto-package-update-interval 7)
+    (auto-package-update-prompt-before-update t)
+    (auto-package-update-hide-results t))
+#+END_SRC
+
 ** Garbage Collection and Caching
 #+BEGIN_SRC emacs-lisp
   (setq gc-cons-threshold 20000000)
