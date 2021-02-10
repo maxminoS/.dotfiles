@@ -742,6 +742,10 @@
     ("C-n" . evil-multiedit-next)
     ("C-p" . evil-multiedit-prev)))
 
+(use-package password-store
+  :custom
+  (password-store-password-length 16))
+
 (use-package pdf-tools
   :init (add-to-list 'auto-mode-alist '("\\.pdf\\'" . pdf-view-mode))
   :bind (:map pdf-view-mode-map

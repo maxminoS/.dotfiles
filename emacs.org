@@ -1023,6 +1023,13 @@ Place custom scripts under =~/.emacs.d/lisp=
 
 
 * Applications
+** Password Store
+#+BEGIN_SRC emacs-lisp
+  (use-package password-store
+    :custom
+    (password-store-password-length 16))
+#+END_SRC
+
 ** PDF Tools
 | o | Outline mode |
 | i | Metadata     |
