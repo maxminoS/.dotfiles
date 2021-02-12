@@ -246,12 +246,13 @@
     "
   ^System^        ^Media^        ^Documents^    ^Development^
 -------------------------------------------------------------------------------------
-   _q_ quit       ^^             ^^             _t_ eshell
+   _q_ quit       ^^             _m_ mu4e       _t_ eshell
    ^^             ^^             ^^             _l_ lsp
    ^^             ^^             ^^             ^^
    ^^             ^^             ^^             ^^
   "
     ("q" nil)
+    ("m" mu4e)
     ("t" eshell)
     ("l" hydra-lsp/body))
 
@@ -741,6 +742,57 @@
   (:map evil-multiedit-insert-state-map
     ("C-n" . evil-multiedit-next)
     ("C-p" . evil-multiedit-prev)))
+
+(use-package mu4e
+  :ensure nil
+  :load-path "/usr/share/emacs/site-lisp/mu4e/"
+  :custom
+  (mu4e-change-filenames-when-moving t)
+  (mu4e-update-interval (* 10 60))
+  (mu4e-get-mail-command "mbsync -a")
+  :config
+  (setq mu4e-maildir "~/.mail")
+  (setq mu4e-contexts (list ))
+
+  (defun emax/auto-add-mu4e-contexts ()
+    "Automatically detects your .mbsyncrc configuration and creates an mu4e context for each email account.
+
+    This function uses a separator \"# Account: \" in .mbsyncrc to distinguish between accounts. It then uses IMAPAccount, User, and Path settings to create the contexts. Each context automatically sets the designated folder and may need to be changed if a different setting is desired.
+
+    If ~/.mbsyncrc is changed, run this function again to refresh and add the new accounts as contexts.
+
+    This is limited to only 10 accounts due to its indexing method.
+    "
+    (with-temp-buffer
+      (insert-file-contents "~/.mbsyncrc")
+      (keep-lines "\\(?:# Account: \\|IMAPAccount \\|User \\|Path \\)")
+      (replace-regexp "\\(?:IMAPAccount \\|User \\|Path \\)" "\ ")
+      (let ((idx 0))
+        (dolist (account (split-string (buffer-string) "\\(# Account: \\).*\n" t))
+          (let* ((data (split-string account "\n" t))
+                 (imapaccount (car data))
+                 (user (nth 1 data))
+                 (path (concat "/" (file-name-nondirectory (directory-file-name (car (last data)))))))
+            (add-to-list 'mu4e-contexts
+              (make-mu4e-context
+                :name (concat (number-to-string idx) imapaccount)
+                :match-func
+                  `(lambda (msg)
+                    (when msg
+                      (string-prefix-p ,path (mu4e-message-field msg :maildir))))
+                :vars `((user-mail-address  . ,user)
+                        (mu4e-refile-folder . ,(concat path "/All"))
+                        (mu4e-sent-folder   . ,(concat path "/Sent"))
+                        (mu4e-drafts-folder . ,(concat path "/Drafts"))
+                        (mu4e-trash-folder  . ,(concat path "/Trash"))
+                        (mu4e-maildir-shortcuts .
+                          ((:maildir ,(concat path "/All")   :key ?a)
+                            (:maildir ,(concat path "/Sent")  :key ?s)
+                            (:maildir ,(concat path "/Draft") :key ?d)
+                            (:maildir ,(concat path "/Trash") :key ?t))))) t))
+        (setq idx (1+ idx))))))
+
+  (emax/auto-add-mu4e-contexts))
 
 (use-package password-store
   :custom

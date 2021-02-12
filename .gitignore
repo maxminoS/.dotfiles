@@ -8,3 +8,4 @@ zsh/.config/zsh/.zsh_sessions
 /lisp/.secret.el
 /url/
 .lsp-session-v1
+/.last-package-update-day
