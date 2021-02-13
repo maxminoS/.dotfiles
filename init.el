@@ -187,7 +187,7 @@
   (display-time-default-load-average nil)
   (doom-modeline-buffer-encoding nil)
   (doom-modeline-workspace-name nil)
-  ;; (doom-modeline-mu4e t) ; Requires mu4e-alert
+  (doom-modeline-mu4e t) ; Requires mu4e-alert
   :config
   (display-battery-mode t)
   (display-time-mode t))
@@ -833,6 +833,9 @@
         (setq idx (1+ idx))))))
 
   (emax/auto-add-mu4e-contexts))
+
+(use-package mu4e-alert
+  :hook (after-init-hook . mu4e-alert-enable-mode-line-display))
 
 (use-package password-store
   :custom
