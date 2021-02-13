@@ -29,6 +29,10 @@
 ;; Enable narrowing
 (put 'narrow-to-region 'disabled nil)
 
+;; Disable external pin entry
+(setenv "GPG_AGENT_INFO" nil)
+(setq epa-pinentry-mode 'loopback)
+
 (require 'package)
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
                          ("org" . "https://orgmode.org/elpa/")

@@ -37,6 +37,10 @@
 
   ;; Enable narrowing
   (put 'narrow-to-region 'disabled nil)
+
+  ;; Disable external pin entry
+  (setenv "GPG_AGENT_INFO" nil)
+  (setq epa-pinentry-mode 'loopback)
 #+END_SRC
 
 ** Package Manager
