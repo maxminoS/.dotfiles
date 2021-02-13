@@ -757,7 +757,7 @@
   (defun emax/auto-add-mu4e-contexts ()
     "Automatically detects your .mbsyncrc configuration and creates an mu4e context for each email account.
 
-    This function uses a separator \"# Account: \" in .mbsyncrc to distinguish between accounts. It then uses IMAPAccount, User, and Path settings to create the contexts. Each context automatically sets the designated folder and may need to be changed if a different setting is desired.
+    This function uses a separator \"# Account: \" in .mbsyncrc to distinguish between accounts. It then uses IMAPAccount, User, and Path settings to create the contexts; it will also require \"# Full Name: \" to set the name and \"# SMTP \" in the next line of \"# Account: \" for the SMTP configurations. Each context automatically sets the designated folder and may need to be changed if a different setting is desired.
 
     If ~/.mbsyncrc is changed, run this function again to refresh and add the new accounts as contexts.
 
@@ -765,13 +765,15 @@
     "
     (with-temp-buffer
       (insert-file-contents "~/.mbsyncrc")
-      (keep-lines "\\(?:# Account: \\|IMAPAccount \\|User \\|Path \\)")
-      (replace-regexp "\\(?:IMAPAccount \\|User \\|Path \\)" "\ ")
+      (keep-lines "\\(?:# Account: \\|# Full Name: \\|# SMTP \\|IMAPAccount \\|User \\|Path \\)")
+      (replace-regexp "\\(?:# Full Name: \\|# SMTP \\|IMAPAccount \\|User \\|Path \\)" "\ ")
       (let ((idx 0))
         (dolist (account (split-string (buffer-string) "\\(# Account: \\).*\n" t))
           (let* ((data (split-string account "\n" t))
-                 (imapaccount (car data))
-                 (user (nth 1 data))
+                 (full-name (car data))
+                 (smtp (nth 1 data))
+                 (imapaccount (nth 2 data))
+                 (user (nth 3 data))
                  (path (concat "/" (file-name-nondirectory (directory-file-name (car (last data)))))))
             (add-to-list 'mu4e-contexts
               (make-mu4e-context
@@ -780,16 +782,37 @@
                   `(lambda (msg)
                     (when msg
                       (string-prefix-p ,path (mu4e-message-field msg :maildir))))
-                :vars `((user-mail-address  . ,user)
-                        (mu4e-refile-folder . ,(concat path "/All"))
-                        (mu4e-sent-folder   . ,(concat path "/Sent"))
-                        (mu4e-drafts-folder . ,(concat path "/Drafts"))
-                        (mu4e-trash-folder  . ,(concat path "/Trash"))
+                :vars `((user-mail-address      . ,user)
+                        (user-full-name         . ,full-name)
+                        (smtpmail-smtp-server   . ,smtp)
+                        (mu4e-refile-folder     . ,(concat path "/All"))
+                        (mu4e-sent-folder       . ,(concat path "/Sent"))
+                        (mu4e-drafts-folder     . ,(concat path "/Drafts"))
+                        (mu4e-trash-folder      . ,(concat path "/Trash"))
+                        (mu4e-bookmarks .
+                          ((:name ,(concat "Unread - " user)
+                            :query ,(concat "flag:unread AND NOT flag:trashed AND m:" path "/All")
+                            :key ?u)
+                           (:name ,(concat "Today - " user)
+                            :query ,(concat "date:today..now AND m:" path "/All")
+                            :key ?t)
+                           (:name ,(concat "Week - " user)
+                            :query ,(concat "date:7d..now AND m:" path "/All")
+                            :key ?w)
+                           (:name "Unread - All"
+                            :query "flag:unread AND NOT flag:trashed"
+                            :key ?U)
+                           (:name "Today - All"
+                            :query "date:today..now"
+                            :key ?T)
+                           (:name "Week - All"
+                            :query "date:7d..now"
+                            :key ?W)))
                         (mu4e-maildir-shortcuts .
                           ((:maildir ,(concat path "/All")   :key ?a)
-                            (:maildir ,(concat path "/Sent")  :key ?s)
-                            (:maildir ,(concat path "/Draft") :key ?d)
-                            (:maildir ,(concat path "/Trash") :key ?t))))) t))
+                           (:maildir ,(concat path "/Sent")  :key ?s)
+                           (:maildir ,(concat path "/Draft") :key ?d)
+                           (:maildir ,(concat path "/Trash") :key ?t))))) t))
         (setq idx (1+ idx))))))
 
   (emax/auto-add-mu4e-contexts))
