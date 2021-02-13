@@ -834,6 +834,13 @@
 
   (emax/auto-add-mu4e-contexts))
 
+(use-package org-mime
+  :hook (message-send-hook . org-mime-htmlize)
+  :custom
+  (org-mime-export-options '(:section-numbers nil
+                             :with-author nil
+                             :with-toc nil)))
+
 (use-package mu4e-alert
   :hook (after-init-hook . mu4e-alert-enable-mode-line-display))
 

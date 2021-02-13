@@ -1127,6 +1127,16 @@ Place custom scripts under =~/.emacs.d/lisp=
   (emax/auto-add-mu4e-contexts))
 #+END_SRC
 
+*** Org Mime
+#+BEGIN_SRC emacs-lisp
+  (use-package org-mime
+    :hook (message-send-hook . org-mime-htmlize)
+    :custom
+    (org-mime-export-options '(:section-numbers nil
+                               :with-author nil
+                               :with-toc nil)))
+#+END_SRC
+
 *** Alerts
 #+BEGIN_SRC emacs-lisp
   (use-package mu4e-alert
