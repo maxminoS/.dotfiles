@@ -330,17 +330,43 @@ Place custom scripts under =~/.emacs.d/lisp=
     "
   ^System^        ^Media^        ^Documents^    ^Development^
 -------------------------------------------------------------------------------------
-   _q_ quit       ^^             _m_ mu4e       _t_ eshell
+   _q_ quit       _s_ spotify    _m_ mu4e       _t_ eshell
    ^^             ^^             ^^             _l_ lsp
    ^^             ^^             ^^             ^^
    ^^             ^^             ^^             ^^
   "
     ("q" nil)
+    ("s" hydra-spotify/body)
     ("m" mu4e)
     ("t" eshell)
     ("l" hydra-lsp/body))
 
   (global-set-key (kbd "C-a") 'hydra-applications/body)
+#+END_SRC
+
+*** Spotify
+#+BEGIN_SRC emacs-lisp
+  (defhydra hydra-spotify (:hint nil)
+      "
+   ^Search^                      ^Controls^
+  ---------------------------------------------------------
+   [_t_] Track       [_+_]  /  [_-_]   [_SPC_]  / 
+   [_a_] Album       [_h_]  /  [_l_]   [_0_] 
+   [_p_] Playlist    [_r_]  /  [_s_]   [_d_]  "
+      ("t" counsel-spotify-search-tracks-by-album :exit t)
+      ("a" counsel-spotify-search-album :exit t)
+      ("p" spotify-my-playlists :exit t)
+
+      ("SPC" spotify-toggle-play :exit nil)
+      ("h" spotify-previous-track :exit nil)
+      ("l" spotify-next-track :exit nil)
+      ("r" spotify-toggle-repeat :exit nil)
+      ("s" spotify-toggle-shuffle :exit nil)
+
+      ("+" spotify-volume-up :exit nil)
+      ("-" spotify-volume-down :exit nil)
+      ("0" spotify-volume-mute-unmute :exit nil)
+      ("d" spotify-select-device :exit nil))
 #+END_SRC
 
 *** LSP Mode
@@ -1141,6 +1167,29 @@ Place custom scripts under =~/.emacs.d/lisp=
 #+BEGIN_SRC emacs-lisp
   (use-package mu4e-alert
     :hook (after-init-hook . mu4e-alert-enable-mode-line-display))
+#+END_SRC
+
+** Spotify
+#+BEGIN_SRC emacs-lisp
+  (use-package spotify
+    :load-path "~/.emacs.d/lisp/spotify.el"
+    :config
+    (use-package simple-httpd)
+    (use-package oauth2)
+    :custom
+    (spotify-player-status-format "[%p %t - %a%r%s] ")
+    (spotify-player-status-playing-text "")
+    (spotify-player-status-paused-text "")
+    (spotify-player-status-stopped-text "")
+    (spotify-player-status-repeating-text " ")
+    (spotify-player-status-not-repeating-text "")
+    (spotify-player-status-shuffling-text "")
+    (spotify-player-status-not-shuffling-text "")
+    (spotify-api-search-limit 50))
+
+  (use-package counsel-spotify
+    :custom
+    (counsel-spotify-service-name "spotifyd"))
 #+END_SRC
 
 ** Password Store
