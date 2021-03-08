@@ -302,7 +302,7 @@
  [_t_] Track       [_-_]  /  [_+_]  [_SPC_]  / 
  [_a_] Album       [_h_]  /  [_l_]    [_0_] 
  [_p_] Playlist    [_r_]  /  [_s_]    [_d_]  "
-    ("t" counsel-spotify-search-tracks-by-album :exit t)
+    ("t" counsel-spotify-search-track :exit t)
     ("a" counsel-spotify-search-album :exit t)
     ("p" spotify-my-playlists :exit t)
 
