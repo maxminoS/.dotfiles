@@ -647,6 +647,11 @@
   (eshell-toggle-use-projectile-root t)
   (eshell-toggle-run-command nil))
 
+(when (equal system-type 'darwin)
+  (use-package exec-path-from-shell
+    :config
+    (exec-path-from-shell-initialize)))
+
 (use-package vterm
   :custom
   (vterm-module-cmake-args "-DUSE_SYSTEM_LIBVTERM=no")

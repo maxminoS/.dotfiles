@@ -879,6 +879,11 @@ Place secrets in =~/.emacs.d/lisp/.secret.el=
 
 ** VTerm
 #+BEGIN_SRC emacs-lisp
+  (when (equal system-type 'darwin)
+    (use-package exec-path-from-shell
+      :config
+      (exec-path-from-shell-initialize)))
+
   (use-package vterm
     :custom
     (vterm-module-cmake-args "-DUSE_SYSTEM_LIBVTERM=no")
