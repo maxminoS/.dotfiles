@@ -513,9 +513,8 @@ Place secrets in =~/.emacs.d/lisp/.secret.el=
 | P | peep-dired |
 #+BEGIN_SRC emacs-lisp
   (use-package peep-dired
-    :bind (:map dired-mode-map
-              ("P" . peep-dired))
     :custom
+    (evil-define-key 'normal dired-mode-map "P" 'peep-dired)
     (peep-dired-cleanup-on-disable t)
     (peep-dired-cleanup-eagerly t)
     (peep-dired-enable-on-directories nil)
@@ -684,6 +683,7 @@ Place secrets in =~/.emacs.d/lisp/.secret.el=
 | m     | Merge         |
 #+BEGIN_SRC emacs-lisp
   (use-package magit
+    :bind (("C-x g" . magit-status))
     :custom
     (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 

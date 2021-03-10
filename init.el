@@ -380,9 +380,8 @@
                            ("webm" . "mpv"))))
 
 (use-package peep-dired
-  :bind (:map dired-mode-map
-            ("P" . peep-dired))
   :custom
+  (evil-define-key 'normal dired-mode-map "P" 'peep-dired)
   (peep-dired-cleanup-on-disable t)
   (peep-dired-cleanup-eagerly t)
   (peep-dired-enable-on-directories nil)
@@ -500,6 +499,7 @@
       ((org-agenda-overriding-header "  Completed Tasks\n -----------------\n")))))))
 
 (use-package magit
+  :bind (("C-x g" . magit-status))
   :custom
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
