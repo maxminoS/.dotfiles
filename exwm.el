@@ -1,6 +1,3 @@
-;; Start compositor
-(start-process-shell-command "picom" nil "picom")
-
 ;; Run command in background function
 (defun emax/run-in-background (command)
   (let ((command-parts (split-string command "[ ]+")))
@@ -42,9 +39,11 @@
   ;; Polybar
   (emax/start-panel)
   ;; Autostart Daemons
-  (start-process-shell-command "playerctld" nil "playerctld daemon")
+  (start-process-shell-command "playerctld" nil "playerctld")
+  (start-process-shell-command "spotifyd" nil "spotifyd")
   (start-process-shell-command "dropbox" nil "dropbox")
   ;; Background applets
+  (emax/run-in-background "picom")
   (emax/run-in-background "nm-applet")
   (emax/run-in-background "pasystray")
   (emax/run-in-background "blueman-applet"))

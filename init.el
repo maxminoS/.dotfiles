@@ -915,6 +915,7 @@
   :config
   (use-package simple-httpd)
   (use-package oauth2)
+  (evil-define-key 'normal spotify-playlist-search-mode-map "C-c i" 'spotify-playlist-load-more)
   :custom
   (spotify-oauth2-client-id emax/spotify-client-id)
   (spotify-oauth2-client-secret emax/spotify-client-secret)
