@@ -6,6 +6,7 @@ zsh/.config/zsh/.zsh_sessions
 /cache/
 /elpa/
 /lisp/.secret.el
+/lisp/.authinfo.gpg
 /url/
 .lsp-session-v1
 /.last-package-update-day

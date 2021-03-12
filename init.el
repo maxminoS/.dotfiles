@@ -511,7 +511,9 @@
   :custom
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
-(use-package forge)
+(use-package forge
+  :custom
+  (auth-sources '("~/.emacs.d/lisp/.authinfo.gpg")))
 
 (use-package projectile
   :diminish projectile-mode
