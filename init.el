@@ -964,6 +964,11 @@
     (setq line-spacing 0.3)
     (setq word-wrap t)))
 
+(when (equal system-type 'darwin)
+  (use-package elcord
+    :config
+    (elcord-mode 1)))
+
 (use-package define-word
   :bind ("C-c d" . define-word-at-point))
 

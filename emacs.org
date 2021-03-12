@@ -1292,6 +1292,14 @@ Place secrets in =~/.emacs.d/lisp/.secret.el=
       (setq word-wrap t)))
 #+end_src
 
+** discord.el
+#+BEGIN_SRC emacs-lisp
+  (when (equal system-type 'darwin)
+    (use-package elcord
+      :config
+      (elcord-mode 1)))
+#+END_SRC
+
 ** Dictionary
 | C-c d | Define this word |
 #+BEGIN_SRC emacs-lisp
