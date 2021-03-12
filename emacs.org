@@ -341,15 +341,16 @@ Place secrets in =~/.emacs.d/lisp/.secret.el=
     "
   ^System^      ^Media^        ^Documents^    ^Development^
 -----------------------------------------------------
- _q_ quit       _s_ spotify    _g_ goto       _t_ eshell
+ _q_ quit       _s_ spotify    _g_ goto       _t_ vterm
  ^^             ^^             _m_ mu4e       _l_ lsp
- ^^             ^^             ^^             ^^
+ ^^             ^^             ^^             _e_ eshell
  ^^             ^^             ^^             ^^"
     ("q" nil)
     ("s" hydra-spotify/body)
     ("g" hydra-goto/body)
     ("m" mu4e)
-    ("t" eshell)
+    ("t" vterm)
+    ("e" eshell)
     ("l" hydra-lsp/body))
 
   (global-set-key (kbd "C-x a") 'hydra-applications/body)
