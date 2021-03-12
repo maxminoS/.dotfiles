@@ -38,7 +38,7 @@
   ;; Enable narrowing
   (put 'narrow-to-region 'disabled nil)
 
-  ;; Set frame transparency
+  ;; Set frame transparency (needs compositor)
   (set-frame-parameter (selected-frame) 'alpha '(90 . 90))
   (add-to-list 'default-frame-alist '(alpha . (90 . 90)))
   (set-frame-parameter (selected-frame) 'fullscreen 'maximized)
@@ -70,6 +70,7 @@
 #+END_SRC
 
 ** Package Updates
+Prompts for package updates every 7 days.
 #+BEGIN_SRC emacs-lisp
   (use-package auto-package-update
     :config
@@ -110,7 +111,7 @@
 
 ** Scripts and Secrets
 Place custom scripts under =~/.emacs.d/lisp=
-Place secrets in =~/.emacs.d/lisp/.secret.el=
+Set the listed secrets in =~/.emacs.d/lisp/.secret.el=
 #+BEGIN_SRC emacs-lisp
   (defvar emax/spotify-client-id nil)
   (defvar emax/spotify-client-secret nil)
@@ -243,6 +244,9 @@ Place secrets in =~/.emacs.d/lisp/.secret.el=
 #+END_SRC
 
 ** Modeline
+Install fonts on first install:
+~M-x all-the-icons-install-fonts~
+
 #+BEGIN_SRC emacs-lisp
   (use-package all-the-icons)
 
@@ -357,6 +361,8 @@ Place secrets in =~/.emacs.d/lisp/.secret.el=
 #+END_SRC
 
 *** File
+Requires Dropbox files
+
 #+BEGIN_SRC emacs-lisp
   (defhydra hydra-goto (:exit t)
       "
@@ -465,6 +471,8 @@ Place secrets in =~/.emacs.d/lisp/.secret.el=
 | G       | Change file group                                   |
 | S       | Create symbolic link                                |
 | L       | Load Elisp file                                     |
+
+In macOS, you may need to add permission for Emacs (or ruby) to have file access to enable dired
 
 #+BEGIN_SRC emacs-lisp
   (use-package dired
@@ -689,6 +697,17 @@ Place secrets in =~/.emacs.d/lisp/.secret.el=
 | b     | Branch        |
 | p     | Push          |
 | m     | Merge         |
+
+Magit is a Git porcelain within Emacs
+
+Set the appropriate usernames:
+=git config --global github.user USERNAME=
+=git config --global gitlab.user USERNAME=
+
+Create Personal Access Tokens and store them as =/.emacs.d/lisp/.authinfo.gpg=
+
+Requires: =git=
+
 #+BEGIN_SRC emacs-lisp
   (use-package magit
     :bind (("C-x g" . magit-status))
@@ -730,6 +749,7 @@ Place secrets in =~/.emacs.d/lisp/.secret.el=
   (define-key evil-window-map (kbd "<up>") 'windmove-swap-states-up)
   (define-key evil-window-map (kbd "<right>") 'windmove-swap-states-right)
 #+END_SRC
+
 *** Tab Bar Mode
 | C-w n | New tab              |
 | gt/T  | Next or previous tab |
@@ -888,6 +908,10 @@ Place secrets in =~/.emacs.d/lisp/.secret.el=
 #+END_SRC
 
 ** VTerm
+VTerm is a terminal emulator within Emacs with a core written in C.
+
+Requires: =cmake=, =libtool-bin=, =libvterm[-dev]=
+
 #+BEGIN_SRC emacs-lisp
   (when (equal system-type 'darwin)
     (use-package exec-path-from-shell
@@ -903,6 +927,11 @@ Place secrets in =~/.emacs.d/lisp/.secret.el=
 
 * Development
 ** LSP Mode
+Install the required Language Servers by:
+- https://emacs-lsp.github.io/lsp-mode/
+- Opening the appropriate files
+- =M-x lsp-install-server=
+
 #+BEGIN_SRC emacs-lisp
   (use-package lsp-mode
     :init
@@ -1115,10 +1144,27 @@ Place secrets in =~/.emacs.d/lisp/.secret.el=
 | u | Unmark        |   |               |   |            |
 | U | Unmark all    |   |               |   |            |
 | x | Execute all   |   |               |   |            |
+
+Loads the =~/.config/isync/mbsyncrc= set configuration file for email accounts
+
+Setup:
+#+BEGIN_SRC sh
+mkdir ~/.config/mail
+mbsync -a
+
+mu index --maildir=~/.config/mail \
+    --my-address=EMAIL_ADDRESS_1 \
+    --my-address=EMAIL_ADDRESS_2
+#+END_SRC
+
+Requires: =mu=, =mu4e=, =isync=
+
 #+BEGIN_SRC emacs-lisp
 (use-package mu4e
+  ;; Arch
   :ensure nil
   :load-path "/usr/share/emacs/site-lisp/mu4e/"
+
   :custom
   (mail-user-agent 'mu4e-user-agent)
   (mu4e-change-filenames-when-moving t)
@@ -1137,7 +1183,7 @@ Place secrets in =~/.emacs.d/lisp/.secret.el=
   (smtpmail-smtp-service 465)
   (smtpmail-stream-type 'ssl)
   :config
-  (setq mu4e-maildir "~/.mail")
+  (setq mu4e-maildir "~/.config/mail")
   (setq mu4e-contexts (list ))
 
   (defun emax/auto-add-mu4e-contexts ()
@@ -1150,7 +1196,7 @@ Place secrets in =~/.emacs.d/lisp/.secret.el=
     This is limited to only 10 accounts due to its indexing method.
     "
     (with-temp-buffer
-      (insert-file-contents "~/.mbsyncrc")
+      (insert-file-contents "~/.config/isync/mbsyncrc")
       (keep-lines "\\(?:# Account: \\|# Full Name: \\|# SMTP \\|IMAPAccount \\|User \\|Path \\)")
       (replace-regexp "\\(?:# Full Name: \\|# SMTP \\|IMAPAccount \\|User \\|Path \\)" "\ ")
       (let ((idx 0))
@@ -1221,6 +1267,12 @@ Place secrets in =~/.emacs.d/lisp/.secret.el=
 #+END_SRC
 
 ** Spotify
+Spotify interface for Emacs using spotify.el and counsel-spotify
+
+=git clone https://github.com/danielfm/spotify.el= in =~/.emacs.d/lisp.spotify.el=
+
+Requires: =spotifyd=
+
 #+BEGIN_SRC emacs-lisp
   (use-package spotify
     :load-path "~/.emacs.d/lisp/spotify.el"
@@ -1248,6 +1300,12 @@ Place secrets in =~/.emacs.d/lisp/.secret.el=
 #+END_SRC
 
 ** Password Store
+Import the appropriate GPG keys
+
+=git clone https://github.com/maxminoS/.password-store= in the pass directory
+
+Requires: =gpg=, =pass[word-store]=
+
 #+BEGIN_SRC emacs-lisp
   (use-package password-store
     :custom
@@ -1259,6 +1317,11 @@ Place secrets in =~/.emacs.d/lisp/.secret.el=
 | i | Metadata     |
 | s | Search       |
 | d | Dark mode    |
+
+Requirements:
+- Linux: =gcc=, =g++=, =automake=, =autoconf=, =libpng-dev=, =zlib1g-dev=, =libpoppler-glib-dev=, =libpoppler-private-dev=, =imagemagick=
+- macOS: =brew install poppler automake= and =export PKG_CONFIG_PATH=/usr/local/Cellar/zlib/1.2.8/lib/pkgconfig:/usr/local/lib/pkgconfig:/opt/X11/lib/pkgconfig=
+
 #+BEGIN_SRC emacs-lisp
     (use-package pdf-tools
       :init (add-to-list 'auto-mode-alist '("\\.pdf\\'" . pdf-view-mode))
@@ -1283,6 +1346,9 @@ Place secrets in =~/.emacs.d/lisp/.secret.el=
 | ] ] | nov-next-document      |
 | g r | Render                 |
 | g ? | Metadata               |
+
+Requires: =unzip=
+
 #+begin_src emacs-lisp
   (use-package nov
     :init (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
@@ -1297,6 +1363,8 @@ Place secrets in =~/.emacs.d/lisp/.secret.el=
 #+end_src
 
 ** discord.el
+Enable Discord rich presence for macOS systems
+
 #+BEGIN_SRC emacs-lisp
   (when (equal system-type 'darwin)
     (use-package elcord

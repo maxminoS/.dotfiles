@@ -29,7 +29,7 @@
 ;; Enable narrowing
 (put 'narrow-to-region 'disabled nil)
 
-;; Set frame transparency
+;; Set frame transparency (needs compositor)
 (set-frame-parameter (selected-frame) 'alpha '(90 . 90))
 (add-to-list 'default-frame-alist '(alpha . (90 . 90)))
 (set-frame-parameter (selected-frame) 'fullscreen 'maximized)
@@ -818,8 +818,10 @@
     ("C-p" . evil-multiedit-prev)))
 
 (use-package mu4e
+  ;; Arch
   :ensure nil
   :load-path "/usr/share/emacs/site-lisp/mu4e/"
+
   :custom
   (mail-user-agent 'mu4e-user-agent)
   (mu4e-change-filenames-when-moving t)
@@ -838,7 +840,7 @@
   (smtpmail-smtp-service 465)
   (smtpmail-stream-type 'ssl)
   :config
-  (setq mu4e-maildir "~/.mail")
+  (setq mu4e-maildir "~/.config/mail")
   (setq mu4e-contexts (list ))
 
   (defun emax/auto-add-mu4e-contexts ()
@@ -851,7 +853,7 @@
     This is limited to only 10 accounts due to its indexing method.
     "
     (with-temp-buffer
-      (insert-file-contents "~/.mbsyncrc")
+      (insert-file-contents "~/.config/isync/mbsyncrc")
       (keep-lines "\\(?:# Account: \\|# Full Name: \\|# SMTP \\|IMAPAccount \\|User \\|Path \\)")
       (replace-regexp "\\(?:# Full Name: \\|# SMTP \\|IMAPAccount \\|User \\|Path \\)" "\ ")
       (let ((idx 0))
