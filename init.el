@@ -387,8 +387,9 @@
                            ("webm" . "mpv"))))
 
 (use-package peep-dired
-  :custom
+  :config
   (evil-define-key 'normal dired-mode-map "P" 'peep-dired)
+  :custom
   (peep-dired-cleanup-on-disable t)
   (peep-dired-cleanup-eagerly t)
   (peep-dired-enable-on-directories nil)
