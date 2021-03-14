@@ -823,10 +823,13 @@
     ("C-n" . evil-multiedit-next)
     ("C-p" . evil-multiedit-prev)))
 
+(setq emax/mu4e-load-path "/usr/share/emacs/site-lisp/mu4e/")
+  (when (equal system-type 'darwin)
+    (setq emax/mu4e-load-path "/usr/local/Cellar/mu/1.4.15/share/emacs/site-lisp/mu/mu4e/"))
+
 (use-package mu4e
-  ;; Arch
   :ensure nil
-  :load-path "/usr/share/emacs/site-lisp/mu4e/"
+  :load-path emax/mu4e-load-path
 
   :custom
   (mail-user-agent 'mu4e-user-agent)
