@@ -660,7 +660,7 @@
 (when (equal system-type 'darwin)
   (use-package exec-path-from-shell
     :custom
-    (exec-path-from-shell-variables '("PATH" "MANPATH" "XDG_CONFIG_HOME" "XDG_CACHE_HOME" "XDG_DATA_HOME" "ZDOTDIR" "PASSWORD_STORE_DIR"))
+    (exec-path-from-shell-variables '("PATH" "MANPATH" "XDG_CONFIG_HOME" "XDG_CACHE_HOME" "XDG_DATA_HOME" "ZDOTDIR" "PASSWORD_STORE_DIR" "GNUPGHOME"))
     :config
     (exec-path-from-shell-initialize)))
 
