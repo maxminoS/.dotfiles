@@ -1,0 +1,268 @@
+#+TITLE:DOTFILES
+
+* Setting up
+** Base Directories
+Make sure these directories exist in the home folder:
+- .bin/ (custom scripts)
+- Bookshelf/ (books, articles)
+- Development/ (programming)
+- Documents/
+- Downloads/
+- Dropbox/
+- Gallery/ (pictures)
+- Transmission/ (torrents)
+- Videos/
+
+** Private Files
+- GPG Public & Secret Keys (gpg)
+- =mbsyncrc= (mail)
+- =~/.emacs.d/lisp/.authinfo.gpg= (magit, mu4e)
+- =.secrets.el= (spotifyd)
+- =spotifyd.conf= (spotifyd)
+
+** Package Manager
+- *Arch*: pacman
+- *AUR*: yay
+#+BEGIN_SRC sh
+sudo pacman -S base-devel
+git clone https://aur.archlinux.org/yay-git.git
+cd yay-git
+makepkg -si
+#+END_SRC
+
+- *Debian*: apt
+- *macOS*: brew =/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"=
+
+** Base Setup
+1. Install =emacs=, =git=, =gpg=, =pass=, =stow=, =zsh=
+2. =git clone https://github.com/maxminoS/dotfiles=
+3. Stow, at the least, the following packages: =git=, =zsh=, =bash= (linux)
+4. Restart for environment variables to take effect
+5. =git clone https://github.com/maxminoS/.emacs.d=
+6. If on macOS, add Emacs or ruby to have file access (dired)
+7. Install Dropbox (org-mode)
+8. Import GPG Keys =gpg --import <key_file>=
+9. =cd ~/.local/share/= then clone =.password-store/=
+
+If on macOS, install =git=, clone dotfiles, run =./brew.sh= to auto-install everything, and =./.macos= to setup desktop
+
+** Emacs
+*** Before Opening
+**** Magit
+1. Set the appropriate usernames:
+=git config --global user.name "maxminoS"=
+=git config --global user.email "email@address.com"=
+
+2. Create Personal Access Tokens and store them as =~/.emacs.d/lisp/.authinfo.gpg=
+#+BEGIN_SRC conf
+# -*- epa-file-encrypt-to: ("gpg@email.com") -*-
+machine api.github.com login <username>^forge password <token>
+machine gitlab.com/api/v4 login <username>^forge password <token>
+#+END_SRC
+
+**** VTerm
+Install: =cmake=, =libtool-bin=, =libvterm[-dev]=
+
+**** mu4e
+1. Install =mu= (including =mu4e=) and =isync=
+2. Add email authentication to =~/.emacs.d/lisp/.authinfo.gpg=
+#+BEGIN_SRC conf
+# -*- epa-file-encrypt-to: ("gpg@email.com") -*-
+...
+machine smtp.gmail.com login <email@address.com> password <password> port 465
+#+END_SRC
+
+3. Create appropriate =~/.config/isync/mbsyncrc=
+#+BEGIN_SRC conf
+# Account: email1@address.com
+# Full Name: Your F. Name
+# SMTP smtp.gmail.com
+IMAPAccount <username1>-gmail
+Host imap.gmail.com
+User email1@address.com
+PassCmd "pass Mail/email1\@address.com"
+SSLType IMAPS
+# Linux
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+# macOS
+CertificateFile /usr/local/etc/openssl/cert.pem
+AuthMechs PLAIN
+
+# Remote
+IMAPStore <username1>-gmail-remote
+Account <username1>-gmail
+
+# Local
+MaildirStore <username1>-gmail-local
+Subfolders Verbatim
+Path ~/.config/mail/email1@address.com/
+Inbox ~/.config/mail/email1@address.com/Inbox
+
+# Channels
+Channel <username1>-gmail-inbox
+Far :<username1>-gmail-remote:
+Near :<username1>-gmail-local:
+Patterns "Inbox"
+Create Both
+SyncState *
+
+Channel <username1>-gmail-sent
+Far :<username1>-gmail-remote:"[Gmail]/Sent Mail"
+Near :<username1>-gmail-local:"Sent"
+Create Both
+SyncState *
+
+Channel <username1>-gmail-trash
+Far :<username1>-gmail-remote:"[Gmail]/Trash"
+Near :<username1>-gmail-local:"Trash"
+Create Both
+SyncState *
+
+Channel <username1>-gmail-all
+Far :<username1>-gmail-remote:"[Gmail]/All Mail"
+Near :<username1>-gmail-local:"All"
+Create Both
+SyncState *
+
+Channel <username1>-gmail-starred
+Far :<username1>-gmail-remote:"[Gmail]/Starred"
+Near :<username1>-gmail-local:"Starred"
+Create Both
+SyncState *
+
+# Group
+Group <username1>-gmail
+Channel <username1>-gmail-inbox
+Channel <username1>-gmail-sent
+Channel <username1>-gmail-trash
+Channel <username1>-gmail-all
+Channel <username1>-gmail-starred
+
+
+# Account: email2@address.com
+...
+#+END_SRC
+
+4. Make the appropriate email directories in =~/.config/mail=
+5. =mbsync -a=
+6. Initialize =mu=
+#+BEGIN_SRC
+mu init --maildir=~/.config/mail \
+    --my-address=EMAIL_ADDRESS_1 \
+    --my-address=EMAIL_ADDRESS_2
+
+mu index
+#+END_SRC
+
+**** spotifyd
+1. Install =spotifyd=
+2. Set spotifyd configuration in =~/.config/spotifyd/spotifyd.conf=
+#+BEGIN_SRC conf
+[global]
+username = ""
+password = ""
+backend = "" # Check =spotifyd -h= to search available backends
+device_name = ""
+device_type = "computer"
+bitrate = 320
+#+END_SRC
+
+3. Set spotify client ID and secret in =~/.emacs.d/lisp/.secret.el=
+#+BEGIN_SRC emacs-lisp
+(setq emax/spotify-client-id "<client-id>")
+(setq emax/spotify-client-secret "<client-secret>")
+#+END_SRC
+
+4. =cd ~/.emacs.d/lisp= then =git clone https://github.com/danielfm/spotify.el=
+5. Make launch at startup
+
+*** Within Emacs
+- =M-x all-the-icons-install-fonts=
+- Install =unzip= (nov.el)
+**** LSP Mode
+**** PDF Tools
+- Linux: =gcc=, =g++=, =automake=, =autoconf=, =libpng-dev=, =zlib1g-dev=, =libpoppler-glib-dev=, =libpoppler-private-dev=, =imagemagick=
+- macOS: =brew install poppler automake= and =export PKG_CONFIG_PATH=/usr/local/Cellar/zlib/1.2.8/lib/pkgconfig:/usr/local/lib/pkgconfig:/opt/X11/lib/pkgconfig=
+
+
+* Manual
+** Stow
+- =stow <packages>= dotfiles directory to stow listed packages
+- Each package must be in the appropriate directory structure
+- =stow -D <packages>= to unlink packages
+
+** GPG
+- List keys: =gpg -k=
+- Export keys:
+  =gpg -o public-key.gpg --export --armor --key email@address.com=
+  =gpg -o secret-key.gpg --export-secret-key --armor email@address.com=
+- Import keys: =gpg --import <key_file>=
+
+
+* Installations
+** Command Line Applications
+| *App*          | *Arch*               | *macOS*                       | *Debian*  |
+|                | *pacman -S*          | *brew install*                | *apt-get* |
+| git            | git                  | git                           |           |
+| gpg            | gnupg                | gnupg                         |           |
+| stow           | stow                 | stow                          |           |
+| zsh            | zsh                  | zsh                           |           |
+| pass           | pass                 | pass                          |           |
+| unzip          | unzip                | unzip                         |           |
+| vim            | vim                  | vim --with-override-system-vi |           |
+| ffmpeg         | ffmpeg               | ffmpeg                        |           |
+| htop           | htop                 | htop                          |           |
+| neofetch       | neofetch             | neofetch                      |           |
+| wget           | wget                 | wget --with-iri               |           |
+| curl           | curl                 | curl                          |           |
+| python         | python               | python@3.9                    |           |
+| node           | nodejs               | node                          |           |
+| npm            | npm                  | node                          |           |
+| yarn           | yarn                 | yarn                          |           |
+| typescript     | *npm i -g*           | typescript                    |           |
+| go             | go                   | go                            |           |
+| picom          | picom                | *Not macOS*                   |           |
+| cmake          | cmake                | cmake                         |           |
+| libtool-bin    | libtool              | libtool                       |           |
+| libvterm[-dev] | libvterm             | libvterm                      |           |
+| mu             | *yay* mu             | mu                            |           |
+| isync          | isync                | isync                         |           |
+| spotifyd       | spotifyd             | spotifyd                      |           |
+| youtube-dl     | youtube-dl           | youtube-dl                    |           |
+| windscribe     | *yay* windscribe-cli | windscribe                    |           |
+| gcc            | gcc                  | gcc                           |           |
+| automake       | automake             | automake                      |           |
+| autoconf       | autoconf             | autoconf                      |           |
+| libpng-dev     | libpng               | libpng                        |           |
+| zlib1g-dev     | zlib                 | zlib                          |           |
+| imagemagick    | imagemagick          | imagemagick                   |           |
+| poppler        | poppler              | poppler                       |           |
+| coreutils      | *Installed*          | coreutils                     |           |
+| moreutils      | *Installed*          | moreutils                     |           |
+| findutils      | *Installed*          | findutils                     |           |
+| gnu-sed        | *Installed*          | gnu-sed --with-default-names  |           |
+| grep           | *Installed*          | grep                          |           |
+| openssh        | *Installed*          | openssh                       |           |
+| ssh-copy-id    | *Installed*          | ssh-copy-id                   |           |
+
+** Desktop Applications
+| *App*       | *Arch*               | *macOS*               | *Debian*    |
+|             | *pacman -S*          | *brew install --cask* | *apt-get*   |
+| emacs       | emacs                | emacs --with-modules  |             |
+| chrome      | *yay* google-chrome  | google-chrome         |             |
+| firefox     | firefox              | firefox               |             |
+| tor         | torbrowser-launcher  | tor-browser           |             |
+| pcmanfm     | pcmanfm-gtk3         | *Not macOS*           |             |
+| alacritty   | alacritty            | alacritty             |             |
+| xterm       | xterm                | *Not macOS*           |             |
+| spotify     | *yay* spotify        | spotify               |             |
+| dropbox     | *yay* dropbox        | dropbox               |             |
+| discord     | discord              | discord               |             |
+| feh         | feh                  | *Not macOS*           |             |
+| mpv         | mpv                  | mpv                   |             |
+| vlc         | vlc                  | vlc                   |             |
+| gimp        | gimp                 | gimp                  |             |
+| inkscape    | inkscape             | inkscape              |             |
+| qbittorrent | qbittorrent          | qbittorrent           |             |
+| zoom        | *Not Linux*          | zoom                  | *Not Linux* |
+| warp        | *Not Linux*          | cloudflare-warp       | *Not Linux* |

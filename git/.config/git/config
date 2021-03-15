@@ -1,0 +1,9 @@
+[user]
+	email = maxminos.1@gmail.com
+	name = maxminoS
+[credential]
+	helper = store
+[github]
+	user = maxminoS
+[init]
+	defaultBranch = main
