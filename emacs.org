@@ -750,6 +750,22 @@ Requires: =git=
   (define-key evil-window-map (kbd "<right>") 'windmove-swap-states-right)
 #+END_SRC
 
+*** Monocle
+| C-w RET | Monocle |
+#+BEGIN_SRC emacs-lisp
+  (defvar emax/monocle-windows nil)
+  (defun emax/toggle-monocle ()
+    "Monocle window mode"
+    (interactive)
+    (if (one-window-p)
+        (when emax/monocle-windows
+          (set-window-configuration emax/monocle-windows))
+      (setq emax/monocle-windows (current-window-configuration))
+      (delete-other-windows)))
+
+  (define-key evil-window-map (kbd "RET") 'emax/toggle-monocle)
+#+END_SRC
+
 *** Tab Bar Mode
 | C-w n | New tab              |
 | gt/T  | Next or previous tab |

@@ -530,6 +530,18 @@
 (define-key evil-window-map (kbd "<up>") 'windmove-swap-states-up)
 (define-key evil-window-map (kbd "<right>") 'windmove-swap-states-right)
 
+(defvar emax/monocle-windows nil)
+(defun emax/toggle-monocle ()
+  "Monocle window mode"
+  (interactive)
+  (if (one-window-p)
+      (when emax/monocle-windows
+        (set-window-configuration emax/monocle-windows))
+    (setq emax/monocle-windows (current-window-configuration))
+    (delete-other-windows)))
+
+(define-key evil-window-map (kbd "RET") 'emax/toggle-monocle)
+
 (tab-bar-mode)
 (setq tab-bar-close-button-show nil
       tab-bar-new-button-show nil)
