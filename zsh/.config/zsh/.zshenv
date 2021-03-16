@@ -26,8 +26,11 @@ export VIMINIT="source $XDG_CONFIG_HOME/vim/vimrc"
 export PATH="$(find "$HOME/.bin" -type d | paste -sd: - ):$PATH"
 
 # macOS
-if [[ $OSTYPE == "darwin" ]]; then
+if [[ ! $OSTYPE == "linux-gnu" ]]; then
     # Adds GNU coreutils to PATH
     export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
+    export PATH="$(brew --prefix)/libexec/gnubin:$PATH"
     export MANPATH="$(brew --prefix coreutils)/libexec/gnuman:$MANPATH"
+    # Adds ssh-copy-id to PATH
+    export PATH="/usr/local/opt/ssh-copy-id/bin:$PATH"
 fi

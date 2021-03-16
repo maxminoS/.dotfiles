@@ -69,7 +69,11 @@ git_branch() {
   then
     :
   else
-    echo '  '$branch''
+    if [[ $OSTYPE == "linux-gnu" ]]; then
+      echo '  '$branch''
+    else
+      echo ' ⑂ '$branch''
+    fi
   fi
 }
 

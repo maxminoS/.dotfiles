@@ -1,18 +1,18 @@
 #!/usr/bin/sh
 
+# Install Xcode Command Line Tools
+xcode-select --install
+
 # Install tools using Homebrew.
 brew update
 brew upgrade
 
-# Save Homebrew’s installed location. (look more here)
-BREW_PREFIX=$(brew --prefix)
-
 # Install GNU core utilities
 brew install coreutils
-ln -s "${BREW_PREFIX}/bin/gsha256sum" "${BREW_PREFIX}/bin/sha256sum"
+ln -s "$(brew --prefix)/bin/gsha256sum" "${BREW_PREFIX}/bin/sha256sum"
 brew install moreutils
 brew install findutils
-brew install gnu-sed --with-default-names
+brew install gnu-sed
 brew install grep
 brew install stow
 
@@ -31,12 +31,10 @@ brew install pass
 
 # Command line
 brew install bash
-brew install zsh
-brew install vim --with-override-system-vi
+brew install vim
 
 # Networks
-brew install curl
-brew install wget --with-iri
+brew install wget
 brew install openssh
 brew install ssh-copy-id
 brew install htop
@@ -60,9 +58,13 @@ brew install isync
 brew install spotifyd
 brew install youtube-dl
 
+# Emacs
+brew tap d12frosted/emacs-plus
+brew install emacs-plus --HEAD --with-ctags --with-dbus --with-mailutils --with-no-titlebar --with-xwidgets
+ln -s "$(brew --prefix emacs-plus)/Emacs.app" /Applications
+
 # Casks
-# Essentials
-brew install --cask emacs --with-modules
+# Workflow
 brew install --cask alacritty
 brew install --cask dropbox
 

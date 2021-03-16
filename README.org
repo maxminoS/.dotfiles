@@ -31,27 +31,32 @@ makepkg -si
 #+END_SRC
 
 - *Debian*: apt
-- *macOS*: brew =/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"=
+- *macOS*:
+#+BEGIN_SRC sh
+brew ~/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+#+END_SRC
 
 ** Base Setup
+If on macOS, install =git=, clone dotfiles, run =sh brew.sh= to auto-install everything, and =sh .macos= to setup desktop
+
 1. Install =emacs=, =git=, =gpg=, =pass=, =stow=, =zsh=
 2. =git clone https://github.com/maxminoS/dotfiles=
 3. Stow, at the least, the following packages: =git=, =zsh=, =bash= (linux)
 4. Restart for environment variables to take effect
 5. =git clone https://github.com/maxminoS/.emacs.d=
-6. If on macOS, add Emacs or ruby to have file access (dired)
+6. If on macOS, add Emacs to have full file access (dired)
 7. Install Dropbox (org-mode)
 8. Import GPG Keys =gpg --import <key_file>=
 9. =cd ~/.local/share/= then clone =.password-store/=
-
-If on macOS, install =git=, clone dotfiles, run =./brew.sh= to auto-install everything, and =./.macos= to setup desktop
 
 ** Emacs
 *** Before Opening
 **** Magit
 1. Set the appropriate usernames:
-=git config --global user.name "maxminoS"=
-=git config --global user.email "email@address.com"=
+#+BEGIN_SRC sh
+git config --global user.name "maxminoS"
+git config --global user.email "email@address.com"
+#+END_SRC
 
 2. Create Personal Access Tokens and store them as =~/.emacs.d/lisp/.authinfo.gpg=
 #+BEGIN_SRC conf
@@ -201,68 +206,73 @@ bitrate = 320
 
 * Installations
 ** Command Line Applications
-| *App*          | *Arch*               | *macOS*                       | *Debian*  |
-|                | *pacman -S*          | *brew install*                | *apt-get* |
-| git            | git                  | git                           |           |
-| gpg            | gnupg                | gnupg                         |           |
-| stow           | stow                 | stow                          |           |
-| zsh            | zsh                  | zsh                           |           |
-| pass           | pass                 | pass                          |           |
-| unzip          | unzip                | unzip                         |           |
-| vim            | vim                  | vim --with-override-system-vi |           |
-| ffmpeg         | ffmpeg               | ffmpeg                        |           |
-| htop           | htop                 | htop                          |           |
-| neofetch       | neofetch             | neofetch                      |           |
-| wget           | wget                 | wget --with-iri               |           |
-| curl           | curl                 | curl                          |           |
-| python         | python               | python@3.9                    |           |
-| node           | nodejs               | node                          |           |
-| npm            | npm                  | node                          |           |
-| yarn           | yarn                 | yarn                          |           |
-| typescript     | *npm i -g*           | typescript                    |           |
-| go             | go                   | go                            |           |
-| picom          | picom                | *Not macOS*                   |           |
-| cmake          | cmake                | cmake                         |           |
-| libtool-bin    | libtool              | libtool                       |           |
-| libvterm[-dev] | libvterm             | libvterm                      |           |
-| mu             | *yay* mu             | mu                            |           |
-| isync          | isync                | isync                         |           |
-| spotifyd       | spotifyd             | spotifyd                      |           |
-| youtube-dl     | youtube-dl           | youtube-dl                    |           |
-| windscribe     | *yay* windscribe-cli | windscribe                    |           |
-| gcc            | gcc                  | gcc                           |           |
-| automake       | automake             | automake                      |           |
-| autoconf       | autoconf             | autoconf                      |           |
-| libpng-dev     | libpng               | libpng                        |           |
-| zlib1g-dev     | zlib                 | zlib                          |           |
-| imagemagick    | imagemagick          | imagemagick                   |           |
-| poppler        | poppler              | poppler                       |           |
-| coreutils      | *Installed*          | coreutils                     |           |
-| moreutils      | *Installed*          | moreutils                     |           |
-| findutils      | *Installed*          | findutils                     |           |
-| gnu-sed        | *Installed*          | gnu-sed --with-default-names  |           |
-| grep           | *Installed*          | grep                          |           |
-| openssh        | *Installed*          | openssh                       |           |
-| ssh-copy-id    | *Installed*          | ssh-copy-id                   |           |
+| *App*         | *Arch*               | *macOS*        |
+|               | *pacman -S*          | *brew install* |
+| *git*         | git                  | git            |
+| *gpg*         | gnupg                | gnupg          |
+| *stow*        | stow                 | stow           |
+| *zsh*         | zsh                  | *Installed*    |
+| *pass*        | pass                 | pass           |
+| *unzip*       | unzip                | unzip          |
+| *vim*         | vim                  | vim            |
+| *ffmpeg*      | ffmpeg               | ffmpeg         |
+| *htop*        | htop                 | htop           |
+| *neofetch*    | neofetch             | neofetch       |
+| *wget*        | wget                 | wget           |
+| *curl*        | curl                 | *Installed*    |
+| *python*      | python               | python         |
+| *node*        | nodejs               | node           |
+| *npm*         | npm                  | node           |
+| *yarn*        | yarn                 | yarn           |
+| *typescript*  | *npm i -g*           | typescript     |
+| *go*          | go                   | go             |
+| *picom*       | picom                | *Not macOS*    |
+| *cmake*       | cmake                | cmake          |
+| *libtool*     | libtool              | libtool        |
+| *libvterm*    | libvterm             | libvterm       |
+| *mu*          | *yay* mu             | mu             |
+| *isync*       | isync                | isync          |
+| *spotifyd*    | spotifyd             | spotifyd       |
+| *youtube-dl*  | youtube-dl           | youtube-dl     |
+| *windscribe*  | *yay* windscribe-cli | windscribe     |
+| *gcc*         | gcc                  | gcc            |
+| *automake*    | automake             | automake       |
+| *autoconf*    | autoconf             | autoconf       |
+| *libpng*      | libpng               | libpng         |
+| *zlib*        | zlib                 | zlib           |
+| *imagemagick* | imagemagick          | imagemagick    |
+| *poppler*     | poppler              | poppler        |
+| *coreutils*   | *Installed*          | coreutils      |
+| *moreutils*   | *Installed*          | moreutils      |
+| *findutils*   | *Installed*          | findutils      |
+| *gnu-sed*     | *Installed*          | gnu-sed        |
+| *grep*        | *Installed*          | grep           |
+| *openssh*     | *Installed*          | openssh        |
+| *ssh-copy-id* | *Installed*          | ssh-copy-id    |
 
-** Desktop Applications
-| *App*       | *Arch*               | *macOS*               | *Debian*    |
-|             | *pacman -S*          | *brew install --cask* | *apt-get*   |
-| emacs       | emacs                | emacs --with-modules  |             |
-| chrome      | *yay* google-chrome  | google-chrome         |             |
-| firefox     | firefox              | firefox               |             |
-| tor         | torbrowser-launcher  | tor-browser           |             |
-| pcmanfm     | pcmanfm-gtk3         | *Not macOS*           |             |
-| alacritty   | alacritty            | alacritty             |             |
-| xterm       | xterm                | *Not macOS*           |             |
-| spotify     | *yay* spotify        | spotify               |             |
-| dropbox     | *yay* dropbox        | dropbox               |             |
-| discord     | discord              | discord               |             |
-| feh         | feh                  | *Not macOS*           |             |
-| mpv         | mpv                  | mpv                   |             |
-| vlc         | vlc                  | vlc                   |             |
-| gimp        | gimp                 | gimp                  |             |
-| inkscape    | inkscape             | inkscape              |             |
-| qbittorrent | qbittorrent          | qbittorrent           |             |
-| zoom        | *Not Linux*          | zoom                  | *Not Linux* |
-| warp        | *Not Linux*          | cloudflare-warp       | *Not Linux* |
+**** Desktop Applications
+#+BEGIN_SRC sh
+brew tap d12frosted/emacs-plus
+brew install emacs-plus --with-ctags --with-dbus --with-mailutils --with-no-titlebar --with-xwidgets
+#+END_SRC
+
+
+| *App*         | *Arch*              | *macOS*               |
+|               | *pacman -S*         | *brew install --cask* |
+| *chrome*      | *yay* google-chrome | google-chrome         |
+| *firefox*     | firefox             | firefox               |
+| *tor*         | torbrowser-launcher | tor-browser           |
+| *pcmanfm*     | pcmanfm-gtk3        | *Not macOS*           |
+| *alacritty*   | alacritty           | alacritty             |
+| *xterm*       | xterm               | *Not macOS*           |
+| *spotify*     | *yay* spotify       | spotify               |
+| *dropbox*     | *yay* dropbox       | dropbox               |
+| *discord*     | discord             | discord               |
+| *feh*         | feh                 | *Not macOS*           |
+| *mpv*         | mpv                 | mpv                   |
+| *vlc*         | vlc                 | vlc                   |
+| *gimp*        | gimp                | gimp                  |
+| *inkscape*    | inkscape            | inkscape              |
+| *qbittorrent* | qbittorrent         | qbittorrent           |
+| *zoom*        | *Not Linux*         | zoom                  |
+| *warp*        | *Not Linux*         | cloudflare-warp       |

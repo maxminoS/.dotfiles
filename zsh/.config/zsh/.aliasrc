@@ -20,7 +20,7 @@ alias mongo='mongo --norc'
 alias yarn="yarn --use-yarnrc $XDG_CONFIG_HOME/yarn/config"
 
 # macOS
-if [[ $OSTYPE == "darwin" ]]; then
+if [[ ! $OSTYPE == "linux-gnu" ]]; then
     # Get macOS Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
     alias updateall='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup; npm install npm -g; npm update -g; sudo gem update --system; sudo gem update; sudo gem cleanup'
 fi

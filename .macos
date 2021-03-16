@@ -22,8 +22,6 @@ sudo nvram SystemAudioVolume=" "
 sudo pmset -a lidwake 1
 # Sleep Display After 15 Minutes
 sudo pmset -a displaysleep 15
-# Set machine sleep to 5 minutes on battery
-sudo pmset -b sleep 5
 # Require Password Immediately After Sleep
 defaults write com.apple.screensaver askForPassword -int 1
 defaults write com.apple.screensaver askForPasswordDelay -int 0
@@ -155,8 +153,6 @@ find "${HOME}/Library/Application Support/Dock" -name "*-*.db" -maxdepth 1 -dele
 # ---------
 # Hide Spotlight Panel Tray Icon
 sudo chmod 600 /System/Library/CoreServices/Search.bundle/Contents/MacOS/Search
-# Disable Spotlight Index for Other Volumes
-sudo defaults write /.Spotlight-V100/VolumeConfiguration Exclusions -array "/Volumes"
 # Custom Search Results and Search Order
 defaults write com.apple.spotlight orderedItems -array \
   '{"enabled" = 1;"name" = "APPLICATIONS";}' \
@@ -317,9 +313,7 @@ defaults write NSGlobalDomain AppleMetricUnits -bool true
 
 
 # Finished
-for app in "Activity Monitor" "Address Book" "Calendar" "cfprefsd" "Contacts"
-  "Dock" "Finder" "Google Chrome" "Mail" "Messages"  "Photos" "Safari"
-  "SystemUIServer" "Terminal" "iCal"; do
+for app in "Activity Monitor" "Address Book" "Calendar" "cfprefsd" "Contacts" "Dock" "Finder" "Google Chrome" "Mail" "Messages"  "Photos" "Safari" "SystemUIServer" "Terminal" "iCal"; do
   killall "${app}" &> /dev/null
 done
 echo "Setup completed"
