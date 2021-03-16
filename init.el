@@ -634,7 +634,7 @@
      (propertize ":" 'face `(:foreground "white"))
      (propertize (abbreviate-file-name (eshell/pwd)) 'face `(:foreground "#82cfd3"))
      (when current-branch
-         (propertize (concat "  " current-branch) 'face `(:foreground "#c475f0")))
+         (propertize (concat "  " current-branch) 'face `(:foreground "#c475f0")))
      (if (= (user-uid) 0)
          (propertize "\n#" 'face `(:foreground "red2"))
        (propertize "\nλ" 'face `(:foreground "#aece4a")))
