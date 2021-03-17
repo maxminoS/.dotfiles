@@ -9,7 +9,7 @@ Make sure these directories exist in the home folder:
 - Documents/
 - Downloads/
 - Dropbox/
-- Gallery/ (pictures)
+- Pictures/
 - Transmission/ (torrents)
 - Videos/
 
@@ -202,6 +202,14 @@ bitrate = 320
   =gpg -o public-key.gpg --export --armor --key email@address.com=
   =gpg -o secret-key.gpg --export-secret-key --armor email@address.com=
 - Import keys: =gpg --import <key_file>=
+
+** Images
+#+BEGIN_SRC sh
+stow images (links it to ~/Pictures/images)
+# For EXWM
+sudo mkdir /usr/share/backgrounds
+sudo ln -sF ~/Pictures/images /usr/share/backgrounds
+#+END_SRC
 
 
 * Installations
