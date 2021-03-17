@@ -98,7 +98,7 @@
   (desktop-environment-brightness-normal-decrement "5%-")
   (desktop-environment-brightness-small-increment "1%+")
   (desktop-environment-brightness-small-decrement "1%-")
-  (desktop-environment-screenshot-directory "~/Gallery"))
+  (desktop-environment-screenshot-directory "~/Pictures"))
 
 (defvar emax/polybar-process nil)
 
