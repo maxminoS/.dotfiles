@@ -31,21 +31,31 @@ makepkg -si
 #+END_SRC
 
 - *Debian*: apt
-- *macOS*:
+- *macOS*: brew
 #+BEGIN_SRC sh
-brew ~/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+eval "$(/opt/homebrew/bin/brew shellenv)"
 #+END_SRC
 
 ** Base Setup
-If on macOS, install =git=, clone dotfiles, run =sh brew.sh= to auto-install everything, and =sh .macos= to setup desktop
-
+*** Linux
 1. Install =emacs=, =git=, =gpg=, =pass=, =stow=, =zsh=
-2. =git clone https://github.com/maxminoS/dotfiles=
-3. Stow, at the least, the following packages: =git=, =zsh=, =bash= (linux)
+2. =git clone https://github.com/maxminoS/.dotfiles=
+3. Stow, at the least, the following packages: =git=, =zsh=, =bash=
 4. Restart for environment variables to take effect
 5. =git clone https://github.com/maxminoS/.emacs.d=
-6. If on macOS, add Emacs to have full file access (dired)
-7. Install Dropbox (org-mode)
+6. Install Dropbox (org-mode)
+7. Import GPG Keys =gpg --import <key_file>=
+8. =cd ~/.local/share/= then clone =.password-store/=
+
+*** macOS
+1. Install =git=
+2. =git clone https://github.com/maxminoS/.dotfiles=
+3. =sh brew.sh= then =sh .macos=
+4. Stow required packages, at least =git= and =zsh=
+5. Restart for environment variables to take effect
+6. =git clone https://github.com/maxminoS/.emacs.d=
+7. Add Emacs to have full file access (dired)
 8. Import GPG Keys =gpg --import <key_file>=
 9. =cd ~/.local/share/= then clone =.password-store/=
 
@@ -221,8 +231,8 @@ sudo ln -sF ~/Pictures/images /usr/share/backgrounds
 | *stow*        | stow                 | stow           |
 | *zsh*         | zsh                  | *Installed*    |
 | *pass*        | pass                 | pass           |
-| *unzip*       | unzip                | unzip          |
-| *vim*         | vim                  | vim            |
+| *unzip*       | unzip                | *Installed*    |
+| *vim*         | vim                  | *Installed*    |
 | *ffmpeg*      | ffmpeg               | ffmpeg         |
 | *htop*        | htop                 | htop           |
 | *neofetch*    | neofetch             | neofetch       |

@@ -9,7 +9,7 @@ brew upgrade
 
 # Install GNU core utilities
 brew install coreutils
-ln -s "$(brew --prefix)/bin/gsha256sum" "${BREW_PREFIX}/bin/sha256sum"
+sudo ln -s "$(brew --prefix)/bin/gsha256sum" "${BREW_PREFIX}/bin/sha256sum"
 brew install moreutils
 brew install findutils
 brew install gnu-sed
@@ -31,7 +31,6 @@ brew install pass
 
 # Command line
 brew install bash
-brew install vim
 
 # Networks
 brew install wget
@@ -49,7 +48,6 @@ brew install go
 
 # Others
 brew install neofetch
-brew install unzip
 brew install poppler
 brew install imagemagick
 brew install ffmpeg
@@ -62,6 +60,10 @@ brew install youtube-dl
 brew tap d12frosted/emacs-plus
 brew install emacs-plus --HEAD --with-ctags --with-dbus --with-mailutils --with-no-titlebar --with-xwidgets
 ln -s "$(brew --prefix emacs-plus)/Emacs.app" /Applications
+
+# Services
+brew services start dbus
+brew services start spotifyd
 
 # Casks
 # Workflow
