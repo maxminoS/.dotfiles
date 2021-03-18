@@ -362,7 +362,7 @@
   :custom ((dired-listing-switches "-AgGh --group-directories-first")))
 
 (when (equal system-type 'darwin)
-  (setq insert-directory-program "/usr/local/opt/coreutils/libexec/gnubin/ls"))
+  (setq insert-directory-program "gls"))
 
 (use-package all-the-icons-dired
   :hook (dired-mode . all-the-icons-dired-mode))
