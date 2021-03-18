@@ -221,6 +221,11 @@ sudo mkdir /usr/share/backgrounds
 sudo ln -sF ~/Pictures/images /usr/share/backgrounds
 #+END_SRC
 
+** Terminal
+In macOS, its Terminal emulator may be enough without Alacritty.
+
+Preferences > Profiles > Import > macos/*.terminal
+
 
 * Installations
 ** Command Line Applications
