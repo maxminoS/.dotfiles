@@ -34,3 +34,4 @@ if [[ ! $OSTYPE == "linux-gnu" ]]; then
     # Adds ssh-copy-id to PATH
     export PATH="/usr/local/opt/ssh-copy-id/bin:$PATH"
 fi
+source "/Users/rxl/.local/share/cargo/env"
