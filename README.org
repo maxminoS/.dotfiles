@@ -226,6 +226,35 @@ In macOS, its Terminal emulator may be enough without Alacritty.
 
 Preferences > Profiles > Import > macos/*.terminal
 
+** MTMR
+/My Touchbar, My Rules../
+Only for Macs with a touchbar
+
+#+BEGIN_HTML
+<img src="static/touchbar-with-mtmr.png" alt="Touch Bar With MTMR">
+#+END_HTML
+
+Installation:
+- =brew install --cask mtmr=
+- Allow application to have Privacy > Accessibility access
+- macos/mtmr-items.json -> ~/Library/Application Support/MTMR/items.json
+
+Displays:
+- Exit to built-in touchbar
+- Dock (only Finder, Emacs, Google Chrome, Terminal, Discord)
+- Spotify current song
+- Do not disturb button
+- Network connection
+- Battery status
+- Time
+
+Features:
+- Single tap Spotify to pause/play
+- Double tap Spotify to play next song
+- Triple tap Spotify to play previous song
+- Two finger swipe to adjust volume
+- Three finger swipe to adjust brightness
+
 
 * Installations
 ** Command Line Applications
