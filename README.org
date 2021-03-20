@@ -1,4 +1,38 @@
-#+TITLE:DOTFILES
+#+TITLE:Dotfiles
+
+The dotfiles that compile just about everything I need in a machine.
+
+* Table of Contents
+:PROPERTIES:
+:TOC:      :include all
+:END:
+:CONTENTS:
+:END:
+- [[#setting-up][Setting up]]
+  - [[#base-directories][Base Directories]]
+  - [[#private-files][Private Files]]
+  - [[#package-manager][Package Manager]]
+  - [[#base-setup][Base Setup]]
+    - [[#linux][Linux]]
+    - [[#macos][macOS]]
+  - [[#emacs][Emacs]]
+    - [[#magit][Magit]]
+    - [[#vterm][VTerm]]
+    - [[#mu4e][mu4e]]
+    - [[#spotifyd][spotifyd]]
+    - [[#lsp-mode][LSP Mode]]
+    - [[#pdf-tools][PDF Tools]]
+- [[#manual][Manual]]
+  - [[#stow][Stow]]
+  - [[#gpg][GPG]]
+  - [[#images][Images]]
+  - [[#macos-keybindings][macOS Keybindings]]
+  - [[#terminal][Terminal]]
+  - [[#mtmr][MTMR]]
+- [[#installations][Installations]]
+  - [[#command-line-applications][Command Line Applications]]
+  - [[#desktop-applications][Desktop Applications]]
+
 
 * Setting up
 ** Base Directories
@@ -222,26 +256,26 @@ sudo ln -sF ~/Pictures/images /usr/share/backgrounds
 #+END_SRC
 
 ** macOS Keybindings
-*** Modifier Keys:
+*** Modifier Keys
 /Control, Meta, and super keys are only Emacs notations/
 - =C= - Control /(bound to fn)/
 - =M= - Option
 - =s= - Command
 - =CapsLock= - Esc
 
-*** Trackpad:
+*** Trackpad
 - =Three Finger Swipe Up= - Mission Control
 - =Three Finger Swipe Down= = Current Application Windows
 - =Three Finger Swipe Left/Right= - Switch workspaces
 - =Two Finger Swipe Left from Right Fringe= - Notification Center
 
-*** Keybinds:
+*** Keybinds
 - =Option-<1-9>= - Switch to workspace <1-9>
 - =Option-Shift-Return= - Screenread selection
 - =Control-Space= - Switch input source
 - =Command-Space= - Search Spotlight
 
-*** Keyboard Navigation:
+*** Keyboard Navigation
 - =Control-F2= - Focus menu bar
 - =Control-F3= - Focus dock
 - =Control-F4= - Move to next window
@@ -336,7 +370,7 @@ Features:
 | *openssh*     | *Installed*          | openssh        |
 | *ssh-copy-id* | *Installed*          | ssh-copy-id    |
 
-**** Desktop Applications
+** Desktop Applications
 #+BEGIN_SRC sh
 brew tap d12frosted/emacs-plus
 brew install emacs-plus --with-ctags --with-dbus --with-mailutils --with-no-titlebar --with-xwidgets
