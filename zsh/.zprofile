@@ -4,6 +4,9 @@
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_DATA_HOME="$HOME/.local/share"
+# Set XDG_RUNTIME_DIR to /run/user/$UID if permitted or /tmp
+[ ! -w ${XDG_RUNTIME_DIR:="/run/user/$UID"} ] && XDG_RUNTIME_DIR=/tmp
+export XDG_RUNTIME_DIR
 
 # Command Line
 export SHELL='/usr/bin/zsh'
