@@ -221,6 +221,40 @@ sudo mkdir /usr/share/backgrounds
 sudo ln -sF ~/Pictures/images /usr/share/backgrounds
 #+END_SRC
 
+** macOS Keybindings
+*** Modifier Keys:
+/Control, Meta, and super keys are only Emacs notations/
+- =C= - Control /(bound to fn)/
+- =M= - Option
+- =s= - Command
+- =CapsLock= - Esc
+
+*** Trackpad:
+- =Three Finger Swipe Up= - Mission Control
+- =Three Finger Swipe Down= = Current Application Windows
+- =Three Finger Swipe Left/Right= - Switch workspaces
+- =Two Finger Swipe Left from Right Fringe= - Notification Center
+
+*** Keybinds:
+- =Option-<1-9>= - Switch to workspace <1-9>
+- =Option-Shift-Return= - Screenread selection
+- =Control-Space= - Switch input source
+- =Command-Space= - Search Spotlight
+
+*** Keyboard Navigation:
+- =Control-F2= - Focus menu bar
+- =Control-F3= - Focus dock
+- =Control-F4= - Move to next window
+- =Control-F8= - Focus status menu
+
+*** Screenshots
+(=Command-Shift-x= to clipboard)
+- =3= - Entire screen
+- =4= - Selected area
+- =5= - Change screenshot/recording options
+- =6= - Touch bar
+/Add Control to save screenshots as a file/
+
 ** Terminal
 In macOS, its Terminal emulator may be enough without Alacritty.
 
