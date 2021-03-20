@@ -9,7 +9,7 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export SHELL='/usr/bin/zsh'
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 # Adds Homebrew to PATH
-[[ ! $OSTYPE == 'linux-gnu' ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
+[ $OSTYPE != 'linux-gnu' ] && eval "$(/opt/homebrew/bin/brew shellenv)"
 [ -f "$ZDOTDIR/.zshenv" ] && source "$ZDOTDIR/.zshenv"
 # Source Rustup
-source "$XDG_DATA_HOME/cargo/env"
+[ -f "$XDG_DATA_HOME/cargo/env" ] && source "$XDG_DATA_HOME/cargo/env"

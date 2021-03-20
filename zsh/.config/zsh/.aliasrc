@@ -4,14 +4,13 @@
 alias vi='vim'
 
 # Verbosity
-alias cp="cp -iv"
-alias mv="mv -iv"
-alias rm="rm -vI"
+alias cp='cp -iv'
+alias mv='mv -iv'
+alias rm='rm -vI'
 
 # Color
 alias ls='ls --color=auto'
-alias grep="grep --color=auto"
-alias diff="diff --color=auto"
+alias grep='grep --color=auto'
 
 # Cleanup
 alias gpg="gpg --homedir $XDG_DATA_HOME/gnupg"
@@ -20,7 +19,7 @@ alias mongo='mongo --norc'
 alias yarn="yarn --use-yarnrc $XDG_CONFIG_HOME/yarn/config"
 
 # macOS
-if [[ ! $OSTYPE == "linux-gnu" ]]; then
+if [ $OSTYPE != 'linux-gnu' ]; then
     # Get macOS Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
     alias updateall='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup; npm install npm -g; npm update -g; sudo gem update --system; sudo gem update; sudo gem cleanup'
 fi
