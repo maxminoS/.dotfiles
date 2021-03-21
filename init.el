@@ -1000,7 +1000,8 @@
 (when (equal system-type 'darwin)
   (use-package elcord
     :config
-    (elcord-mode 1)))
+    (add-hook 'focus-in-hook `(lambda () (elcord-mode 1)))
+    (add-hook 'focus-out-hook `(lambda () (elcord-mode 0)))))
 
 (use-package define-word
   :bind ("C-c d" . define-word-at-point))
