@@ -1416,6 +1416,25 @@ Only enables when focusing on Emacs
     :bind ("C-c d" . define-word-at-point))
 #+END_SRC
 
+** World Time Clock
+#+BEGIN_SRC emacs-lisp
+  (setq display-time-world-list
+    '(("" "*AMERICA*")
+      ("America/Los_Angeles" "Los Angeles (PT)")
+      ("America/New_York" "New York (ET)")
+      ("America/Chicago" "Chicago (CT)")
+      ("" "")
+      ("" "*EUROPE*")
+      ("Europe/London" "London (GMT)")
+      ("Europe/Berlin" "Germany (GMT+1)")
+      ("Europe/Athens" "Greece (GMT+3)")
+      ("" "")
+      ("" "*ASIA*")
+      ("Asia/Jakarta" "Jakarta (GMT+7)")
+      ("Asia/Singapore" "Singapore (GMT+8)")))
+  (setq display-time-world-time-format "- %I:%M%p - %a, %d %b")
+#+END_SRC
+
 ** Try
 #+BEGIN_SRC emacs-lisp
   (use-package try)

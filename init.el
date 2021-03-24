@@ -1006,4 +1006,20 @@
 (use-package define-word
   :bind ("C-c d" . define-word-at-point))
 
+(setq display-time-world-list
+  '(("" "*AMERICA*")
+    ("America/Los_Angeles" "Los Angeles (PT)")
+    ("America/New_York" "New York (ET)")
+    ("America/Chicago" "Chicago (CT)")
+    ("" "")
+    ("" "*EUROPE*")
+    ("Europe/London" "London (GMT)")
+    ("Europe/Berlin" "Germany (GMT+1)")
+    ("Europe/Athens" "Greece (GMT+3)")
+    ("" "")
+    ("" "*ASIA*")
+    ("Asia/Jakarta" "Jakarta (GMT+7)")
+    ("Asia/Singapore" "Singapore (GMT+8)")))
+(setq display-time-world-time-format "- %I:%M%p - %a, %d %b")
+
 (use-package try)
