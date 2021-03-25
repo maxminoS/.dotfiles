@@ -699,7 +699,8 @@
          (lsp-mode . lsp-enable-which-key-integration)
          (python-mode . lsp)
          (rjsx-mode . lsp)
-         (web-mode . lsp))
+         (web-mode . lsp)
+         (go-mode . lsp))
   :custom
   (lsp-ui-sideline-enable nil)
   (lsp-modeline-diagnostics-enable t)
@@ -753,6 +754,12 @@
 (use-package pyvenv
   :config
   (pyvenv-mode 1))
+
+(use-package go-mode
+  :mode "\\.go\\'"
+  :config
+  (require 'dap-go)
+  (dap-go-setup))
 
 (use-package json-mode
   :mode "\\.json\\'")
