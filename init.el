@@ -700,7 +700,8 @@
          (python-mode . lsp)
          (rjsx-mode . lsp)
          (web-mode . lsp)
-         (go-mode . lsp))
+         (go-mode . lsp)
+         (lua-mode . lsp))
   :custom
   (lsp-ui-sideline-enable nil)
   (lsp-modeline-diagnostics-enable t)
@@ -760,6 +761,9 @@
   :config
   (require 'dap-go)
   (dap-go-setup))
+
+(use-package lua-mode
+  :mode "\\.lua\\'")
 
 (use-package json-mode
   :mode "\\.json\\'")

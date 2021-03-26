@@ -970,7 +970,8 @@ Install the required Language Servers by:
            (python-mode . lsp)
            (rjsx-mode . lsp)
            (web-mode . lsp)
-           (go-mode . lsp))
+           (go-mode . lsp)
+           (lua-mode . lsp))
     :custom
     (lsp-ui-sideline-enable nil)
     (lsp-modeline-diagnostics-enable t)
@@ -1045,6 +1046,12 @@ Install the required Language Servers by:
     :config
     (require 'dap-go)
     (dap-go-setup))
+#+END_SRC
+
+*** Lua
+#+BEGIN_SRC emacs-lisp
+  (use-package lua-mode
+    :mode "\\.lua\\'")
 #+END_SRC
 
 *** Configuration Files
