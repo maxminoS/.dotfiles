@@ -776,6 +776,11 @@
   :config
   (pyvenv-mode 1))
 
+(use-package lsp-pyright
+  :hook (python-mode . (lambda ()
+          (require 'lsp-pyright)
+          (lsp))))
+
 (use-package go-mode
   :mode "\\.go\\'"
   :config
