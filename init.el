@@ -267,11 +267,12 @@
   ^System^      ^Media^        ^Documents^    ^Development^
 -----------------------------------------------------
  _q_ quit       _s_ spotify    _g_ goto       _t_ vterm
- ^^             ^^             _m_ mu4e       _l_ lsp
+ ^^             _v_ mpv        _m_ mu4e       _l_ lsp
  ^^             ^^             ^^             _e_ eshell
  ^^             ^^             ^^             ^^"
     ("q" nil)
     ("s" hydra-spotify/body)
+    ("v" hydra-mpv/body)
     ("g" hydra-goto/body)
     ("m" mu4e)
     ("t" vterm)
@@ -329,6 +330,25 @@
     ("-" spotify-volume-down :exit nil)
     ("0" spotify-volume-mute-unmute :exit nil)
     ("d" spotify-select-device :exit nil))
+
+(defhydra hydra-mpv (:hint nil)
+    "
+ ^Player^
+----------------------------------------------
+ [_SPC_]  / 
+ [_h_]  /  [_l_]  [_=_] Reset speed   [_x_] Kill
+ [_[_]   /  [_]_]  [_S_] Seek to       [_v_] Play file"
+    ("SPC" mpv-pause :exit nil)
+
+    ("h" mpv-seek-backward :exit nil)
+    ("l" mpv-seek-forward :exit nil)
+    ("[" mpv-speed-decrease :exit nil)
+    ("]" mpv-speed-increase :exit nil)
+
+    ("=" (lambda () (interactive) (mpv-speed-set 1)) :exit t)
+    ("S" mpv-seek-to-position-at-point :exit t)
+    ("x" mpv-kill :exit t)
+    ("v" mpv-play :exit t))
 
 (defhydra hydra-lsp (:exit t)
   "
@@ -1007,6 +1027,8 @@
   (defun emax/nov-read-mode ()
     (setq line-spacing 0.3)
     (setq word-wrap t)))
+
+(use-package mpv)
 
 (when (equal system-type 'darwin)
   (use-package elcord
