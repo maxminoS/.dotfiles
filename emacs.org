@@ -1215,6 +1215,20 @@ Install the required Language Servers by:
       ("C-p" . evil-multiedit-prev)))
 #+END_SRC
 
+*** yafolding
+| C-c F | Toggle fold all     |
+| C-c f | Toggle fold element |
+#+BEGIN_SRC emacs-lisp
+  (use-package yafolding
+    :hook (prog-mode . yafolding-mode)
+    :config
+    (define-key yafolding-mode-map (kbd "<C-S-return>") nil)
+    (define-key yafolding-mode-map (kbd "<C-M-return>") nil)
+    (define-key yafolding-mode-map (kbd "<C-return>") nil)
+    (define-key yafolding-mode-map (kbd "C-c F") 'yafolding-toggle-all)
+    (define-key yafolding-mode-map (kbd "C-c f") 'yafolding-toggle-element))
+#+END_SRC
+
 
 * Applications
 ** mu4e

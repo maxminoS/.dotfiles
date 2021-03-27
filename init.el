@@ -883,6 +883,15 @@
     ("C-n" . evil-multiedit-next)
     ("C-p" . evil-multiedit-prev)))
 
+(use-package yafolding
+  :hook (prog-mode . yafolding-mode)
+  :config
+  (define-key yafolding-mode-map (kbd "<C-S-return>") nil)
+  (define-key yafolding-mode-map (kbd "<C-M-return>") nil)
+  (define-key yafolding-mode-map (kbd "<C-return>") nil)
+  (define-key yafolding-mode-map (kbd "C-c F") 'yafolding-toggle-all)
+  (define-key yafolding-mode-map (kbd "C-c f") 'yafolding-toggle-element))
+
 (setq emax/mu4e-load-path "/usr/share/emacs/site-lisp/mu4e/")
   (when (equal system-type 'darwin)
     (setq emax/mu4e-load-path "/usr/local/Cellar/mu/1.4.15/share/emacs/site-lisp/mu/mu4e/"))
