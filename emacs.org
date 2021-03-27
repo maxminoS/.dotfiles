@@ -1106,6 +1106,16 @@ Install the required Language Servers by:
     (company-idle-delay 0.0))
  #+END_SRC
 
+*** Tab Indent
+| M-S-i | Insert tab |
+#+BEGIN_SRC emacs-lisp
+  (defun emax/insert-tab ()
+    (interactive)
+    (insert "\t"))
+
+  (global-set-key (kbd "M-I") 'emax/insert-tab)
+#+END_SRC
+
 *** Comment
 | M-; | Comment/Uncomment |
 #+BEGIN_SRC emacs-lisp

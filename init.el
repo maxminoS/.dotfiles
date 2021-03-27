@@ -803,6 +803,12 @@
   (company-minimum-prefix-length 1)
   (company-idle-delay 0.0))
 
+(defun emax/insert-tab ()
+  (interactive)
+  (insert "\t"))
+
+(global-set-key (kbd "M-I") 'emax/insert-tab)
+
 (use-package evil-nerd-commenter
   :bind (("M-;" . evilnc-comment-or-uncomment-lines)))
 
