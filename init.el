@@ -335,9 +335,9 @@
     "
  ^Player^
 ----------------------------------------------
- [_SPC_]  / 
- [_h_]  /  [_l_]  [_=_] Reset speed   [_x_] Kill
- [_[_]   /  [_]_]  [_S_] Seek to       [_v_] Play file"
+ [_SPC_]  /                       [_x_] Kill
+ [_h_]  /  [_l_]  [_=_] Reset speed   [_f_] Play file
+ [_[_]   /  [_]_]  [_S_] Seek to       [_v_] Play URL"
     ("SPC" mpv-pause :exit nil)
 
     ("h" mpv-seek-backward :exit nil)
@@ -348,7 +348,8 @@
     ("=" (lambda () (interactive) (mpv-speed-set 1)) :exit t)
     ("S" mpv-seek-to-position-at-point :exit t)
     ("x" mpv-kill :exit t)
-    ("v" mpv-play :exit t))
+    ("f" mpv-play :exit t)
+    ("v" emax/mpv-play-url :exit t))
 
 (defhydra hydra-lsp (:exit t)
   "
@@ -1050,7 +1051,11 @@
     (setq line-spacing 0.3)
     (setq word-wrap t)))
 
-(use-package mpv)
+(use-package mpv
+  :config
+  (defun emax/mpv-play-url (url)
+    (interactive "sURL: ")
+    (mpv-start url)))
 
 (when (equal system-type 'darwin)
   (use-package elcord
