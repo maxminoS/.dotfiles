@@ -94,6 +94,7 @@
 
 (defvar emax/spotify-client-id nil)
 (defvar emax/spotify-client-secret nil)
+(defvar emax/elfeed-feeds nil)
 (load "~/.emacs.d/lisp/.secret.el" t)
 
 (add-to-list 'load-path "~/.emacs.d/lisp/")
@@ -268,13 +269,14 @@
 -----------------------------------------------------
  _q_ quit       _s_ spotify    _g_ goto       _t_ vterm
  ^^             _v_ mpv        _m_ mu4e       _l_ lsp
- ^^             ^^             ^^             _e_ eshell
+ ^^             ^^             _f_ elfeed     _e_ eshell
  ^^             ^^             ^^             ^^"
     ("q" nil)
     ("s" hydra-spotify/body)
     ("v" hydra-mpv/body)
     ("g" hydra-goto/body)
     ("m" mu4e)
+    ("f" elfeed)
     ("t" vterm)
     ("e" eshell)
     ("l" hydra-lsp/body))
@@ -1056,6 +1058,17 @@
   (defun emax/mpv-play-url (url)
     (interactive "sURL: ")
     (mpv-start url)))
+
+(use-package elfeed
+  :custom
+  (elfeed-db-directory (expand-file-name "elfeed" user-emacs-directory))
+  (elfeed-feeds emax/elfeed-feeds)
+  :config
+  (setq-default elfeed-search-filter "@3-months-ago +unread ")
+  (evil-define-key 'normal elfeed-search-mode-map "gr" 'elfeed-update)
+  (add-hook 'elfeed-new-entry-hook
+            (elfeed-make-tagger :before "1 month ago"
+                                :remove 'unread)))
 
 (when (equal system-type 'darwin)
   (use-package elcord
