@@ -1099,6 +1099,13 @@ Install the required Language Servers by:
 #+END_SRC
 
 ** Other
+*** EditorConfig
+#+BEGIN_SRC emacs-lisp
+  (use-package editorconfig
+    :config
+    (editorconfig-mode 1))
+#+END_SRC
+
 *** Company
 #+BEGIN_SRC emacs-lisp
   (setq tab-always-indent 'complete)

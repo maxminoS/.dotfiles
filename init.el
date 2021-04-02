@@ -799,6 +799,10 @@
 (use-package yaml-mode
   :mode "\\.ya?ml\\'")
 
+(use-package editorconfig
+  :config
+  (editorconfig-mode 1))
+
 (setq tab-always-indent 'complete)
 
 (use-package company
