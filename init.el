@@ -755,15 +755,12 @@
   (lsp-enable-dap-auto-configure nil))
 
 (use-package web-mode
-  :mode ("\\.html?\\'" "\\.css\\'" "\\.php\\'"
+  :mode ("\\.html?\\'" "\\.s?css\\'" "\\.php\\'"
          "\\.jsx?\\'" "\\.tsx?\\'" "\\.vue\\'")
   :custom
   (web-mode-markup-indent-offset 2)
   (web-mode-css-indent-offset 2)
   (web-mode-code-indent-offset 2))
-
-(use-package sass-mode
-  :mode ("\\.scss\\'"))
 
 (use-package python-mode
   :custom
