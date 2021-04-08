@@ -102,9 +102,14 @@
             (lambda () (message "Loaded in %s" (emacs-init-time)))))
 #+END_SRC
 
-** Custom Scripts
+** Scripts and Secrets
 Place custom scripts under =~/.emacs.d/lisp=
+Place secrets in =~/.emacs.d/lisp/.secret.el=
 #+BEGIN_SRC emacs-lisp
+  (defvar emax/spotify-client-id nil)
+  (defvar emax/spotify-client-secret nil)
+  (load "~/.emacs.d/lisp/.secret.el" t)
+
   (add-to-list 'load-path "~/.emacs.d/lisp/")
 #+END_SRC
 
@@ -328,13 +333,12 @@ Place custom scripts under =~/.emacs.d/lisp=
 
   (defhydra hydra-applications (:color red :exit t)
     "
-  ^System^        ^Media^        ^Documents^    ^Development^
--------------------------------------------------------------------------------------
-   _q_ quit       _s_ spotify    _g_ goto       _t_ eshell
-   ^^             ^^             _m_ mu4e       _l_ lsp
-   ^^             ^^             ^^             ^^
-   ^^             ^^             ^^             ^^
-  "
+  ^System^      ^Media^        ^Documents^    ^Development^
+-----------------------------------------------------
+ _q_ quit       _s_ spotify    _g_ goto       _t_ eshell
+ ^^             ^^             _m_ mu4e       _l_ lsp
+ ^^             ^^             ^^             ^^
+ ^^             ^^             ^^             ^^"
     ("q" nil)
     ("s" hydra-spotify/body)
     ("g" hydra-goto/body)
@@ -342,15 +346,15 @@ Place custom scripts under =~/.emacs.d/lisp=
     ("t" eshell)
     ("l" hydra-lsp/body))
 
-  (global-set-key (kbd "C-a") 'hydra-applications/body)
+  (global-set-key (kbd "C-x a") 'hydra-applications/body)
 #+END_SRC
 
 *** File
 #+BEGIN_SRC emacs-lisp
   (defhydra hydra-goto (:exit t)
       "
-   ^GTD ^           ^Reviews^       ^Notes^           ^Others^
-  ------------------------------------------------------------------
+     ^GTD^         ^Reviews^          ^Notes^              ^Others^
+------------------------------------------------------------------
  [_SPC_] Scratch  [_F_] Films   [_g_] Directory     [_b_] Bookmarks 
    [_d_] Day     [_S_] Shows  [_p_] Programming   [_e_] Essays    
    [_m_] Month   [_M_] Music   [_r_] Recreation    [_i_] Ideas     
@@ -380,11 +384,11 @@ Place custom scripts under =~/.emacs.d/lisp=
 #+BEGIN_SRC emacs-lisp
   (defhydra hydra-spotify (:hint nil)
       "
-   ^Search^                      ^Controls^
-  ---------------------------------------------------------
-   [_t_] Track       [_+_]  /  [_-_]   [_SPC_]  / 
-   [_a_] Album       [_h_]  /  [_l_]   [_0_] 
-   [_p_] Playlist    [_r_]  /  [_s_]   [_d_]  "
+   ^Search^                   ^Controls^
+  ----------------------------------------------
+   [_t_] Track       [_-_]  /  [_+_]  [_SPC_]  / 
+   [_a_] Album       [_h_]  /  [_l_]    [_0_] 
+   [_p_] Playlist    [_r_]  /  [_s_]    [_d_]  "
       ("t" counsel-spotify-search-tracks-by-album :exit t)
       ("a" counsel-spotify-search-album :exit t)
       ("p" spotify-my-playlists :exit t)
@@ -1209,6 +1213,8 @@ Place custom scripts under =~/.emacs.d/lisp=
     (use-package simple-httpd)
     (use-package oauth2)
     :custom
+    (spotify-oauth2-client-id emax/spotify-client-id)
+    (spotify-oauth2-client-secret emax/spotify-client-secret)
     (spotify-player-status-format "[%p %t - %a%r%s] ")
     (spotify-player-status-playing-text "")
     (spotify-player-status-paused-text "")
@@ -1216,11 +1222,12 @@ Place custom scripts under =~/.emacs.d/lisp=
     (spotify-player-status-repeating-text " ")
     (spotify-player-status-not-repeating-text "")
     (spotify-player-status-shuffling-text "")
-    (spotify-player-status-not-shuffling-text "")
-    (spotify-api-search-limit 50))
+    (spotify-player-status-not-shuffling-text ""))
 
   (use-package counsel-spotify
     :custom
+    (counsel-spotify-client-id emax/spotify-client-id)
+    (counsel-spotify-client-secret emax/spotify-client-secret)
     (counsel-spotify-service-name "spotifyd"))
 #+END_SRC
 

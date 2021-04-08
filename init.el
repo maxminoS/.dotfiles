@@ -80,6 +80,10 @@
   (add-hook 'after-init-hook
           (lambda () (message "Loaded in %s" (emacs-init-time)))))
 
+(defvar emax/spotify-client-id nil)
+(defvar emax/spotify-client-secret nil)
+(load "~/.emacs.d/lisp/.secret.el" t)
+
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 
 (org-babel-do-load-languages
@@ -248,13 +252,12 @@
 
   (defhydra hydra-applications (:color red :exit t)
     "
-  ^System^        ^Media^        ^Documents^    ^Development^
--------------------------------------------------------------------------------------
-   _q_ quit       _s_ spotify    _g_ goto       _t_ eshell
-   ^^             ^^             _m_ mu4e       _l_ lsp
-   ^^             ^^             ^^             ^^
-   ^^             ^^             ^^             ^^
-  "
+  ^System^      ^Media^        ^Documents^    ^Development^
+-----------------------------------------------------
+ _q_ quit       _s_ spotify    _g_ goto       _t_ eshell
+ ^^             ^^             _m_ mu4e       _l_ lsp
+ ^^             ^^             ^^             ^^
+ ^^             ^^             ^^             ^^"
     ("q" nil)
     ("s" hydra-spotify/body)
     ("g" hydra-goto/body)
@@ -262,7 +265,7 @@
     ("t" eshell)
     ("l" hydra-lsp/body))
 
-  (global-set-key (kbd "C-a") 'hydra-applications/body)
+  (global-set-key (kbd "C-x a") 'hydra-applications/body)
 
 (defhydra hydra-goto (:exit t)
       "
@@ -294,11 +297,11 @@
 
 (defhydra hydra-spotify (:hint nil)
     "
- ^Search^                      ^Controls^
----------------------------------------------------------
- [_t_] Track       [_+_]  /  [_-_]   [_SPC_]  / 
- [_a_] Album       [_h_]  /  [_l_]   [_0_] 
- [_p_] Playlist    [_r_]  /  [_s_]   [_d_]  "
+ ^Search^                   ^Controls^
+----------------------------------------------
+ [_t_] Track       [_-_]  /  [_+_]  [_SPC_]  / 
+ [_a_] Album       [_h_]  /  [_l_]    [_0_] 
+ [_p_] Playlist    [_r_]  /  [_s_]    [_d_]  "
     ("t" counsel-spotify-search-tracks-by-album :exit t)
     ("a" counsel-spotify-search-album :exit t)
     ("p" spotify-my-playlists :exit t)
@@ -902,6 +905,8 @@
   (use-package simple-httpd)
   (use-package oauth2)
   :custom
+  (spotify-oauth2-client-id emax/spotify-client-id)
+  (spotify-oauth2-client-secret emax/spotify-client-secret)
   (spotify-player-status-format "[%p %t - %a%r%s] ")
   (spotify-player-status-playing-text "")
   (spotify-player-status-paused-text "")
@@ -909,11 +914,12 @@
   (spotify-player-status-repeating-text " ")
   (spotify-player-status-not-repeating-text "")
   (spotify-player-status-shuffling-text "")
-  (spotify-player-status-not-shuffling-text "")
-  (spotify-api-search-limit 50))
+  (spotify-player-status-not-shuffling-text ""))
 
 (use-package counsel-spotify
   :custom
+  (counsel-spotify-client-id emax/spotify-client-id)
+  (counsel-spotify-client-secret emax/spotify-client-secret)
   (counsel-spotify-service-name "spotifyd"))
 
 (use-package password-store
