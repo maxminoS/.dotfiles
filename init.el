@@ -265,32 +265,32 @@
   (global-set-key (kbd "C-a") 'hydra-applications/body)
 
 (defhydra hydra-goto (:exit t)
-     "
-  ^GTD ^           ^Reviews^       ^Notes^           ^Others^
- ------------------------------------------------------------------
-[_SPC_] Scratch  [_F_] Films   [_g_] Directory     [_b_] Bookmarks 
-  [_d_] Day     [_S_] Shows   [_p_] Programming   [_e_] Essays    
-  [_m_] Month   [_M_] Music   [_r_] Recreation  i [_i_] Ideas     
-  [_y_] Year    [_B_] Books   [_t_] Technology    [_l_] Lists     "
-     ("SPC" (lambda () (interactive) (find-file "~/Dropbox/org/scratch.org")))
-     ("d" (lambda () (interactive) (find-file "~/Dropbox/org/agenda/day.org")))
-     ("m" (lambda () (interactive) (find-file "~/Dropbox/org/agenda/month.org")))
-     ("y" (lambda () (interactive) (find-file "~/Dropbox/org/agenda/year.org")))
+      "
+     ^GTD^         ^Reviews^          ^Notes^              ^Others^
+------------------------------------------------------------------
+ [_SPC_] Scratch  [_F_] Films   [_g_] Directory     [_b_] Bookmarks 
+   [_d_] Day     [_S_] Shows  [_p_] Programming   [_e_] Essays    
+   [_m_] Month   [_M_] Music   [_r_] Recreation    [_i_] Ideas     
+   [_y_] Year    [_B_] Books   [_t_] Technology    [_l_] Lists     "
+      ("SPC" (lambda () (interactive) (find-file "~/Dropbox/org/scratch.org")))
+      ("d" (lambda () (interactive) (find-file "~/Dropbox/org/agenda/day.org")))
+      ("m" (lambda () (interactive) (find-file "~/Dropbox/org/agenda/month.org")))
+      ("y" (lambda () (interactive) (find-file "~/Dropbox/org/agenda/year.org")))
 
-     ("F" (lambda () (interactive) (find-file "~/Dropbox/org/reviews/film.org")))
-     ("S" (lambda () (interactive) (find-file "~/Dropbox/org/reviews/show.org")))
-     ("M" (lambda () (interactive) (find-file "~/Dropbox/org/reviews/music.org")))
-     ("B" (lambda () (interactive) (find-file "~/Dropbox/org/reviews/book.org")))
+      ("F" (lambda () (interactive) (find-file "~/Dropbox/org/reviews/film.org")))
+      ("S" (lambda () (interactive) (find-file "~/Dropbox/org/reviews/show.org")))
+      ("M" (lambda () (interactive) (find-file "~/Dropbox/org/reviews/music.org")))
+      ("B" (lambda () (interactive) (find-file "~/Dropbox/org/reviews/book.org")))
 
-     ("g" (lambda () (interactive) (counsel-find-file "~/Dropbox/org/notes/")))
-     ("p" (lambda () (interactive) (counsel-find-file "~/Dropbox/org/notes/programming/")))
-     ("r" (lambda () (interactive) (counsel-find-file "~/Dropbox/org/notes/recreation/")))
-     ("t" (lambda () (interactive) (counsel-find-file "~/Dropbox/org/notes/technology/")))
+      ("g" (lambda () (interactive) (counsel-find-file "~/Dropbox/org/notes/")))
+      ("p" (lambda () (interactive) (counsel-find-file "~/Dropbox/org/notes/programming/")))
+      ("r" (lambda () (interactive) (counsel-find-file "~/Dropbox/org/notes/recreation/")))
+      ("t" (lambda () (interactive) (counsel-find-file "~/Dropbox/org/notes/technology/")))
 
-     ("b" (lambda () (interactive) (find-file "~/Dropbox/org/notes/others/bookmarks.org")))
-     ("e" (lambda () (interactive) (find-file "~/Dropbox/org/notes/others/essays.org")))
-     ("i" (lambda () (interactive) (find-file "~/Dropbox/org/notes/others/ideas.org")))
-     ("l" (lambda () (interactive) (find-file "~/Dropbox/org/notes/others/lists.org"))))
+      ("b" (lambda () (interactive) (find-file "~/Dropbox/org/notes/others/bookmarks.org")))
+      ("e" (lambda () (interactive) (find-file "~/Dropbox/org/notes/others/essays.org")))
+      ("i" (lambda () (interactive) (find-file "~/Dropbox/org/notes/others/ideas.org")))
+      ("l" (lambda () (interactive) (find-file "~/Dropbox/org/notes/others/lists.org"))))
 
 (defhydra hydra-spotify (:hint nil)
     "
