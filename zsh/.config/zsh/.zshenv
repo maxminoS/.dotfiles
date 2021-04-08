@@ -17,6 +17,7 @@ export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
+export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 export GOPATH="$XDG_DATA_HOME/go"
 export LUAROCKS_CONFIG="$XDG_DATA_HOME/luarocks/config-5.4.lua"
 export ANSIBLE_CONFIG="$XDG_CONFIG_HOME/ansible/ansible.cfg"
