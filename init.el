@@ -562,6 +562,10 @@
   (eshell-toggle-use-projectile-root t)
   (eshell-toggle-run-command nil))
 
+(use-package vterm
+  :custom
+  (vterm-module-cmake-args "-DUSE_SYSTEM_LIBVTERM=no"))
+
 (use-package lsp-mode
   :init
   (setq lsp-keymap-prefix "C-c l")

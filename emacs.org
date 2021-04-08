@@ -758,6 +758,13 @@ Place custom scripts under =~/.emacs.d/lisp=
     (eshell-toggle-run-command nil))
 #+END_SRC
 
+** VTerm
+#+BEGIN_SRC emacs-lisp
+  (use-package vterm
+    :custom
+    (vterm-module-cmake-args "-DUSE_SYSTEM_LIBVTERM=no"))
+#+END_SRC
+
 
 * Development
 ** LSP Mode
