@@ -142,14 +142,14 @@
 (setq visible-bell t)
 
 (column-number-mode)
-(global-display-line-numbers-mode t)
+(dolist (mode '(text-mode-hook
+                prog-mode-hook
+                conf-mode-hook))
+  (add-hook mode (lambda ()
+                 (display-line-numbers-mode 1)
+                 (setq display-line-numbers 'relative))))
 
-;; Disable line numbers for some modes
-(dolist (mode '(org-mode-hook
-                term-mode-hook
-                shell-mode-hook
-                dired-sidebar-mode-hook
-                eshell-mode-hook))
+(dolist (mode '(org-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
 ;; Wrap lines
