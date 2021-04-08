@@ -320,18 +320,18 @@
  [_p_] Playlist    [_r_]  /  [_s_]    [_d_]  "
     ("t" counsel-spotify-search-track :exit t)
     ("a" counsel-spotify-search-album :exit t)
-    ("p" spotify-my-playlists :exit t)
+    ("p" smudge-my-playlists :exit t)
 
-    ("SPC" spotify-toggle-play :exit nil)
-    ("h" spotify-previous-track :exit nil)
-    ("l" spotify-next-track :exit nil)
-    ("r" spotify-toggle-repeat :exit nil)
-    ("s" spotify-toggle-shuffle :exit nil)
+    ("SPC" smudge-controller-toggle-play :exit nil)
+    ("h" smudge-controller-previous-track :exit nil)
+    ("l" smudge-controller-next-track :exit nil)
+    ("r" smudge-controller-toggle-repeat :exit nil)
+    ("s" smudge-controller-toggle-shuffle :exit nil)
 
-    ("+" spotify-volume-up :exit nil)
-    ("-" spotify-volume-down :exit nil)
-    ("0" spotify-volume-mute-unmute :exit nil)
-    ("d" spotify-select-device :exit nil))
+    ("+" smudge-controller-volume-up :exit nil)
+    ("-" smudge-controller-volume-down :exit nil)
+    ("0" smudge-controller-volume-mute-unmute :exit nil)
+    ("d" smudge-select-device :exit nil))
 
 (defhydra hydra-mpv (:hint nil)
     "
@@ -996,23 +996,24 @@
 (use-package mu4e-alert
   :hook (after-init-hook . mu4e-alert-enable-mode-line-display))
 
-(use-package spotify
-  :load-path "~/.emacs.d/lisp/spotify.el"
+(use-package smudge
+  :bind (:map smudge-playlist-search-mode-map
+              ("<tab>" . smudge-playlist-load-more))
   :config
   (use-package simple-httpd)
   (use-package oauth2)
-  (evil-define-key 'normal spotify-playlist-search-mode-map "\C-ci" 'spotify-playlist-load-more)
+  ;; (evil-define-key 'normal smudge-playlist-search-mode-map "\C-ci" 'smudge-playlist-load-more)
   :custom
-  (spotify-oauth2-client-id emax/spotify-client-id)
-  (spotify-oauth2-client-secret emax/spotify-client-secret)
-  (spotify-player-status-format "[%p %t - %a%r%s] ")
-  (spotify-player-status-playing-text "")
-  (spotify-player-status-paused-text "")
-  (spotify-player-status-stopped-text "")
-  (spotify-player-status-repeating-text " ")
-  (spotify-player-status-not-repeating-text "")
-  (spotify-player-status-shuffling-text "")
-  (spotify-player-status-not-shuffling-text ""))
+  (smudge-oauth2-client-id emax/spotify-client-id)
+  (smudge-oauth2-client-secret emax/spotify-client-secret)
+  (smudge-player-status-format "[%p %t - %a%r%s] ")
+  (smudge-player-status-playing-text "")
+  (smudge-player-status-paused-text "")
+  (smudge-player-status-stopped-text "")
+  (smudge-player-status-repeating-text " ")
+  (smudge-player-status-not-repeating-text "")
+  (smudge-player-status-shuffling-text "")
+  (smudge-player-status-not-shuffling-text ""))
 
 (use-package counsel-spotify
   :custom

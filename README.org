@@ -222,8 +222,7 @@ bitrate = 320
 (setq emax/spotify-client-secret "<client-secret>")
 #+END_SRC
 
-4. =cd ~/.emacs.d/lisp= then =git clone https://github.com/danielfm/spotify.el=
-5. Make launch at startup
+4. Make launch at startup
 
 *** Within Emacs
 - =M-x all-the-icons-install-fonts=

@@ -1,3 +1,0 @@
-[submodule "spotify.el"]
-	path = lisp/spotify.el
-	url = https://github.com/danielfm/spotify.el.git
