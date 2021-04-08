@@ -57,7 +57,7 @@
 
 (use-package exwm
   :custom
-  (exwm-workspace-number 9)
+  (exwm-workspace-number 10)
   (exwm-input-prefix-keys '(?\C-x ?\C-u ?\C-c
                             ?\C-h ?\C-w ?\M-x ?\M-:))
   (exwm-input-global-keys `(([?\s-r] . exwm-reset)

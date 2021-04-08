@@ -137,7 +137,7 @@
 
 (setq inhibit-startup-message t)
 
-(set-scroll-bar-mode 'right)
+(scroll-bar-mode 0)
 (tool-bar-mode -1)
 (tooltip-mode -1)
 (set-fringe-mode 2)
@@ -179,6 +179,13 @@
   :config
   (display-battery-mode t)
   (display-time-mode t))
+
+(use-package yascroll
+  :config
+  (require 'cl)
+  (global-yascroll-bar-mode 1)
+  :custom
+  (delay-to-hide nil))
 
 (use-package visual-fill-column
   :config

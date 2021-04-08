@@ -182,7 +182,7 @@ Place custom scripts under =~/.emacs.d/lisp=
 #+BEGIN_SRC emacs-lisp
   (setq inhibit-startup-message t)
 
-  (set-scroll-bar-mode 'right)
+  (scroll-bar-mode 0)
   (tool-bar-mode -1)
   (tooltip-mode -1)
   (set-fringe-mode 2)
@@ -230,6 +230,16 @@ Place custom scripts under =~/.emacs.d/lisp=
     :config
     (display-battery-mode t)
     (display-time-mode t))
+#+END_SRC
+
+** Scroll Bar
+#+BEGIN_SRC emacs-lisp
+  (use-package yascroll
+    :config
+    (require 'cl)
+    (global-yascroll-bar-mode 1)
+    :custom
+    (delay-to-hide nil))
 #+END_SRC
 
 ** Text
