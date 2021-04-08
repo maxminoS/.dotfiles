@@ -762,7 +762,8 @@ Place custom scripts under =~/.emacs.d/lisp=
 #+BEGIN_SRC emacs-lisp
   (use-package vterm
     :custom
-    (vterm-module-cmake-args "-DUSE_SYSTEM_LIBVTERM=no"))
+    (vterm-module-cmake-args "-DUSE_SYSTEM_LIBVTERM=no")
+    (vterm-buffer-name "VTerm"))
 #+END_SRC
 
 

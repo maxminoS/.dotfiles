@@ -564,7 +564,8 @@
 
 (use-package vterm
   :custom
-  (vterm-module-cmake-args "-DUSE_SYSTEM_LIBVTERM=no"))
+  (vterm-module-cmake-args "-DUSE_SYSTEM_LIBVTERM=no")
+  (vterm-buffer-name "VTerm"))
 
 (use-package lsp-mode
   :init
