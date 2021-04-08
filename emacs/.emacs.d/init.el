@@ -108,7 +108,7 @@
 ;; Automatically tangle emacs.org on save
 (defun org-babel-tangle-config ()
   (when (string-equal (file-name-directory (buffer-file-name))
-                      (expand-file-name "~/.emacs.d/"))
+                      (expand-file-name "~/.dotfiles/emacs/.emacs.d/"))
     (let ((org-confirm-babel-evaluate nil))
       (org-babel-tangle))))
 
