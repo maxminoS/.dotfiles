@@ -663,6 +663,10 @@
     (exec-path-from-shell-initialize)))
 
 (use-package vterm
+  :config
+  (evil-define-key 'normal vterm-mode-map "j" 'vterm-send-down)
+  (evil-define-key 'normal vterm-mode-map "k" 'vterm-send-up)
+  (evil-define-key 'normal vterm-mode-map "M-<backspace>" 'vterm-send-meta-backspace)
   :custom
   (vterm-module-cmake-args "-DUSE_SYSTEM_LIBVTERM=no")
   (vterm-buffer-name "VTerm"))
