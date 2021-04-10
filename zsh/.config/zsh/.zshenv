@@ -28,7 +28,7 @@ export VIMINIT="source $XDG_CONFIG_HOME/vim/vimrc"
 export PATH="$(find "$HOME/.bin" -type d | paste -sd: - ):$PATH"
 
 # Adds Go binaries to PATH
-export PATH="$(go env GOPATH)/bin:$PATH"
+export PATH="$PATH:$GOPATH/bin"
 
 # macOS
 if [ $OSTYPE != 'linux-gnu' ]; then
