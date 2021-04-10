@@ -701,7 +701,7 @@
 (when (equal system-type 'darwin)
   (use-package exec-path-from-shell
     :custom
-    (exec-path-from-shell-variables '("PATH" "MANPATH" "XDG_CONFIG_HOME" "XDG_CACHE_HOME" "XDG_DATA_HOME" "ZDOTDIR" "PASSWORD_STORE_DIR" "GNUPGHOME"))
+    (exec-path-from-shell-variables '("PATH" "MANPATH" "XDG_CONFIG_HOME" "XDG_CACHE_HOME" "XDG_DATA_HOME" "ZDOTDIR" "PASSWORD_STORE_DIR" "GNUPGHOME" "MU_LOAD_PATH"))
     :config
     (exec-path-from-shell-initialize)))
 
@@ -896,7 +896,7 @@
 
 (setq emax/mu4e-load-path "/usr/share/emacs/site-lisp/mu4e/")
   (when (equal system-type 'darwin)
-    (setq emax/mu4e-load-path "/usr/local/Cellar/mu/1.4.15/share/emacs/site-lisp/mu/mu4e/"))
+    (setq emax/mu4e-load-path (concat (getenv "MU_LOAD_PATH") "/share/emacs/site-lisp/mu/mu4e/")))
 
 (use-package mu4e
   :ensure nil

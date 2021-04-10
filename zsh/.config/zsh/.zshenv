@@ -38,4 +38,6 @@ if [ $OSTYPE != 'linux-gnu' ]; then
     export MANPATH="$(brew --prefix coreutils)/libexec/gnuman:$MANPATH"
     # Adds ssh-copy-id to PATH
     export PATH="/usr/local/opt/ssh-copy-id/bin:$PATH"
+    # Exports load path for mu
+    export MU_LOAD_PATH="$(brew --prefix mu)"
 fi
