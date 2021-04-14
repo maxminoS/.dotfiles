@@ -244,6 +244,12 @@ sudo yabai --install-sa
 brew services start yabai
 #+END_SRC
 
+*** skhd
+#+BEGIN_SRC sh
+brew install koekeishiya/formulae/skhd
+brew services start skhd
+#+END_SRC
+
 
 * Manual
 ** Stow
@@ -299,6 +305,19 @@ sudo ln -sF ~/Pictures/images /usr/share/backgrounds
 - =5= - Change screenshot/recording options
 - =6= - Touch bar
 /Add Control to save screenshots as a file/
+
+*** Yabai
+- =Option-Shift-<1-9>= - Move window to Space
+- =Option-<h/j/k/l>= - Focus left/down/up/right window
+- =Option-<Left/Down/Up/Right>= - Swap window
+
+- =Option/Control-Shift-<Left/Down/Up/Right>= - Increase/Decrease window size
+- =Option-== - Balance window size
+
+- =Option-F= - Toggle fullscreen
+- =Option-P= - Pop in/out
+
+- =Control-F12= - Open URL in clipboard in *mpv*
 
 ** Terminal
 In macOS, its Terminal emulator may be enough without Alacritty.
