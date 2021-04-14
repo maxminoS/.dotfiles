@@ -232,6 +232,18 @@ bitrate = 320
 - Linux: =gcc=, =g++=, =automake=, =autoconf=, =libpng-dev=, =zlib1g-dev=, =libpoppler-glib-dev=, =libpoppler-private-dev=, =imagemagick=
 - macOS: =brew install poppler automake= and =export PKG_CONFIG_PATH=/usr/local/Cellar/zlib/1.2.8/lib/pkgconfig:/usr/local/lib/pkgconfig:/opt/X11/lib/pkgconfig=
 
+** Yabai
+Yabai is a tiling window manager for macOS. Paired with skhd, window management can be handled using only the keyboard.
+
+You may need to disable the *System Integrity Protection* for Yabai (in *Recovery Mode*)
+#+BEGIN_SRC sh
+csrutil disable --with kext --with dtrace --with nvram --with basesystem
+brew install koekeishiya/formulae/yabai
+sudo yabai --install-sa
+
+brew services start yabai
+#+END_SRC
+
 
 * Manual
 ** Stow
