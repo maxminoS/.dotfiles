@@ -250,6 +250,15 @@ brew install koekeishiya/formulae/skhd
 brew services start skhd
 #+END_SRC
 
+** Spacebar
+Spacebar is a minimal menubar for the macOS
+
+Autohide the menubar to use
+#+BEGIN_SRC sh
+brew install cmacrae/formulae/spacebar
+brew services start spacebar
+#+END_SRC
+
 
 * Manual
 ** Stow
