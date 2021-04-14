@@ -59,7 +59,7 @@ brew install youtube-dl
 # Emacs
 brew tap d12frosted/emacs-plus
 brew install emacs-plus --HEAD --with-ctags --with-dbus --with-mailutils --with-no-titlebar --with-xwidgets
-ln -s "$(brew --prefix emacs-plus)/Emacs.app" /Applications
+
 
 # Services
 brew services start dbus
