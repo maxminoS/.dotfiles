@@ -730,6 +730,8 @@
   (lsp-before-save-edits nil))
 
 (defun emax/lsp-mode-setup-hook ()
+  (setq-local company-format-margin-function
+              #'company-vscode-dark-icons-margin)
   (setq lsp-modeline-code-actions-segments '(count icon))
   (lsp-modeline-code-actions-mode)
   (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
