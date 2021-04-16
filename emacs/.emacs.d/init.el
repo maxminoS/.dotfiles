@@ -722,6 +722,7 @@
          (lsp-mode . lsp-enable-which-key-integration)
          (python-mode . lsp)
          (web-mode . lsp)
+         (c-mode . lsp)
          (go-mode . lsp)
          (lua-mode . lsp))
   :custom

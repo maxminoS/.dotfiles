@@ -32,6 +32,7 @@ export PATH="$PATH:$GOPATH/bin"
 
 # macOS
 if [ $OSTYPE != 'linux-gnu' ]; then
+    export PATH="$(brew --prefix llvm)/bin:$PATH"
     # Adds GNU coreutils to PATH
     export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
     export PATH="$(brew --prefix)/libexec/gnubin:$PATH"
