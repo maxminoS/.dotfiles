@@ -724,6 +724,7 @@
          (web-mode . lsp)
          (c-mode . lsp)
          (go-mode . lsp)
+         (rust-mode . lsp)
          (lua-mode . lsp))
   :custom
   (lsp-ui-sideline-enable nil)
@@ -787,6 +788,12 @@
   :config
   (require 'dap-go)
   (dap-go-setup))
+
+(use-package rust-mode
+  :mode "\\.rs\\'"
+  :hook (rust-mode . (lambda ()
+                       (setq indent-tabs-mode nil
+                             rust-format-on-save t))))
 
 (use-package lua-mode
   :mode "\\.lua\\'")
