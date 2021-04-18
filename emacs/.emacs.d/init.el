@@ -741,7 +741,34 @@
 
 (use-package lsp-ui
   :hook (lsp-mode . lsp-ui-mode)
+  :config
+  (setq lsp-ui-doc-frame-parameters
+        '((left . -3)
+          (no-focus-on-map . t)
+          (min-width . 15)
+          (width . 0)
+          (min-height . 0)
+          (height . 0)
+          (internal-border-width . 1)
+          (vertical-scroll-bars . nil)
+          (horizontal-scroll-bars . nil)
+          (right-fringe . 0)
+          (menu-bar-lines . 0)
+          (tool-bar-lines . 0)
+          (line-spacing . 0)
+          (unsplittable . t)
+          (undecorated . t)
+          (top . -1)
+          (visibility . nil)
+          (mouse-wheel-frame . nil)
+          (no-other-frame . t)
+          (inhibit-double-buffering . t)
+          (drag-internal-border . t)
+          (no-special-glyphs . t)
+          (alpha . (100 . 100))
+          (desktop-dont-save . t)))
   :custom
+  (lsp-ui-doc-delay 0)
   (lsp-ui-doc-position 'at-point))
 
 (use-package dap-mode
