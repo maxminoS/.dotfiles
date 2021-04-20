@@ -695,7 +695,7 @@
 
 
 (use-package eshell-toggle
-  :bind ("<f4>" . eshell-toggle)
+  :bind ("M-`" . eshell-toggle)
   :custom
   (eshell-toggle-use-projectile-root t)
   (eshell-toggle-run-command nil))
