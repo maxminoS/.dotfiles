@@ -717,9 +717,6 @@
   ;; (vterm-module-cmake-args "-DUSE_SYSTEM_LIBVTERM=no"))
 
 (use-package lsp-mode
-  :init
-  (setq lsp-keymap-prefix "C-c l")
-  :commands (lsp lsp-deferred)
   :hook ((lsp-mode . emax/lsp-mode-setup-hook)
          (lsp-mode . lsp-enable-which-key-integration)
          (python-mode . lsp)
@@ -729,10 +726,22 @@
          (go-mode . lsp)
          (rust-mode . lsp)
          (lua-mode . lsp))
+  :config
+  (defadvice lsp-on-change (around lsp-on-change-hack activate)
+    (when (> (- (float-time (current-time)) 0) 30)
+      (setq lsp-on-touch-time (float-time (current-time))) ad-do-it))
   :custom
+  (lsp-keymap-prefix "C-c l")
   (lsp-ui-sideline-enable nil)
   (lsp-modeline-diagnostics-enable t)
-  (lsp-before-save-edits nil))
+  (lsp-before-save-edits nil)
+  (lsp-log-io nil) ;; Disable log
+  (lsp-enable-folding nil)
+  (lsp-enable-snippet nil)
+  (lsp-completion-enable nil)
+  (lsp-enable-symbol-highlighting nil)
+  (lsp-enable-links nil)
+  (lsp-restart 'auto-restart))
 
 (defun emax/lsp-mode-setup-hook ()
   (setq-local company-format-margin-function
@@ -843,14 +852,8 @@
   :config
   (editorconfig-mode 1))
 
-(setq tab-always-indent 'complete)
-
 (use-package company
   :hook (lsp-mode . company-mode)
-  :bind (:map company-active-map
-         ("<tab>" . company-complete-selection))
-        (:map lsp-mode-map
-         ("<tab>" . company-indent-or-complete-common))
   :custom
   (company-minimum-prefix-length 1)
   (company-idle-delay 0.0))
