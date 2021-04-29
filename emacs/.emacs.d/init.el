@@ -1051,7 +1051,6 @@
   :config
   (use-package simple-httpd)
   (use-package oauth2)
-  ;; (evil-define-key 'normal smudge-playlist-search-mode-map "\C-ci" 'smudge-playlist-load-more)
   :custom
   (smudge-oauth2-client-id emax/spotify-client-id)
   (smudge-oauth2-client-secret emax/spotify-client-secret)
