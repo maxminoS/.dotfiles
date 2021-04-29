@@ -1,7 +1,6 @@
 #!/bin/sh
 
 export BROWSER='/usr/bin/google-chrome-stable'
-export EDITOR='/usr/bin/vim'
 export LANG='en_US.UTF-8'
 
 export PASSWORD_STORE_DIR="$XDG_DATA_HOME/.password-store"
