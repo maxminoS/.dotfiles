@@ -1073,7 +1073,16 @@
   :custom
   (password-store-password-length 16))
 
-(use-package password-store-otp)
+(use-package password-store-otp
+  :config
+  (defun emax/password-store-otp-insert-code (entry issuer email otp-code)
+    "Insert a new ENTRY with OTP-URI generated using the enterred ISSUER, EMAIL, and CODE."
+    (interactive (list (password-store-otp-completing-read)
+                       (read-string "Issuer: ")
+                       (read-string "Email: ")
+                       (read-passwd "Code: " t)))
+    (password-store-otp-add-uri 'insert entry
+                                (concat "otpauth://totp/" issuer ":" email "?secret=" otp-code "&issuer=" issuer))))
 
 (use-package pdf-tools
   :init (add-to-list 'auto-mode-alist '("\\.pdf\\'" . pdf-view-mode))
