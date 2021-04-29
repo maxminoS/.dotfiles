@@ -943,13 +943,14 @@
   (define-key yafolding-mode-map (kbd "C-c f") 'yafolding-toggle-element))
 
 (setq emax/mu4e-load-path "/usr/share/emacs/site-lisp/mu4e/")
-  (when (equal system-type 'darwin)
-    (setq emax/mu4e-load-path (concat (getenv "MU_LOAD_PATH") "/share/emacs/site-lisp/mu/mu4e/")))
+(when (equal system-type 'darwin)
+  (setq emax/mu4e-load-path (concat (getenv "MU_LOAD_PATH") "/share/emacs/site-lisp/mu/mu4e/")))
 
 (use-package mu4e
   :ensure nil
   :load-path emax/mu4e-load-path
-
+  :bind (:map mu4e-main-mode-map
+              ("U" . mu4e-update-index))
   :custom
   (mail-user-agent 'mu4e-user-agent)
   (mu4e-change-filenames-when-moving t)
@@ -993,44 +994,44 @@
                  (user (nth 3 data))
                  (path (concat "/" (file-name-nondirectory (directory-file-name (car (last data)))))))
             (add-to-list 'mu4e-contexts
-              (make-mu4e-context
-                :name (concat (number-to-string idx) imapaccount)
-                :match-func
-                  `(lambda (msg)
-                    (when msg
-                      (string-prefix-p ,path (mu4e-message-field msg :maildir))))
-                :vars `((user-mail-address      . ,user)
-                        (user-full-name         . ,full-name)
-                        (smtpmail-smtp-server   . ,smtp)
-                        (mu4e-refile-folder     . ,(concat path "/All"))
-                        (mu4e-sent-folder       . ,(concat path "/Sent"))
-                        (mu4e-drafts-folder     . ,(concat path "/Drafts"))
-                        (mu4e-trash-folder      . ,(concat path "/Trash"))
-                        (mu4e-bookmarks .
-                          ((:name ,(concat "Unread - " user)
-                            :query ,(concat "flag:unread AND NOT flag:trashed AND m:" path "/All")
-                            :key ?u)
-                           (:name ,(concat "Today - " user)
-                            :query ,(concat "date:today..now AND m:" path "/All")
-                            :key ?t)
-                           (:name ,(concat "Week - " user)
-                            :query ,(concat "date:7d..now AND m:" path "/All")
-                            :key ?w)
-                           (:name "Unread - All"
-                            :query "flag:unread AND NOT flag:trashed"
-                            :key ?U)
-                           (:name "Today - All"
-                            :query "date:today..now"
-                            :key ?T)
-                           (:name "Week - All"
-                            :query "date:7d..now"
-                            :key ?W)))
-                        (mu4e-maildir-shortcuts .
-                          ((:maildir ,(concat path "/All")   :key ?a)
-                           (:maildir ,(concat path "/Sent")  :key ?s)
-                           (:maildir ,(concat path "/Draft") :key ?d)
-                           (:maildir ,(concat path "/Trash") :key ?t))))) t))
-        (setq idx (1+ idx))))))
+                         (make-mu4e-context
+                          :name (concat (number-to-string idx) imapaccount)
+                          :match-func
+                          `(lambda (msg)
+                             (when msg
+                               (string-prefix-p ,path (mu4e-message-field msg :maildir))))
+                          :vars `((user-mail-address      . ,user)
+                                  (user-full-name         . ,full-name)
+                                  (smtpmail-smtp-server   . ,smtp)
+                                  (mu4e-refile-folder     . ,(concat path "/All"))
+                                  (mu4e-sent-folder       . ,(concat path "/Sent"))
+                                  (mu4e-drafts-folder     . ,(concat path "/Drafts"))
+                                  (mu4e-trash-folder      . ,(concat path "/Trash"))
+                                  (mu4e-bookmarks .
+                                                  ((:name ,(concat "Unread - " user)
+                                                          :query ,(concat "flag:unread AND NOT flag:trashed AND m:" path "/All")
+                                                          :key ?u)
+                                                   (:name ,(concat "Today - " user)
+                                                          :query ,(concat "date:today..now AND m:" path "/All")
+                                                          :key ?t)
+                                                   (:name ,(concat "Week - " user)
+                                                          :query ,(concat "date:7d..now AND m:" path "/All")
+                                                          :key ?w)
+                                                   (:name "Unread - All"
+                                                          :query "flag:unread AND NOT flag:trashed"
+                                                          :key ?U)
+                                                   (:name "Today - All"
+                                                          :query "date:today..now"
+                                                          :key ?T)
+                                                   (:name "Week - All"
+                                                          :query "date:7d..now"
+                                                          :key ?W)))
+                                  (mu4e-maildir-shortcuts .
+                                                          ((:maildir ,(concat path "/All")   :key ?a)
+                                                           (:maildir ,(concat path "/Sent")  :key ?s)
+                                                           (:maildir ,(concat path "/Draft") :key ?d)
+                                                           (:maildir ,(concat path "/Trash") :key ?t))))) t))
+          (setq idx (1+ idx))))))
 
   (emax/auto-add-mu4e-contexts))
 
