@@ -25,7 +25,8 @@ export VIMINIT="source $XDG_CONFIG_HOME/vim/vimrc"
 
 # Adds `~/.bin` and all subdirectories to PATH
 export PATH="$(find "$HOME/.bin" -type d | paste -sd: - ):$PATH"
-
+# Adds Yarn binaries to PATH
+export PATH="$PATH:$(yarn global bin)"
 # Adds Go binaries to PATH
 export PATH="$PATH:$GOPATH/bin"
 
