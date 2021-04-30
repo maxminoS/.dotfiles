@@ -955,7 +955,7 @@
   (mail-user-agent 'mu4e-user-agent)
   (mu4e-change-filenames-when-moving t)
   (mu4e-update-interval (* 10 60))
-  (mu4e-get-mail-command "mbsync -a")
+  (mu4e-get-mail-command (concat "mbsync -c " (getenv "XDG_CONFIG_HOME") "/isync/mbsyncrc -a"))
   (mu4e-compose-format-flowed t)
   (mu4e-compose-context-policy 'ask-if-none)
   (mu4e-view-show-images t)
@@ -1043,7 +1043,8 @@
                              :with-toc nil)))
 
 (use-package mu4e-alert
-  :hook (after-init-hook . mu4e-alert-enable-mode-line-display))
+  :config
+  (mu4e-alert-enable-mode-line-display))
 
 (use-package smudge
   :bind (:map smudge-playlist-search-mode-map
