@@ -13,3 +13,4 @@ zsh/.config/zsh/.zsh_sessions
 /.extension/
 /forge-database.sqlite
 /transient/
+/git/.config/git/credentials
