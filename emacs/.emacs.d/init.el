@@ -829,7 +829,11 @@
 
 (use-package go-mode
   :mode "\\.go\\'"
+  :hook (go-mode . emax/lsp-mode-go-hook)
   :config
+  (defun emax/lsp-mode-go-hook ()
+    (add-hook 'before-save-hook #'lsp-format-buffer t t)
+    (add-hook 'before-save-hook #'lsp-organize-imports t t))
   (require 'dap-go)
   (dap-go-setup))
 
