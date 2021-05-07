@@ -966,7 +966,7 @@ Requires: =cmake=, =libtool-bin=, =libvterm[-dev]=
   (when (equal system-type 'darwin)
     (use-package exec-path-from-shell
       :custom
-      (exec-path-from-shell-variables '("PATH" "MANPATH" "XDG_CONFIG_HOME" "XDG_CACHE_HOME" "XDG_DATA_HOME" "ZDOTDIR" "PASSWORD_STORE_DIR" "GNUPGHOME" "MU_LOAD_PATH"))
+      (exec-path-from-shell-variables '("PATH" "MANPATH" "XDG_CONFIG_HOME" "XDG_CACHE_HOME" "XDG_DATA_HOME" "XDG_RUNTIME_DIR" "ZDOTDIR" "PASSWORD_STORE_DIR" "GNUPGHOME" "MU_LOAD_PATH"))
       :config
       (exec-path-from-shell-initialize)))
 
