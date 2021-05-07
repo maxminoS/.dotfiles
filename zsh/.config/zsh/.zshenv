@@ -41,6 +41,8 @@ if [ $OSTYPE != 'linux-gnu' ]; then
     export PATH="/usr/local/opt/ssh-copy-id/bin:$PATH"
     # Adds Homebrew-installed Ruby to PATH
     export PATH="$(brew --prefix ruby)/bin:$PATH"
+    # Adds Java binaries to PATH
+    export PATH="$(brew --prefix openjdk@11)/bin:$PATH"
     # Exports load path for mu
     export MU_LOAD_PATH="$(brew --prefix mu)"
 fi
