@@ -17,6 +17,7 @@ alias gpg="gpg --homedir $XDG_DATA_HOME/gnupg"
 alias mbsync="mbsync -c $XDG_CONFIG_HOME/isync/mbsyncrc"
 alias mongo='mongo --norc'
 alias yarn="yarn --use-yarnrc $XDG_CONFIG_HOME/yarn/config"
+alias svn="svn --config-dir $XDG_CONFIG_HOME/subversion"
 
 # macOS
 if [ $OSTYPE != 'linux-gnu' ]; then

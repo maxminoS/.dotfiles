@@ -22,6 +22,7 @@ export LUAROCKS_CONFIG="$XDG_DATA_HOME/luarocks/config-5.4.lua"
 export ANSIBLE_CONFIG="$XDG_CONFIG_HOME/ansible/ansible.cfg"
 export RANDFILE="$XDG_CONFIG_HOME/openssl/rnd"
 export VIMINIT="source $XDG_CONFIG_HOME/vim/vimrc"
+export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
 
 # Adds `~/.bin` and all subdirectories to PATH
 export PATH="$(find "$HOME/.bin" -type d | paste -sd: - ):$PATH"
@@ -32,17 +33,18 @@ export PATH="$PATH:$GOPATH/bin"
 
 # macOS
 if [ $OSTYPE != 'linux-gnu' ]; then
-    export PATH="$(brew --prefix llvm)/bin:$PATH"
     # Adds GNU coreutils to PATH
     export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
-    export PATH="$(brew --prefix)/libexec/gnubin:$PATH"
     export MANPATH="$(brew --prefix coreutils)/libexec/gnuman:$MANPATH"
+
+    export PATH="$(brew --prefix llvm)/bin:$PATH"
     # Adds ssh-copy-id to PATH
-    export PATH="/usr/local/opt/ssh-copy-id/bin:$PATH"
+    export PATH="$(brew --prefix ssh-copy-id)/bin:$PATH"
     # Adds Homebrew-installed Ruby to PATH
     export PATH="$(brew --prefix ruby)/bin:$PATH"
     # Adds Java binaries to PATH
     export PATH="$(brew --prefix openjdk@11)/bin:$PATH"
+
     # Exports load path for mu
     export MU_LOAD_PATH="$(brew --prefix mu)"
 fi
