@@ -858,6 +858,8 @@
 
 (use-package company
   :hook (lsp-mode . company-mode)
+  :bind (:map company-active-map
+          ("<space>" . company-complete-selection))
   :custom
   (company-minimum-prefix-length 1)
   (company-idle-delay 0.0))
@@ -867,6 +869,7 @@
   (insert "\t"))
 
 (global-set-key (kbd "M-I") 'emax/insert-tab)
+(setq tab-always-indent 'complete)
 
 (use-package evil-nerd-commenter
   :bind (("M-;" . evilnc-comment-or-uncomment-lines)))

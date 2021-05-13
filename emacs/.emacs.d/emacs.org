@@ -1167,6 +1167,8 @@ Install the required Language Servers by:
 #+BEGIN_SRC emacs-lisp
   (use-package company
     :hook (lsp-mode . company-mode)
+    :bind (:map company-active-map
+            ("<space>" . company-complete-selection))
     :custom
     (company-minimum-prefix-length 1)
     (company-idle-delay 0.0))
@@ -1180,6 +1182,7 @@ Install the required Language Servers by:
     (insert "\t"))
 
   (global-set-key (kbd "M-I") 'emax/insert-tab)
+  (setq tab-always-indent 'complete)
 #+END_SRC
 
 *** Comment
