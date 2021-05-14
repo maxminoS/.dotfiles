@@ -870,6 +870,7 @@
 
 (global-set-key (kbd "M-I") 'emax/insert-tab)
 (setq tab-always-indent 'complete)
+(define-key prog-mode-map [remap evil-jump-forward] 'indent-for-tab-command)
 
 (use-package evil-nerd-commenter
   :bind (("M-;" . evilnc-comment-or-uncomment-lines)))
