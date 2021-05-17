@@ -725,7 +725,8 @@
          (c-mode . lsp)
          (go-mode . lsp)
          (rust-mode . lsp)
-         (lua-mode . lsp))
+         (lua-mode . lsp)
+         (dockerfile-mode . lsp))
   :config
   (defadvice lsp-on-change (around lsp-on-change-hack activate)
     (when (> (- (float-time (current-time)) 0) 30)
@@ -851,6 +852,9 @@
 
 (use-package yaml-mode
   :mode "\\.ya?ml\\'")
+
+(use-package dockerfile-mode
+  :mode "Dockerfile\\'")
 
 (use-package editorconfig
   :config

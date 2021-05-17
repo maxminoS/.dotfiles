@@ -999,7 +999,8 @@ Install the required Language Servers by:
            (c-mode . lsp)
            (go-mode . lsp)
            (rust-mode . lsp)
-           (lua-mode . lsp))
+           (lua-mode . lsp)
+           (dockerfile-mode . lsp))
     :config
     (defadvice lsp-on-change (around lsp-on-change-hack activate)
       (when (> (- (float-time (current-time)) 0) 30)
@@ -1153,6 +1154,12 @@ Install the required Language Servers by:
 #+BEGIN_SRC emacs-lisp
   (use-package yaml-mode
     :mode "\\.ya?ml\\'")
+#+END_SRC
+
+**** Dockerfile
+#+BEGIN_SRC emacs-lisp
+  (use-package dockerfile-mode
+    :mode "Dockerfile\\'")
 #+END_SRC
 
 ** Other
