@@ -14,6 +14,7 @@ export GPG_TTY=$(tty)
 export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 
 
+export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
