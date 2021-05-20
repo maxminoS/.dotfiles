@@ -55,6 +55,9 @@
         mac-command-key-is-meta t
         mac-command-modifier 'meta
         mac-option-modifier 'super)
+
+  (when (equal system-type 'darwin)
+    (setq trash-directory "~/.Trash"))
 #+END_SRC
 
 ** Package Manager

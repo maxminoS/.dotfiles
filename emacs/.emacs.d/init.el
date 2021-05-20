@@ -47,6 +47,9 @@
       mac-command-modifier 'meta
       mac-option-modifier 'super)
 
+(when (equal system-type 'darwin)
+  (setq trash-directory "~/.Trash"))
+
 (require 'package)
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
                          ("org" . "https://orgmode.org/elpa/")
