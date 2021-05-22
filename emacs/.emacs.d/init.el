@@ -729,6 +729,7 @@
          (go-mode . lsp)
          (rust-mode . lsp)
          (lua-mode . lsp)
+         (clojure-mode . lsp)
          (dockerfile-mode . lsp))
   :config
   (defadvice lsp-on-change (around lsp-on-change-hack activate)
@@ -846,6 +847,18 @@
   :hook (rust-mode . (lambda ()
                        (setq indent-tabs-mode nil
                              rust-format-on-save t))))
+
+(use-package clojure-mode
+    :hook ((clojure-mode . emax/lsp-mode-clojure-hook)
+           (clojure-mode . cider-mode))
+    :config
+    (defun emax/lsp-mode-clojure-hook ()
+      (add-hook 'before-save-hook #'lsp-format-buffer t t)
+      (add-hook 'before-save-hook #'lsp-clojure-clean-ns t t)))
+
+(use-package cider
+  :custom
+  (cider-repl-display-help-banner nil))
 
 (use-package lua-mode
   :mode "\\.lua\\'")
