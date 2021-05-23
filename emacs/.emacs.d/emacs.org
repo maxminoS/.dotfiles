@@ -717,17 +717,21 @@ In macOS, you may need to add permission for Emacs (or ruby) to have file access
                    `(,(concat "l" (downcase (substring bookmarks 0 1))) ,bookmarks item (file+headline ,(concat org-directory "/notes/others/bookmarks.org") ,bookmarks)
                           "- [[https://%^{Link}][%^{Name}]]" :kill-buffer t) t))
 #+END_SRC
-*** Custom Agenda
+*** Agenda
 #+BEGIN_SRC emacs-lisp
   (setq org-agenda-custom-commands
-    '(("a" "Dashboard"
-      ((agenda ""
-        ((org-agenda-overriding-header "  Week Agenda\n -------------\n")))))
+        '(("a" "Dashboard"
+           ((agenda ""
+                    ((org-agenda-overriding-header "  Week Agenda\n -------------\n")))))
 
-    ("c" "Completed Tasks"
-      ((todo "DONE"
-        ((org-agenda-overriding-header "  Completed Tasks\n -----------------\n")))))))
+          ("c" "Completed Tasks"
+           ((todo "DONE"
+                  ((org-agenda-overriding-header "  Completed Tasks\n -----------------\n")))))))
+
+  ;; Automatically save Org buffers everytime the auto-save is run
+  (add-hook 'auto-save-hook 'org-save-all-org-buffers)
 #+END_SRC
+
 ** Magit
 | C-x g | Open magit    |
 | u/s   | Unstage/stage |

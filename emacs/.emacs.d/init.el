@@ -532,13 +532,16 @@
                           "- [[https://%^{Link}][%^{Name}]]" :kill-buffer t) t))
 
 (setq org-agenda-custom-commands
-  '(("a" "Dashboard"
-    ((agenda ""
-      ((org-agenda-overriding-header "  Week Agenda\n -------------\n")))))
+      '(("a" "Dashboard"
+         ((agenda ""
+                  ((org-agenda-overriding-header "  Week Agenda\n -------------\n")))))
 
-  ("c" "Completed Tasks"
-    ((todo "DONE"
-      ((org-agenda-overriding-header "  Completed Tasks\n -----------------\n")))))))
+        ("c" "Completed Tasks"
+         ((todo "DONE"
+                ((org-agenda-overriding-header "  Completed Tasks\n -----------------\n")))))))
+
+;; Automatically save Org buffers everytime the auto-save is run
+(add-hook 'auto-save-hook 'org-save-all-org-buffers)
 
 (use-package magit
   :bind (("C-x g" . magit-status))
