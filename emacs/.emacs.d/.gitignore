@@ -9,3 +9,4 @@
 /.extension/
 /forge-database.sqlite
 /transient/
+/eln-cache/
