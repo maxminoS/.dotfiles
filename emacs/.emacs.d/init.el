@@ -556,9 +556,6 @@
   :bind-keymap
   ("C-c p" . projectile-command-map))
 
-(use-package counsel-projectile
-  :config (counsel-projectile-mode))
-
 (define-key evil-window-map (kbd "<left>") 'windmove-swap-states-left)
 (define-key evil-window-map (kbd "<down>") 'windmove-swap-states-down)
 (define-key evil-window-map (kbd "<up>") 'windmove-swap-states-up)

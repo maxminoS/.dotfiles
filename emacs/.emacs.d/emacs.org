@@ -762,9 +762,6 @@ Requires: =git=
     :custom ((projectile-completion-system 'ivy))
     :bind-keymap
     ("C-c p" . projectile-command-map))
-
-  (use-package counsel-projectile
-    :config (counsel-projectile-mode))
 #+END_SRC
 
 ** Window Management
