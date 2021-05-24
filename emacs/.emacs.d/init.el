@@ -16,6 +16,9 @@
 ;; Clean whitespace
 (add-hook 'before-save-hook 'whitespace-cleanup)
 
+;; Emacs init time
+(add-hook 'after-init-hook (lambda () (message "Loaded in %s" (emacs-init-time))))
+
 ;; Open new frames in current Emacs
 (require 'server)
 (if (not (server-running-p)) (server-start))
@@ -90,12 +93,6 @@
       create-lockfiles nil
       projectile-known-projects-file (expand-file-name "projectile-bookmarks.eld" user-emacs-directory)
       custom-file "~/.emacs.d/lisp/custom.el")
-
-(use-package benchmark-init
-  :config
-  (add-hook 'after-init-hook 'benchmark-init/deactivate)
-  (add-hook 'after-init-hook
-          (lambda () (message "Loaded in %s" (emacs-init-time)))))
 
 (defvar emax/spotify-client-id nil)
 (defvar emax/spotify-client-secret nil)

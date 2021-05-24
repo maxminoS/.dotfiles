@@ -25,6 +25,9 @@
   ;; Clean whitespace
   (add-hook 'before-save-hook 'whitespace-cleanup)
 
+  ;; Emacs init time
+  (add-hook 'after-init-hook (lambda () (message "Loaded in %s" (emacs-init-time))))
+
   ;; Open new frames in current Emacs
   (require 'server)
   (if (not (server-running-p)) (server-start))
@@ -109,15 +112,6 @@ Prompts for package updates every 7 days.
         create-lockfiles nil
         projectile-known-projects-file (expand-file-name "projectile-bookmarks.eld" user-emacs-directory)
         custom-file "~/.emacs.d/lisp/custom.el")
-#+END_SRC
-
-** Benchmark
-#+BEGIN_SRC emacs-lisp
-  (use-package benchmark-init
-    :config
-    (add-hook 'after-init-hook 'benchmark-init/deactivate)
-    (add-hook 'after-init-hook
-            (lambda () (message "Loaded in %s" (emacs-init-time)))))
 #+END_SRC
 
 ** Scripts and Secrets
