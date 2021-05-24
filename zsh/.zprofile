@@ -16,3 +16,7 @@ export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 [ -f "$ZDOTDIR/.zshenv" ] && source "$ZDOTDIR/.zshenv"
 # Source Rustup
 [ -f "$XDG_DATA_HOME/cargo/env" ] && source "$XDG_DATA_HOME/cargo/env"
+# Load jenv
+if ! type "$jenv" > /dev/null; then
+  eval "$(jenv init -)"
+fi

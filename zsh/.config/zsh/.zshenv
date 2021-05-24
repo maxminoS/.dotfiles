@@ -31,6 +31,7 @@ export ANSIBLE_CONFIG="$XDG_CONFIG_HOME/ansible/ansible.cfg"
 export RANDFILE="$XDG_CONFIG_HOME/openssl/rnd"
 export VIMINIT="source $XDG_CONFIG_HOME/vim/vimrc"
 export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
+export JENV_ROOT="$XDG_DATA_HOME/jenv"
 
 # Adds `~/.bin` and all subdirectories to PATH
 export PATH="$(find "$HOME/.bin" -type d | paste -sd: - ):$PATH"
@@ -38,6 +39,8 @@ export PATH="$(find "$HOME/.bin" -type d | paste -sd: - ):$PATH"
 export PATH="$PATH:$(yarn global bin)"
 # Adds Go binaries to PATH
 export PATH="$PATH:$GOPATH/bin"
+# Add Java version management
+export PATH="$JENV_ROOT/bin:$PATH"
 
 # macOS
 if [ $OSTYPE != 'linux-gnu' ]; then
@@ -50,8 +53,6 @@ if [ $OSTYPE != 'linux-gnu' ]; then
     export PATH="$(brew --prefix ssh-copy-id)/bin:$PATH"
     # Adds Homebrew-installed Ruby to PATH
     export PATH="$(brew --prefix ruby)/bin:$PATH"
-    # Adds Java binaries to PATH
-    export PATH="$(brew --prefix openjdk@11)/bin:$PATH"
 
     # Exports load path for mu
     export MU_LOAD_PATH="$(brew --prefix mu)"
