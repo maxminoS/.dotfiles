@@ -45,6 +45,7 @@ export PATH="$JENV_ROOT/bin:$PATH"
 # macOS
 if [ $OSTYPE != 'linux-gnu' ]; then
     # Adds GNU coreutils to PATH
+    export PATH="$(brew --prefix make)/libexec/gnubin:$PATH"
     export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
     export MANPATH="$(brew --prefix coreutils)/libexec/gnuman:$MANPATH"
 
