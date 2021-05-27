@@ -1,0 +1,7 @@
+{:paths ["src"]
+
+ :deps {org.clojure/clojure {:mvn/version "1.10.3"}}
+
+ :mvn/repos {"central" {:url "https://repo1.maven.org/maven2/"}
+             "clojars" {:url "https://repo.clojars.org/"}}
+ :mvn/local-repo ".cache/m2/repository"}

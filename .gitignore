@@ -14,3 +14,5 @@ zsh/.config/zsh/.zsh_sessions
 /forge-database.sqlite
 /transient/
 /git/.config/git/credentials
+*.cpcache
+*.lsp
