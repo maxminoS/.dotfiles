@@ -16,3 +16,4 @@ zsh/.config/zsh/.zsh_sessions
 /git/.config/git/credentials
 *.cpcache
 *.lsp
+/emacs/.emacs.d/auto-save-list/
