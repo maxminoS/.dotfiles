@@ -270,10 +270,11 @@
   ^System^      ^Media^        ^Documents^    ^Development^
 -----------------------------------------------------
  _q_ quit       _s_ spotify    _g_ goto       _t_ vterm
- ^^             _v_ mpv        _m_ mu4e       _l_ lsp
+ _p_ pass       _v_ mpv        _m_ mu4e       _l_ lsp
  ^^             ^^             _f_ elfeed     _e_ eshell
  ^^             ^^             ^^             ^^"
     ("q" nil)
+    ("p" hydra-pass/body)
     ("s" hydra-spotify/body)
     ("v" hydra-mpv/body)
     ("g" hydra-goto/body)
@@ -312,6 +313,25 @@
       ("e" (lambda () (interactive) (find-file "~/Dropbox/org/notes/others/essays.org")))
       ("i" (lambda () (interactive) (find-file "~/Dropbox/org/notes/others/ideas.org")))
       ("l" (lambda () (interactive) (find-file "~/Dropbox/org/notes/others/lists.org"))))
+
+(defhydra hydra-pass (:exit t)
+     "
+ ^Insert^          ^Copy^            ^Edit^
+----------------------------------------------
+ [_i_] Insert      [_c_] Copy        [_e_] Edit
+ [_I_] Insert OTP  [_C_] Copy Field  [_r_] Rename
+ [_g_] Generate    [_o_] Copy OTP    [_x_] Remove"
+     ("i" password-store-insert)
+     ("I" emax/password-store-otp-insert-code)
+     ("g" password-store-generate)
+
+     ("c" password-store-copy)
+     ("C" password-store-copy-field)
+     ("o" password-store-otp-token-copy)
+
+     ("e" password-store-edit)
+     ("r" password-store-rename)
+     ("x" password-store-remove))
 
 (defhydra hydra-spotify (:hint nil)
     "
