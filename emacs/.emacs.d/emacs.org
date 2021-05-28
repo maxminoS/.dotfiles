@@ -1318,6 +1318,10 @@ Install the required Language Servers by:
 
 * Applications
 ** mu4e
+|   | *Main*             |
+| U | Decrypt and update |
+| x | Stop updating      |
+
 |   | *Mark*        |   | *Search*      |   | *Compose*  |
 | d | Mark trash    | s | Search all    | C | New        |
 | m | Mark move     | S | Edit search   | R | Reply      |
