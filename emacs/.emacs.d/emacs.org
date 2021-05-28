@@ -1354,7 +1354,7 @@ Requires: =mu=, =mu4e=, =isync=
     :ensure nil
     :load-path emax/mu4e-load-path
     :bind (:map mu4e-main-mode-map
-                ("U" . mu4e-update-index))
+                ("U" . emax/mu4e-update-index))
     :custom
     (mail-user-agent 'mu4e-user-agent)
     (mu4e-change-filenames-when-moving t)
@@ -1375,6 +1375,19 @@ Requires: =mu=, =mu4e=, =isync=
     :config
     (setq mu4e-maildir "~/.config/mail")
     (setq mu4e-contexts (list ))
+
+    (defun emax/decrypt (&optional filename)
+      "Decrypt the GPG key for `pass` to be able to update mu4e. It needs a file encrypted using the same GPG key; if filename not provided, it will use `.decrypt.gpg`"
+      (with-temp-buffer
+        (insert-file-contents (expand-file-name
+                               (if filename filename ".decrypt.gpg")
+                               auth-source-pass-filename))))
+
+    (defun emax/mu4e-update-index (&optional run-in-background)
+      "Decrypt GPG key before updating mu4e. If RUN-IN-BACKGROUND is not provided, it will default to true and run the update in the background."
+      (interactive "P")
+      (emax/decrypt)
+      (mu4e-update-mail-and-index (if run-in-background run-in-background t)))
 
     (defun emax/auto-add-mu4e-contexts ()
       "Automatically detects your .mbsyncrc configuration and creates an mu4e context for each email account.
