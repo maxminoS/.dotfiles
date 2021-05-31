@@ -17,3 +17,4 @@ zsh/.config/zsh/.zsh_sessions
 *.cpcache
 *.lsp
 /emacs/.emacs.d/auto-save-list/
+*.cache*
