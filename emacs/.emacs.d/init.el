@@ -995,6 +995,7 @@
   :ensure nil
   :load-path emax/mu4e-load-path
   :bind (:map mu4e-main-mode-map
+              ("u" . mu4e-update-index)
               ("U" . emax/mu4e-update-index))
   :custom
   (mail-user-agent 'mu4e-user-agent)
