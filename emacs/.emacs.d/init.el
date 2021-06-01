@@ -995,7 +995,6 @@
   :ensure nil
   :load-path emax/mu4e-load-path
   :bind (:map mu4e-main-mode-map
-              ("u" . mu4e-update-index)
               ("U" . emax/mu4e-update-index))
   :custom
   (mail-user-agent 'mu4e-user-agent)
@@ -1015,6 +1014,7 @@
   (smtpmail-smtp-service 465)
   (smtpmail-stream-type 'ssl)
   :config
+  (evil-define-key 'normal mu4e-main-mode-map "u" 'mu4e-update-index)
   (setq mu4e-maildir "~/.config/mail")
   (setq mu4e-contexts (list ))
 
