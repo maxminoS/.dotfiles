@@ -1414,8 +1414,8 @@ Requires: =mu=, =mu4e=, =isync=
     (defun emax/mu4e-update-index (&optional run-in-background)
       "Decrypt GPG key before updating mu4e. If RUN-IN-BACKGROUND is not provided, it will default to true and run the update in the background."
       (interactive "P")
-      (emax/decrypt)
       (mu4e-kill-update-mail)
+      (emax/decrypt)
       (mu4e-update-mail-and-index (if run-in-background run-in-background t)))
 
     (defun emax/auto-add-mu4e-contexts ()
