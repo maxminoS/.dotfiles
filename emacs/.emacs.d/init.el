@@ -1146,15 +1146,15 @@
                                 (concat "otpauth://totp/" issuer ":" email "?secret=" otp-code "&issuer=" issuer))))
 
 (use-package pdf-tools
-  :init (add-to-list 'auto-mode-alist '("\\.pdf\\'" . pdf-view-mode))
+  :mode "\\.pdf\\'"
   :bind (:map pdf-view-mode-map
-            ("j" . evil-collection-pdf-view-previous-line-or-previous-page)
-            ("k" . evil-collection-pdf-view-next-line-or-next-page)
-            ("d" . (lambda ()
-                      (interactive "P") (pdf-view-dark-minor-mode) (pdf-view-midnight-minor-mode)))
+            ("j" . pdf-view-next-line-or-next-page)
+            ("k" . pdf-view-previous-line-or-previous-page)
+            ("d" . pdf-view-midnight-minor-mode)
             ("o" . pdf-outline)
             ("i" . pdf-misc-display-metadata)
-            ("s" . pdf-occur))
+            ("s" . pdf-occur)
+            ("" . evil-window-map))
   :config
   (pdf-tools-install)
   :custom

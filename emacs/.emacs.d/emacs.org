@@ -1560,6 +1560,9 @@ Requires: =gpg=, =pass[word-store]=
 | o | Outline mode |
 | i | Metadata     |
 | s | Search       |
+| = | Zoom-in      |
+| - | Zoom-out     |
+| P | Fit to page  |
 | d | Dark mode    |
 
 Requirements:
@@ -1567,20 +1570,20 @@ Requirements:
 - macOS: =brew install poppler automake= and =export PKG_CONFIG_PATH=/usr/local/Cellar/zlib/1.2.8/lib/pkgconfig:/usr/local/lib/pkgconfig:/opt/X11/lib/pkgconfig=
 
 #+BEGIN_SRC emacs-lisp
-    (use-package pdf-tools
-      :init (add-to-list 'auto-mode-alist '("\\.pdf\\'" . pdf-view-mode))
-      :bind (:map pdf-view-mode-map
-                ("j" . evil-collection-pdf-view-previous-line-or-previous-page)
-                ("k" . evil-collection-pdf-view-next-line-or-next-page)
-                ("d" . (lambda ()
-                          (interactive "P") (pdf-view-dark-minor-mode) (pdf-view-midnight-minor-mode)))
-                ("o" . pdf-outline)
-                ("i" . pdf-misc-display-metadata)
-                ("s" . pdf-occur))
-      :config
-      (pdf-tools-install)
-      :custom
-      (pdf-view-display-size 'fit-page))
+  (use-package pdf-tools
+    :mode "\\.pdf\\'"
+    :bind (:map pdf-view-mode-map
+              ("j" . pdf-view-next-line-or-next-page)
+              ("k" . pdf-view-previous-line-or-previous-page)
+              ("d" . pdf-view-midnight-minor-mode)
+              ("o" . pdf-outline)
+              ("i" . pdf-misc-display-metadata)
+              ("s" . pdf-occur)
+              ("" . evil-window-map))
+    :config
+    (pdf-tools-install)
+    :custom
+    (pdf-view-display-size 'fit-page))
 #+END_SRC
 
 ** Nov.el
