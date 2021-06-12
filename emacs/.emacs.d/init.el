@@ -1112,6 +1112,7 @@
   :config
   (use-package simple-httpd)
   (use-package oauth2)
+  (global-smudge-remote-mode)
   :custom
   (smudge-oauth2-client-id emax/spotify-client-id)
   (smudge-oauth2-client-secret emax/spotify-client-secret)
