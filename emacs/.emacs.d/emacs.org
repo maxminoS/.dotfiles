@@ -1677,8 +1677,3 @@ Only enables when focusing on Emacs
       ("Asia/Singapore" "Singapore (GMT+8)")))
   (setq display-time-world-time-format "- %I:%M%p - %a, %d %b")
 #+END_SRC
-
-** Try
-#+BEGIN_SRC emacs-lisp
-  (use-package try)
-#+END_SRC

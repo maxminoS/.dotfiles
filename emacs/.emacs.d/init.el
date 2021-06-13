@@ -1213,5 +1213,3 @@
     ("Asia/Jakarta" "Jakarta (GMT+7)")
     ("Asia/Singapore" "Singapore (GMT+8)")))
 (setq display-time-world-time-format "- %I:%M%p - %a, %d %b")
-
-(use-package try)
