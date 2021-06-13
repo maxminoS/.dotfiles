@@ -1116,7 +1116,7 @@
   :custom
   (smudge-oauth2-client-id emax/spotify-client-id)
   (smudge-oauth2-client-secret emax/spotify-client-secret)
-  (smudge-player-status-format "[%p %t - %a%r%s] ")
+  (smudge-player-status-format "%p %t - %a%r%s ")
   (smudge-player-status-playing-text "")
   (smudge-player-status-paused-text "")
   (smudge-player-status-stopped-text "")
