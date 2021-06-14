@@ -206,10 +206,7 @@
   (display-time-default-load-average nil)
   (doom-modeline-buffer-encoding nil)
   (doom-modeline-workspace-name nil)
-  (doom-modeline-mu4e t) ; Requires mu4e-alert
-  :config
-  (display-battery-mode t)
-  (display-time-mode t))
+  (doom-modeline-mu4e t))
 
 (use-package yascroll
   :config
