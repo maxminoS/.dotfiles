@@ -757,7 +757,6 @@
   (lsp-log-io nil) ;; Disable log
   (lsp-enable-folding nil)
   (lsp-enable-snippet nil)
-  (lsp-completion-enable nil)
   (lsp-enable-symbol-highlighting nil)
   (lsp-enable-links nil)
   (lsp-restart 'auto-restart))
