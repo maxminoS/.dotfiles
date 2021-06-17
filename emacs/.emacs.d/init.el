@@ -798,7 +798,7 @@
           (alpha . (100 . 100))
           (desktop-dont-save . t)))
   :custom
-  (lsp-ui-doc-delay 0)
+  (lsp-ui-doc-delay 0.5)
   (lsp-ui-doc-position 'at-point))
 
 (use-package dap-mode

@@ -1073,7 +1073,7 @@ Install the required Language Servers by:
             (alpha . (100 . 100))
             (desktop-dont-save . t)))
     :custom
-    (lsp-ui-doc-delay 0)
+    (lsp-ui-doc-delay 0.5)
     (lsp-ui-doc-position 'at-point))
 #+END_SRC
 
