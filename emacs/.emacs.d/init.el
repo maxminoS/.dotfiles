@@ -1145,6 +1145,8 @@
 (use-package pdf-tools
   :mode "\\.pdf\\'"
   :bind (:map pdf-view-mode-map
+            ("h" . image-backward-hscroll)
+            ("l" . image-forward-hscroll)
             ("j" . pdf-view-next-line-or-next-page)
             ("k" . pdf-view-previous-line-or-previous-page)
             ("d" . pdf-view-midnight-minor-mode)
