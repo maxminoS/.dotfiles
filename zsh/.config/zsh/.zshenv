@@ -34,7 +34,7 @@ export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
 export JENV_ROOT="$XDG_DATA_HOME/jenv"
 
 # Adds `~/.bin` and all subdirectories to PATH
-export PATH="$(find "$HOME/.bin" -type d | paste -sd: - ):$PATH"
+[ -f "$$HOME/.bin" ] && export PATH="$(find "$HOME/.bin" -type d | paste -sd: - ):$PATH"
 # Adds Yarn binaries to PATH
 export PATH="$PATH:$(yarn global bin)"
 # Adds Go binaries to PATH
