@@ -1100,7 +1100,9 @@ Install the required Language Servers by:
 | C-c C-r | Rename HTML tag |
 #+BEGIN_SRC emacs-lisp
   (use-package css-mode
-    :mode "\\.css\\'")
+    :mode "\\.css\\'"
+    :custom
+    (css-indent-offset 2))
 
   (use-package scss-mode
     :mode "\\.scss\\'")

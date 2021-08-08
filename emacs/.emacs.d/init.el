@@ -816,7 +816,9 @@
   (lsp-enable-dap-auto-configure nil))
 
 (use-package css-mode
-  :mode "\\.css\\'")
+  :mode "\\.css\\'"
+  :custom
+  (css-indent-offset 2))
 
 (use-package scss-mode
   :mode "\\.scss\\'")
