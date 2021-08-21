@@ -740,6 +740,7 @@
          (web-mode . lsp)
          (css-mode . lsp)
          (c-mode . lsp)
+         (objc-mode . lsp)
          (go-mode . lsp)
          (rust-mode . lsp)
          (lua-mode . lsp)
@@ -856,6 +857,8 @@
     (add-hook 'before-save-hook #'lsp-organize-imports t t))
   (require 'dap-go)
   (dap-go-setup))
+
+(add-to-list 'auto-mode-alist '("\\.mm?\\'" . objc-mode))
 
 (use-package rust-mode
   :mode "\\.rs\\'"
