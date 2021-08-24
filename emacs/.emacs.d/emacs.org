@@ -1149,8 +1149,11 @@ Install the required Language Servers by:
     (dap-go-setup))
 #+END_SRC
 
-*** Objective-C
+*** C
 #+BEGIN_SRC emacs-lisp
+  ;; C++
+  (add-to-list 'auto-mode-alist '("\\.cpp\\'" . c-or-c++-mode))
+  ;; Objective-C
   (add-to-list 'auto-mode-alist '("\\.mm?\\'" . objc-mode))
 #+END_SRC
 

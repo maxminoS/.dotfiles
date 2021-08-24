@@ -858,6 +858,9 @@
   (require 'dap-go)
   (dap-go-setup))
 
+;; C++
+(add-to-list 'auto-mode-alist '("\\.cpp\\'" . c-or-c++-mode))
+;; Objective-C
 (add-to-list 'auto-mode-alist '("\\.mm?\\'" . objc-mode))
 
 (use-package rust-mode
