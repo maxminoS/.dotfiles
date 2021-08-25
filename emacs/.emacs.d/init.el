@@ -813,6 +813,8 @@
   (dap-chrome-setup)
   (require 'dap-node)
   (dap-node-setup)
+  (require 'dap-cpptools)
+  (dap-cpptools-setup)
   :custom
   (lsp-enable-dap-auto-configure nil))
 
