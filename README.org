@@ -37,15 +37,15 @@ The dotfiles that compile just about everything I need in a machine.
 * Setting up
 ** Base Directories
 Make sure these directories exist in the home folder:
-- .bin/ (custom scripts)
-- Bookshelf/ (books, articles)
-- Development/ (programming)
-- Documents/
-- Downloads/
-- Dropbox/
-- Pictures/
-- Transmission/ (torrents)
-- Videos/
+- =.bin/= (custom scripts)
+- =Bookshelf/= (books, articles)
+- =Development/= (programming)
+- =Documents/=
+- =Downloads/=
+- =Dropbox/=
+- =Pictures/=
+- =Transmission/= (torrents)
+- =Videos/=
 
 ** Private Files
 - GPG Public & Secret Keys (gpg)
@@ -291,7 +291,7 @@ sudo ln -sF ~/Pictures/images /usr/share/backgrounds
 
 *** Trackpad
 - =Three Finger Swipe Up= - Mission Control
-- =Three Finger Swipe Down= = Current Application Windows
+- =Three Finger Swipe Down= - Current Application Windows
 - =Three Finger Swipe Left/Right= - Switch workspaces
 - =Two Finger Swipe Left from Right Fringe= - Notification Center
 
@@ -335,6 +335,7 @@ Preferences > Profiles > Import > macos/*.terminal
 
 ** MTMR
 /My Touchbar, My Rules../
+
 Only for Macs with a touchbar
 
 #+BEGIN_HTML
