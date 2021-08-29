@@ -1650,19 +1650,6 @@ Requires: =unzip=
                                   :remove 'unread)))
 #+END_SRC
 
-** discord.el
-Enable Discord rich presence for non-EXWM systems
-
-Only enables when focusing on Emacs
-
-#+BEGIN_SRC emacs-lisp
-  (when (equal system-type 'darwin)
-    (use-package elcord
-      :config
-      (add-hook 'focus-in-hook `(lambda () (elcord-mode 1)))
-      (add-hook 'focus-out-hook `(lambda () (elcord-mode 0)))))
-#+END_SRC
-
 ** Dictionary
 | C-c d | Define this word |
 #+BEGIN_SRC emacs-lisp
