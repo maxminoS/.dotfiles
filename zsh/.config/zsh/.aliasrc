@@ -2,6 +2,7 @@
 
 # Aliases
 alias vi='vim'
+alias ytdl='youtube-dl'
 
 # Verbosity
 alias cp='cp -iv'
