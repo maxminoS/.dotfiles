@@ -899,6 +899,9 @@
   :config
   (editorconfig-mode 1))
 
+(use-package prettier
+  :hook (web-mode . prettier-mode))
+
 (use-package company
   :hook (lsp-mode . company-mode)
   :bind (:map company-active-map
