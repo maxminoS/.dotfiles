@@ -17,7 +17,14 @@ export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 eval $(ssh-agent | sed -n '1,2p')
 # Source Rustup
 [ -f "$XDG_DATA_HOME/cargo/env" ] && source "$XDG_DATA_HOME/cargo/env"
-# Load jenv
-if ! type "$jenv" > /dev/null; then
-  eval "$(jenv init -)"
+
+# macOS
+if [ $OSTYPE != 'linux-gnu' ]; then
+    # Load nvm
+    [ -s "$(brew --prefix nvm)/nvm.sh" ] && . "$(brew --prefix nvm)/nvm.sh"
+    [ -s "$(brew --prefix nvm)/etc/bash_completion.d/nvm" ] && . "$(brew --prefix nvm)/etc/bash_completion.d/nvm"
+    # Load jenv
+    if ! type "$jenv" > /dev/null; then
+        eval "$(jenv init -)"
+    fi
 fi
