@@ -1216,10 +1216,12 @@ Install the required Language Servers by:
     (editorconfig-mode 1))
 #+END_SRC
 
-*** Prettier
+*** Format All
 #+BEGIN_SRC emacs-lisp
-  (use-package prettier
-    :hook (web-mode . prettier-mode))
+  (use-package format-all
+    :hook (prog-mode . format-all-mode)
+    :config
+    (add-hook 'format-all-mode-hook 'format-all-ensure-formatter))
 #+END_SRC
 
 *** Company

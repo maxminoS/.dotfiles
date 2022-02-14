@@ -899,8 +899,10 @@
   :config
   (editorconfig-mode 1))
 
-(use-package prettier
-  :hook (web-mode . prettier-mode))
+(use-package format-all
+  :hook (prog-mode . format-all-mode)
+  :config
+  (add-hook 'format-all-mode-hook 'format-all-ensure-formatter))
 
 (use-package company
   :hook (lsp-mode . company-mode)
