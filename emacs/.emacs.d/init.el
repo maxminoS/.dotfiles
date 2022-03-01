@@ -978,16 +978,13 @@
     ("M-d" . evil-multiedit-match-and-next)
     ("M-D" . evil-multiedit-match-and-prev))
   (:map evil-visual-state-map
-    ("R" . evil-multiedit-match-all)
+    ("C-r" . evil-multiedit-match-all)
     ("M-d" . evil-multiedit-match-and-next)
     ("M-D" . evil-multiedit-match-and-prev))
-  (:map evil-multiedit-state-map
+  (:map evil-multiedit-mode-map
     ("C-n" . evil-multiedit-next)
     ("C-p" . evil-multiedit-prev)
-    ("RET" . evil-multiedit-toggle-or-restrict-region))
-  (:map evil-multiedit-insert-state-map
-    ("C-n" . evil-multiedit-next)
-    ("C-p" . evil-multiedit-prev)))
+    ("RET" . evil-multiedit-toggle-or-restrict-region)))
 
 (use-package yafolding
   :hook (prog-mode . yafolding-mode)
