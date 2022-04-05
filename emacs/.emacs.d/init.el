@@ -117,6 +117,7 @@
 (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'org-babel-tangle-config)))
 
 (use-package ivy
+  :demand
   :diminish ivy-mode
   :bind (("C-s" . counsel-grep-or-swiper))
   :config
@@ -124,6 +125,7 @@
   (setq ivy-initial-inputs-alist nil))
 
 (use-package counsel
+  :demand
   :diminish counsel-mode
   :bind (("M-x" . counsel-M-x)
           ("C-x b" . 'counsel-switch-buffer))
@@ -134,6 +136,7 @@
   (setq-default counsel-mode-override-describe-bindings t))
 
 (use-package ivy-rich
+  :demand
   :diminish ivy-rich-mode
   :config
   (ivy-rich-mode 1)
@@ -405,9 +408,11 @@
   (setq insert-directory-program "gls"))
 
 (use-package all-the-icons-dired
+  :defer t
   :hook (dired-mode . all-the-icons-dired-mode))
 
 (use-package dired-hide-dotfiles
+  :defer t
   :hook (dired-mode . dired-hide-dotfiles-mode)
   :config
   (evil-define-key 'normal dired-mode-map "H" 'dired-hide-dotfiles-mode))
@@ -702,6 +707,7 @@
         eshell-scroll-to-bottom-on-input t))
 
 (use-package eshell
+  :defer t
   :hook (eshell-first-time-mode . emax/eshell-config)
   :config
   (with-eval-after-load 'esh-opt
@@ -723,6 +729,7 @@
   (exec-path-from-shell-initialize))
 
 (use-package vterm
+  :defer t
   :config
   (evil-define-key 'normal vterm-mode-map "j" 'vterm-send-down)
   (evil-define-key 'normal vterm-mode-map "k" 'vterm-send-up)
@@ -732,6 +739,7 @@
   ;; (vterm-module-cmake-args "-DUSE_SYSTEM_LIBVTERM=no"))
 
 (use-package lsp-mode
+  :defer t
   :hook ((lsp-mode . emax/lsp-mode-setup-hook)
          (lsp-mode . lsp-enable-which-key-integration)
          (python-mode . lsp)
@@ -744,6 +752,14 @@
          (lua-mode . lsp)
          (clojure-mode . lsp)
          (dockerfile-mode . lsp))
+  :init
+  (defun emax/lsp-mode-setup-hook ()
+    (setq-local company-format-margin-function
+                #'company-vscode-dark-icons-margin)
+    (setq lsp-modeline-code-actions-segments '(count icon))
+    (lsp-modeline-code-actions-mode)
+    (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
+    (lsp-headerline-breadcrumb-mode))
   :config
   (defadvice lsp-on-change (around lsp-on-change-hack activate)
     (when (> (- (float-time (current-time)) 0) 30)
@@ -761,15 +777,8 @@
   (lsp-restart 'auto-restart)
   (lsp-eslint-auto-fix-on-save t))
 
-(defun emax/lsp-mode-setup-hook ()
-  (setq-local company-format-margin-function
-              #'company-vscode-dark-icons-margin)
-  (setq lsp-modeline-code-actions-segments '(count icon))
-  (lsp-modeline-code-actions-mode)
-  (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
-  (lsp-headerline-breadcrumb-mode))
-
 (use-package lsp-ui
+  :defer t
   :hook (lsp-mode . lsp-ui-mode)
   :config
   (setq lsp-ui-doc-frame-parameters
@@ -802,6 +811,7 @@
   (lsp-ui-doc-position 'at-point))
 
 (use-package dap-mode
+  :defer t
   :hook (dap-stopped-hook . (lambda (arg) (call-interactively #'dap-hydra)))
   :config
   (dap-mode 1)
@@ -833,6 +843,7 @@
   (web-mode-code-indent-offset 2))
 
 (use-package python-mode
+  :defer t
   :custom
   (python-shell-interpreter "python3")
   (dap-python-executable "python3")
@@ -841,10 +852,12 @@
   (require 'dap-python))
 
 (use-package pyvenv
+  :defer t
   :config
   (pyvenv-mode 1))
 
 (use-package lsp-pyright
+  :defer t
   :hook (python-mode . (lambda ()
           (require 'lsp-pyright)
           (lsp))))
@@ -871,14 +884,16 @@
                              rust-format-on-save t))))
 
 (use-package clojure-mode
-    :hook ((clojure-mode . emax/lsp-mode-clojure-hook)
-           (clojure-mode . cider-mode))
-    :config
-    (defun emax/lsp-mode-clojure-hook ()
-      (add-hook 'before-save-hook #'lsp-format-buffer t t)
-      (add-hook 'before-save-hook #'lsp-clojure-clean-ns t t)))
+  :defer t
+  :hook ((clojure-mode . emax/lsp-mode-clojure-hook)
+         (clojure-mode . cider-mode))
+  :config
+  (defun emax/lsp-mode-clojure-hook ()
+    (add-hook 'before-save-hook #'lsp-format-buffer t t)
+    (add-hook 'before-save-hook #'lsp-clojure-clean-ns t t)))
 
 (use-package cider
+  :defer t
   :custom
   (cider-repl-display-help-banner nil))
 
@@ -993,6 +1008,7 @@
   (define-key yafolding-mode-map (kbd "C-c f") 'yafolding-toggle-element))
 
 (use-package smudge
+  :if emax/spotify-client-id
   :bind (:map smudge-playlist-search-mode-map
               ("<tab>" . smudge-playlist-load-more))
   :config
@@ -1012,6 +1028,7 @@
   (smudge-player-status-not-shuffling-text ""))
 
 (use-package counsel-spotify
+  :if emax/spotify-client-id
   :custom
   (counsel-spotify-client-id emax/spotify-client-id)
   (counsel-spotify-client-secret emax/spotify-client-secret)
@@ -1033,6 +1050,7 @@
                                 (concat "otpauth://totp/" issuer ":" email "?secret=" otp-code "&issuer=" issuer))))
 
 (use-package nov
+  :defer t
   :init (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
   :hook ((nov-mode . emax/nov-read-mode)
          (nov-mode . emax/visual-fill))
