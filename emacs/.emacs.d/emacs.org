@@ -1409,38 +1409,6 @@ Requires: =gpg=, =pass[word-store]=
                                   (concat "otpauth://totp/" issuer ":" email "?secret=" otp-code "&issuer=" issuer))))
 #+END_SRC
 
-** PDF Tools
-| o | Outline mode |
-| i | Metadata     |
-| s | Search       |
-| = | Zoom-in      |
-| - | Zoom-out     |
-| P | Fit to page  |
-| d | Dark mode    |
-
-Requirements:
-- Linux: =gcc=, =g++=, =automake=, =autoconf=, =libpng-dev=, =zlib1g-dev=, =libpoppler-glib-dev=, =libpoppler-private-dev=, =imagemagick=
-- macOS: =brew install poppler automake= and =export PKG_CONFIG_PATH=/usr/local/Cellar/zlib/1.2.8/lib/pkgconfig:/usr/local/lib/pkgconfig:/opt/X11/lib/pkgconfig=
-
-#+BEGIN_SRC emacs-lisp
-  (use-package pdf-tools
-    :mode "\\.pdf\\'"
-    :bind (:map pdf-view-mode-map
-              ("h" . image-backward-hscroll)
-              ("l" . image-forward-hscroll)
-              ("j" . pdf-view-next-line-or-next-page)
-              ("k" . pdf-view-previous-line-or-previous-page)
-              ("d" . pdf-view-midnight-minor-mode)
-              ("o" . pdf-outline)
-              ("i" . pdf-misc-display-metadata)
-              ("s" . pdf-occur)
-              ("" . evil-window-map))
-    :config
-    (pdf-tools-install)
-    :custom
-    (pdf-view-display-size 'fit-page))
-#+END_SRC
-
 ** Nov.el
 | s   | View EPUB source       |
 | i   | View table of contents |

@@ -1032,23 +1032,6 @@
     (password-store-otp-add-uri 'insert entry
                                 (concat "otpauth://totp/" issuer ":" email "?secret=" otp-code "&issuer=" issuer))))
 
-(use-package pdf-tools
-  :mode "\\.pdf\\'"
-  :bind (:map pdf-view-mode-map
-            ("h" . image-backward-hscroll)
-            ("l" . image-forward-hscroll)
-            ("j" . pdf-view-next-line-or-next-page)
-            ("k" . pdf-view-previous-line-or-previous-page)
-            ("d" . pdf-view-midnight-minor-mode)
-            ("o" . pdf-outline)
-            ("i" . pdf-misc-display-metadata)
-            ("s" . pdf-occur)
-            ("" . evil-window-map))
-  :config
-  (pdf-tools-install)
-  :custom
-  (pdf-view-display-size 'fit-page))
-
 (use-package nov
   :init (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
   :hook ((nov-mode . emax/nov-read-mode)
