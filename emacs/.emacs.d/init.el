@@ -442,6 +442,19 @@
   (peep-dired-ignored-extensions
       '("mkv" "webm" "mp4" "mp3" "ogg" "iso")))
 
+(use-package dired-sidebar
+  :bind (("C-x C-n" . dired-sidebar-toggle-sidebar))
+  :commands (dired-sidebar-toggle-sidebar)
+  :init
+  (add-hook 'dired-sidebar-mode-hook
+          (lambda ()
+            (unless (file-remote-p default-directory)
+              (auto-revert-mode))))
+  :config
+  (setq dired-sidebar-theme 'icons)
+  (setq dired-sidebar-use-term-integration t)
+  (setq dired-sidebar-use-custom-font t))
+
 (use-package org
   :bind (("C-c l" . org-store-link)
         ("C-c a" . org-agenda)
@@ -659,19 +672,6 @@
 (evil-define-key 'normal ibuffer-mode-map "k" 'ibuffer-backward-line)
 (evil-define-key 'normal ibuffer-mode-map "h" 'evil-backward-WORD-begin)
 (evil-define-key 'normal ibuffer-mode-map "l" 'evil-forward-WORD-begin)
-
-(use-package dired-sidebar
-  :bind (("C-x C-n" . dired-sidebar-toggle-sidebar))
-  :commands (dired-sidebar-toggle-sidebar)
-  :init
-  (add-hook 'dired-sidebar-mode-hook
-          (lambda ()
-            (unless (file-remote-p default-directory)
-              (auto-revert-mode))))
-  :config
-  (setq dired-sidebar-theme 'icons)
-  (setq dired-sidebar-use-term-integration t)
-  (setq dired-sidebar-use-custom-font t))
 
 (defun emax/eshell-prompt ()
   (let ((current-branch (magit-get-current-branch)))

@@ -587,6 +587,23 @@ In macOS, you may need to add permission for Emacs (or ruby) to have file access
         '("mkv" "webm" "mp4" "mp3" "ogg" "iso")))
 #+END_SRC
 
+** Dired Sidebar
+| C-x C-n | Dired Sidebar |
+#+BEGIN_SRC emacs-lisp
+  (use-package dired-sidebar
+    :bind (("C-x C-n" . dired-sidebar-toggle-sidebar))
+    :commands (dired-sidebar-toggle-sidebar)
+    :init
+    (add-hook 'dired-sidebar-mode-hook
+            (lambda ()
+              (unless (file-remote-p default-directory)
+                (auto-revert-mode))))
+    :config
+    (setq dired-sidebar-theme 'icons)
+    (setq dired-sidebar-use-term-integration t)
+    (setq dired-sidebar-use-custom-font t))
+#+END_SRC
+
 
 * Tools
 ** Org Mode
@@ -908,23 +925,6 @@ Requires: =git=
   (evil-define-key 'normal ibuffer-mode-map "k" 'ibuffer-backward-line)
   (evil-define-key 'normal ibuffer-mode-map "h" 'evil-backward-WORD-begin)
   (evil-define-key 'normal ibuffer-mode-map "l" 'evil-forward-WORD-begin)
-#+END_SRC
-
-** Dired Sidebar
-| C-x C-n | Dired Sidebar |
-#+BEGIN_SRC emacs-lisp
-  (use-package dired-sidebar
-    :bind (("C-x C-n" . dired-sidebar-toggle-sidebar))
-    :commands (dired-sidebar-toggle-sidebar)
-    :init
-    (add-hook 'dired-sidebar-mode-hook
-            (lambda ()
-              (unless (file-remote-p default-directory)
-                (auto-revert-mode))))
-    :config
-    (setq dired-sidebar-theme 'icons)
-    (setq dired-sidebar-use-term-integration t)
-    (setq dired-sidebar-use-custom-font t))
 #+END_SRC
 
 ** Eshell
