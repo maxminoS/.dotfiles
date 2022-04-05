@@ -846,14 +846,14 @@ Requires: =git=
 | C-w 0 | Close tab            |
 | C-w 1 | Close other tabs     |
 #+BEGIN_SRC emacs-lisp
-  (tab-bar-mode)
-  (setq tab-bar-close-button-show nil
-        tab-bar-new-button-show nil)
+  ;; (tab-bar-mode)
+  ;; (setq tab-bar-close-button-show nil
+  ;;       tab-bar-new-button-show nil)
 
-  (define-key evil-window-map (kbd "n") 'tab-new)
-  (define-key evil-window-map (kbd "r") 'tab-rename)
-  (define-key evil-window-map (kbd "0") 'tab-close)
-  (define-key evil-window-map (kbd "1") 'tab-close-other)
+  ;; (define-key evil-window-map (kbd "n") 'tab-new)
+  ;; (define-key evil-window-map (kbd "r") 'tab-rename)
+  ;; (define-key evil-window-map (kbd "0") 'tab-close)
+  ;; (define-key evil-window-map (kbd "1") 'tab-close-other)
 #+END_SRC
 
 *** Shackle

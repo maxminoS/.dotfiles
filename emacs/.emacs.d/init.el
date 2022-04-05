@@ -607,14 +607,14 @@
 
 (define-key evil-window-map (kbd "RET") 'emax/toggle-monocle)
 
-(tab-bar-mode)
-(setq tab-bar-close-button-show nil
-      tab-bar-new-button-show nil)
+;; (tab-bar-mode)
+;; (setq tab-bar-close-button-show nil
+;;       tab-bar-new-button-show nil)
 
-(define-key evil-window-map (kbd "n") 'tab-new)
-(define-key evil-window-map (kbd "r") 'tab-rename)
-(define-key evil-window-map (kbd "0") 'tab-close)
-(define-key evil-window-map (kbd "1") 'tab-close-other)
+;; (define-key evil-window-map (kbd "n") 'tab-new)
+;; (define-key evil-window-map (kbd "r") 'tab-rename)
+;; (define-key evil-window-map (kbd "0") 'tab-close)
+;; (define-key evil-window-map (kbd "1") 'tab-close-other)
 
 (use-package shackle
   :config
