@@ -205,8 +205,7 @@
   :custom
   (display-time-default-load-average nil)
   (doom-modeline-buffer-encoding nil)
-  (doom-modeline-workspace-name nil)
-  (doom-modeline-mu4e t))
+  (doom-modeline-workspace-name nil))
 
 (use-package yascroll
   :config
@@ -267,15 +266,14 @@
   ^System^      ^Media^        ^Documents^    ^Development^
 -----------------------------------------------------
  _q_ quit       _s_ spotify    _g_ goto       _t_ vterm
- _p_ pass       _v_ mpv        _m_ mu4e       _l_ lsp
- ^^             ^^             _f_ elfeed     _e_ eshell
+ _p_ pass       _v_ mpv        _f_ elfeed     _l_ lsp
+ ^^             ^^             ^^             _e_ eshell
  ^^             ^^             ^^             ^^"
     ("q" nil)
     ("p" hydra-pass/body)
     ("s" hydra-spotify/body)
     ("v" hydra-mpv/body)
     ("g" hydra-goto/body)
-    ("m" mu4e)
     ("f" elfeed)
     ("t" vterm)
     ("e" eshell)
@@ -717,12 +715,12 @@
   (eshell-toggle-use-projectile-root t)
   (eshell-toggle-run-command nil))
 
-(when (equal system-type 'darwin)
-  (use-package exec-path-from-shell
-    :custom
-    (exec-path-from-shell-variables '("PATH" "MANPATH" "XDG_CONFIG_HOME" "XDG_CACHE_HOME" "XDG_DATA_HOME" "XDG_RUNTIME_DIR" "ZDOTDIR" "PASSWORD_STORE_DIR" "GNUPGHOME" "MU_LOAD_PATH"))
-    :config
-    (exec-path-from-shell-initialize)))
+(use-package exec-path-from-shell
+  :if (equal system-type 'darwin)
+  :custom
+  (exec-path-from-shell-variables '("PATH" "MANPATH" "XDG_CONFIG_HOME" "XDG_CACHE_HOME" "XDG_DATA_HOME" "XDG_RUNTIME_DIR" "ZDOTDIR" "PASSWORD_STORE_DIR" "GNUPGHOME"))
+  :config
+  (exec-path-from-shell-initialize))
 
 (use-package vterm
   :config
@@ -993,125 +991,6 @@
   (define-key yafolding-mode-map (kbd "<C-return>") nil)
   (define-key yafolding-mode-map (kbd "C-c F") 'yafolding-toggle-all)
   (define-key yafolding-mode-map (kbd "C-c f") 'yafolding-toggle-element))
-
-(setq emax/mu4e-load-path "/usr/share/emacs/site-lisp/mu4e/")
-(when (equal system-type 'darwin)
-  (setq emax/mu4e-load-path (concat (getenv "MU_LOAD_PATH") "/share/emacs/site-lisp/mu/mu4e/")))
-
-(use-package mu4e
-  :ensure nil
-  :load-path emax/mu4e-load-path
-  :bind (:map mu4e-main-mode-map
-              ("U" . emax/mu4e-update-index))
-  :custom
-  (mail-user-agent 'mu4e-user-agent)
-  (mu4e-change-filenames-when-moving t)
-  (mu4e-update-interval (* 10 60))
-  (mu4e-get-mail-command (concat "mbsync -c " (getenv "XDG_CONFIG_HOME") "/isync/mbsyncrc -a"))
-  (mu4e-compose-format-flowed t)
-  (mu4e-compose-context-policy 'ask-if-none)
-  (mu4e-view-show-images t)
-  (mu4e-view-show-addresses 't)
-  (mu4e-view-prefer-html t)
-  (message-kill-buffer-on-exit t)
-  (mu4e-attachment-dir "~/Downloads")
-  (mu4e-confirm-quit nil)
-  ;; SMTP
-  (message-send-mail-function 'smtpmail-send-it)
-  (smtpmail-smtp-service 465)
-  (smtpmail-stream-type 'ssl)
-  :config
-  (evil-define-key 'normal mu4e-main-mode-map "u" 'mu4e-update-index)
-  (setq mu4e-maildir "~/.config/mail")
-  (setq mu4e-contexts (list ))
-
-  (defun emax/decrypt (&optional filename)
-    "Decrypt the GPG key for `pass` to be able to update mu4e. It needs a file encrypted using the same GPG key; if filename not provided, it will use `.decrypt.gpg`"
-    (with-temp-buffer
-      (insert-file-contents (expand-file-name
-                             (if filename filename ".decrypt.gpg")
-                             auth-source-pass-filename))))
-
-  (defun emax/mu4e-update-index (&optional run-in-background)
-    "Decrypt GPG key before updating mu4e. If RUN-IN-BACKGROUND is not provided, it will default to true and run the update in the background."
-    (interactive "P")
-    (mu4e-kill-update-mail)
-    (emax/decrypt)
-    (mu4e-update-mail-and-index (if run-in-background run-in-background t)))
-
-  (defun emax/auto-add-mu4e-contexts ()
-    "Automatically detects your .mbsyncrc configuration and creates an mu4e context for each email account.
-
-    This function uses a separator \"# Account: \" in .mbsyncrc to distinguish between accounts. It then uses IMAPAccount, User, and Path settings to create the contexts; it will also require \"# Full Name: \" to set the name and \"# SMTP \" in the next line of \"# Account: \" for the SMTP configurations. Each context automatically sets the designated folder and may need to be changed if a different setting is desired.
-
-    If ~/.mbsyncrc is changed, run this function again to refresh and add the new accounts as contexts.
-
-    This is limited to only 10 accounts due to its indexing method.
-    "
-    (with-temp-buffer
-      (insert-file-contents "~/.config/isync/mbsyncrc")
-      (keep-lines "\\(?:# Account: \\|# Full Name: \\|# SMTP \\|IMAPAccount \\|User \\|Path \\)")
-      (replace-regexp "\\(?:# Full Name: \\|# SMTP \\|IMAPAccount \\|User \\|Path \\)" "\ ")
-      (let ((idx 0))
-        (dolist (account (split-string (buffer-string) "\\(# Account: \\).*\n" t))
-          (let* ((data (split-string account "\n" t))
-                 (full-name (car data))
-                 (smtp (nth 1 data))
-                 (imapaccount (nth 2 data))
-                 (user (nth 3 data))
-                 (path (concat "/" (file-name-nondirectory (directory-file-name (car (last data)))))))
-            (add-to-list 'mu4e-contexts
-                         (make-mu4e-context
-                          :name (concat (number-to-string idx) imapaccount)
-                          :match-func
-                          `(lambda (msg)
-                             (when msg
-                               (string-prefix-p ,path (mu4e-message-field msg :maildir))))
-                          :vars `((user-mail-address      . ,user)
-                                  (user-full-name         . ,full-name)
-                                  (smtpmail-smtp-server   . ,smtp)
-                                  (mu4e-refile-folder     . ,(concat path "/All"))
-                                  (mu4e-sent-folder       . ,(concat path "/Sent"))
-                                  (mu4e-drafts-folder     . ,(concat path "/Drafts"))
-                                  (mu4e-trash-folder      . ,(concat path "/Trash"))
-                                  (mu4e-bookmarks .
-                                                  ((:name ,(concat "Unread - " user)
-                                                          :query ,(concat "flag:unread AND NOT flag:trashed AND m:" path "/All")
-                                                          :key ?u)
-                                                   (:name ,(concat "Today - " user)
-                                                          :query ,(concat "date:today..now AND m:" path "/All")
-                                                          :key ?t)
-                                                   (:name ,(concat "Week - " user)
-                                                          :query ,(concat "date:7d..now AND m:" path "/All")
-                                                          :key ?w)
-                                                   (:name "Unread - All"
-                                                          :query "flag:unread AND NOT flag:trashed"
-                                                          :key ?U)
-                                                   (:name "Today - All"
-                                                          :query "date:today..now"
-                                                          :key ?T)
-                                                   (:name "Week - All"
-                                                          :query "date:7d..now"
-                                                          :key ?W)))
-                                  (mu4e-maildir-shortcuts .
-                                                          ((:maildir ,(concat path "/All")   :key ?a)
-                                                           (:maildir ,(concat path "/Sent")  :key ?s)
-                                                           (:maildir ,(concat path "/Draft") :key ?d)
-                                                           (:maildir ,(concat path "/Trash") :key ?t))))) t))
-          (setq idx (1+ idx))))))
-
-  (emax/auto-add-mu4e-contexts))
-
-(use-package org-mime
-  :hook (message-send-hook . org-mime-htmlize)
-  :custom
-  (org-mime-export-options '(:section-numbers nil
-                             :with-author nil
-                             :with-toc nil)))
-
-(use-package mu4e-alert
-  :config
-  (mu4e-alert-enable-mode-line-display))
 
 (use-package smudge
   :bind (:map smudge-playlist-search-mode-map
