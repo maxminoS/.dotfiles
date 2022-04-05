@@ -87,6 +87,7 @@
       backup-directory-alist `(("." . ,(expand-file-name "backups" user-emacs-directory)))
       abbrev-file-name (expand-file-name "abbrev_defs" user-emacs-directory)
       byte-compile-warnings '(cl-functions)
+      read-process-output-max (* 1024 1024)
       url-history-file (expand-file-name "url/history" user-emacs-directory)
       auto-save-list-file-prefix (expand-file-name "auto-save-list/.saves-" user-emacs-directory)
       auto-save-file-name-transforms `((".*" ,(expand-file-name "auto-save-list" user-emacs-directory) t))
