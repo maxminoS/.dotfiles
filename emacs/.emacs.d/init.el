@@ -577,6 +577,8 @@
 
 (use-package magit
   :bind (("C-x g" . magit-status))
+  :config
+  (remove-hook 'server-switch-hook 'magit-commit-diff) ;; Don't show diff on commit
   :custom
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
