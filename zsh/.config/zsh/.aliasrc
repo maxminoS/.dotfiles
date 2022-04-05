@@ -23,6 +23,10 @@ alias mvn="mvn -gs $XDG_CONFIG_HOME/m2/settings.xml"
 
 # macOS
 if [ $OSTYPE != 'linux-gnu' ]; then
-    # Get macOS Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
-    alias updateall='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup; npm install npm -g; npm update -g; sudo gem update --system; sudo gem update; sudo gem cleanup'
+    # Get macOS Software Updates
+    alias updateos='sudo softwareupdate -i -a'
+    # Update installed Ruby gems, Homebrew, npm, and their installed packages
+    alias updatepkg='brew update; brew upgrade; brew cleanup; npm install npm -g; npm update -g; sudo gem update --system; sudo gem update; sudo gem cleanup'
+    # Update everything
+    alias updateall='updateos; updatepkg'
 fi
