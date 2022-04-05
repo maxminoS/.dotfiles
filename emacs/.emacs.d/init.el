@@ -131,6 +131,7 @@
           ("C-x b" . 'counsel-switch-buffer))
   :custom
   (counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only)
+  (counsel-grep-base-command "rg -i -M 120 --no-heading --line-number --color never %s %s")
   :config
   (counsel-mode 1)
   (setq-default counsel-mode-override-describe-bindings t))
