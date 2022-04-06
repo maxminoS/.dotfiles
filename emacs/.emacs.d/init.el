@@ -742,6 +742,7 @@
   (vterm-buffer-name "VTerm"))
   ;; (vterm-module-cmake-args "-DUSE_SYSTEM_LIBVTERM=no"))
 
+(setq lsp-use-plists t)
 (use-package lsp-mode
   :defer t
   :hook ((lsp-mode . emax/lsp-mode-setup-hook)

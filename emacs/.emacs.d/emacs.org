@@ -1010,13 +1010,19 @@ Requires: =cmake=, =libtool-bin=, =libvterm[-dev]=
 
 * Development
 ** LSP Mode
+Use plists for faster performance:
+- Delete all LSP packages
+- Run Emacs from shell with ~export LSP_USE_PLISTS=true~
+- Recompile LSP packages and reinstall language servers
+
 Install the required Language Servers by:
 - https://emacs-lsp.github.io/lsp-mode/
 - Opening the appropriate files
 - =M-x lsp-install-server=
 
-*Language Servers*: =html-ls=, =css-ls=, =ts-ls=, =vls=, =pyright=, =gopls=, =rust-analyzer=, =lua-language-server=
+*Language Servers*: =html-ls=, =css-ls=, =ts-ls=, =volar-api=, =pyright=, =gopls=, =rust-analyzer=, =lua-language-server=
 #+BEGIN_SRC emacs-lisp
+  (setq lsp-use-plists t)
   (use-package lsp-mode
     :defer t
     :hook ((lsp-mode . emax/lsp-mode-setup-hook)
