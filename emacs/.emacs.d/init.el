@@ -197,11 +197,26 @@
 ;;Make yes or no prompts y or n
 (fset 'yes-or-no-p 'y-or-n-p)
 
+(defvar emax/light-theme 'doom-tomorrow-day)
+(defvar emax/dark-theme 'doom-outrun-electric)
+(defvar emax/current-theme nil)
+
+(defun emax/set-theme (theme)
+  (setq emax/current-theme theme)
+  (load-theme theme t))
+
 (use-package doom-themes
-  :init (load-theme 'doom-outrun-electric t)
+  :init (emax/set-theme emax/dark-theme)
   :config
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic t))
+
+(defun emax/toggle-theme ()
+  "Toggle between light and dark theme."
+  (interactive)
+  (if (string= emax/current-theme emax/dark-theme)
+      (emax/set-theme emax/light-theme)
+    (emax/set-theme emax/dark-theme)))
 
 (use-package all-the-icons)
 

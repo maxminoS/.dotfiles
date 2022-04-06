@@ -247,11 +247,26 @@ Set the listed secrets in =~/.emacs.d/lisp/.secret.el=
 
 ** Color Theme
 #+BEGIN_SRC emacs-lisp
-(use-package doom-themes
-  :init (load-theme 'doom-outrun-electric t)
-  :config
-  (setq doom-themes-enable-bold t
-        doom-themes-enable-italic t))
+  (defvar emax/light-theme 'doom-tomorrow-day)
+  (defvar emax/dark-theme 'doom-outrun-electric)
+  (defvar emax/current-theme nil)
+
+  (defun emax/set-theme (theme)
+    (setq emax/current-theme theme)
+    (load-theme theme t))
+
+  (use-package doom-themes
+    :init (emax/set-theme emax/dark-theme)
+    :config
+    (setq doom-themes-enable-bold t
+          doom-themes-enable-italic t))
+
+  (defun emax/toggle-theme ()
+    "Toggle between light and dark theme."
+    (interactive)
+    (if (string= emax/current-theme emax/dark-theme)
+        (emax/set-theme emax/light-theme)
+      (emax/set-theme emax/dark-theme)))
 #+END_SRC
 
 ** Modeline
