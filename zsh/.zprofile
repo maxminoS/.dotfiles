@@ -11,7 +11,11 @@ export XDG_RUNTIME_DIR
 # Command Line
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 # Adds Homebrew to PATH
-[ $OSTYPE != 'linux-gnu' ] && eval "$($(brew --prefix)/bin/brew shellenv)"
+[ "$OSTYPE" != 'linux-gnu' ] && [ -e '/usr/local/bin/brew' ] && HOMEBREW_PREFIX_VAR='/usr/local'
+[ "$OSTYPE" != 'linux-gnu' ] && [ -e '/opt/homebrew/bin/brew' ] && HOMEBREW_PREFIX_VAR='/opt/homebrew'
+[ "$OSTYPE" != 'linux-gnu' ] && [ -z "$HOMEBREW_PREFIX_VAR" ] && echo 'Homebrew not found.'
+[ "$OSTYPE" != 'linux-gnu' ] && eval "$($HOMEBREW_PREFIX_VAR/bin/brew shellenv)"
+
 [ -f "$ZDOTDIR/.zshenv" ] && source "$ZDOTDIR/.zshenv"
 # Cache SSH Credentials
 eval $(ssh-agent | sed -n '1,2p')
