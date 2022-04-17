@@ -278,105 +278,93 @@
   (evil-define-key 'motion org-agenda-mode-map "\M-v" 'org-agenda-view-mode-dispatch))
 
 (use-package hydra
-    :custom
-    (hydra-default-hint nil))
+  :custom
+  (hydra-default-hint nil))
 
-  (defhydra hydra-applications (:color red :exit t)
-    "
-  ^System^      ^Media^        ^Documents^    ^Development^
------------------------------------------------------
- _q_ quit       _s_ spotify    _g_ goto       _t_ vterm
- _p_ pass       _v_ mpv        _f_ elfeed     _l_ lsp
- ^^             ^^             ^^             _e_ eshell
- ^^             ^^             ^^             ^^"
-    ("q" nil)
-    ("p" hydra-pass/body)
-    ("s" hydra-spotify/body)
-    ("v" hydra-mpv/body)
-    ("g" hydra-goto/body)
-    ("f" elfeed)
-    ("t" vterm)
-    ("e" eshell)
-    ("l" hydra-lsp/body))
+(defhydra hydra-applications (:exit t)
+  "
+   ^^        ^^        ^^       ^^
+  _q_uit    _s_potify    _g_oto    v_t_erm
+  _p_ass      mp_v_     el_f_eed    _l_sp"
+  ("q" nil)
+  ("p" hydra-pass/body)
+  ("s" hydra-spotify/body)
+  ("v" hydra-mpv/body)
+  ("g" hydra-goto/body)
+  ("f" elfeed)
+  ("t" vterm)
+  ("l" hydra-lsp/body))
 
-  (global-set-key (kbd "C-x a") 'hydra-applications/body)
+(global-set-key (kbd "C-x a") 'hydra-applications/body)
 
 (defhydra hydra-goto (:exit t)
-      "
-     ^GTD^         ^Reviews^          ^Notes^              ^Others^
-------------------------------------------------------------------
- [_SPC_] Scratch  [_F_] Films   [_g_] Directory     [_b_] Bookmarks 
-   [_d_] Day     [_S_] Shows  [_p_] Programming   [_e_] Essays    
-   [_m_] Month   [_M_] Music   [_r_] Recreation    [_i_] Ideas     
-   [_y_] Year    [_B_] Books   [_t_] Technology    [_l_] Lists     "
-      ("SPC" (lambda () (interactive) (find-file "~/Dropbox/org/scratch.org")))
-      ("d" (lambda () (interactive) (find-file "~/Dropbox/org/agenda/day.org")))
-      ("m" (lambda () (interactive) (find-file "~/Dropbox/org/agenda/month.org")))
-      ("y" (lambda () (interactive) (find-file "~/Dropbox/org/agenda/year.org")))
+    "
+ _SPC_ → scratch  _F_ → films  _g_ → directory    _b_ → bookmarks
+   _d_ → day      _S_ → shows  _p_ → programming  _e_ → essays
+   _m_ → month    _M_ → music  _r_ → recreation   _i_ → ideas
+   _y_ → year     _B_ → books  _t_ → technology   _l_ → lists"
+    ("SPC" (lambda () (interactive) (find-file "~/Dropbox/org/scratch.org")))
+    ("d" (lambda () (interactive) (find-file "~/Dropbox/org/agenda/day.org")))
+    ("m" (lambda () (interactive) (find-file "~/Dropbox/org/agenda/month.org")))
+    ("y" (lambda () (interactive) (find-file "~/Dropbox/org/agenda/year.org")))
 
-      ("F" (lambda () (interactive) (find-file "~/Dropbox/org/reviews/film.org")))
-      ("S" (lambda () (interactive) (find-file "~/Dropbox/org/reviews/show.org")))
-      ("M" (lambda () (interactive) (find-file "~/Dropbox/org/reviews/music.org")))
-      ("B" (lambda () (interactive) (find-file "~/Dropbox/org/reviews/book.org")))
+    ("F" (lambda () (interactive) (find-file "~/Dropbox/org/reviews/film.org")))
+    ("S" (lambda () (interactive) (find-file "~/Dropbox/org/reviews/show.org")))
+    ("M" (lambda () (interactive) (find-file "~/Dropbox/org/reviews/music.org")))
+    ("B" (lambda () (interactive) (find-file "~/Dropbox/org/reviews/book.org")))
 
-      ("g" (lambda () (interactive) (counsel-find-file "~/Dropbox/org/notes/")))
-      ("p" (lambda () (interactive) (counsel-find-file "~/Dropbox/org/notes/programming/")))
-      ("r" (lambda () (interactive) (counsel-find-file "~/Dropbox/org/notes/recreation/")))
-      ("t" (lambda () (interactive) (counsel-find-file "~/Dropbox/org/notes/technology/")))
+    ("g" (lambda () (interactive) (counsel-find-file "~/Dropbox/org/notes/")))
+    ("p" (lambda () (interactive) (counsel-find-file "~/Dropbox/org/notes/programming/")))
+    ("r" (lambda () (interactive) (counsel-find-file "~/Dropbox/org/notes/recreation/")))
+    ("t" (lambda () (interactive) (counsel-find-file "~/Dropbox/org/notes/technology/")))
 
-      ("b" (lambda () (interactive) (find-file "~/Dropbox/org/notes/others/bookmarks.org")))
-      ("e" (lambda () (interactive) (find-file "~/Dropbox/org/notes/others/essays.org")))
-      ("i" (lambda () (interactive) (find-file "~/Dropbox/org/notes/others/ideas.org")))
-      ("l" (lambda () (interactive) (find-file "~/Dropbox/org/notes/others/lists.org"))))
+    ("b" (lambda () (interactive) (find-file "~/Dropbox/org/notes/others/bookmarks.org")))
+    ("e" (lambda () (interactive) (find-file "~/Dropbox/org/notes/others/essays.org")))
+    ("i" (lambda () (interactive) (find-file "~/Dropbox/org/notes/others/ideas.org")))
+    ("l" (lambda () (interactive) (find-file "~/Dropbox/org/notes/others/lists.org"))))
 
 (defhydra hydra-pass (:exit t)
-     "
- ^Insert^          ^Copy^            ^Edit^
-----------------------------------------------
- [_i_] Insert      [_c_] Copy        [_e_] Edit
- [_I_] Insert OTP  [_C_] Copy Field  [_r_] Rename
- [_g_] Generate    [_o_] Copy OTP    [_x_] Remove"
-     ("i" password-store-insert)
-     ("I" emax/password-store-otp-insert-code)
-     ("g" password-store-generate)
+    "
+  _i_ → insert      _c_ → copy        _e_ → edit
+  _I_ → insert otp  _C_ → copy field  _r_ → rename
+  _g_ → generate    _o_ → copy otp    _x_ → remove"
+    ("i" password-store-insert)
+    ("I" emax/password-store-otp-insert-code)
+    ("g" password-store-generate)
 
-     ("c" password-store-copy)
-     ("C" password-store-copy-field)
-     ("o" password-store-otp-token-copy)
+    ("c" password-store-copy)
+    ("C" password-store-copy-field)
+    ("o" password-store-otp-token-copy)
 
-     ("e" password-store-edit)
-     ("r" password-store-rename)
-     ("x" password-store-remove))
+    ("e" password-store-edit)
+    ("r" password-store-rename)
+    ("x" password-store-remove))
 
 (defhydra hydra-spotify (:hint nil)
     "
- ^Search^                   ^Controls^
-----------------------------------------------
- [_t_] Track       [_-_]  /  [_+_]  [_SPC_]  / 
- [_a_] Album       [_h_]  /  [_l_]    [_0_] 
- [_p_] Playlist    [_r_]  /  [_s_]    [_d_]  "
+  _t_rack       _-_  /  _+_      / 
+  _a_lbum       _h_  /  _l_      _0_
+  _p_laylist    _r_  /  _s_      _d_"
     ("t" counsel-spotify-search-track :exit t)
     ("a" counsel-spotify-search-album :exit t)
     ("p" smudge-my-playlists :exit t)
 
-    ("SPC" smudge-controller-toggle-play :exit nil)
+    ("+" smudge-controller-volume-up :exit nil)
+    ("-" smudge-controller-volume-down :exit nil)
     ("h" smudge-controller-previous-track :exit nil)
     ("l" smudge-controller-next-track :exit nil)
     ("r" smudge-controller-toggle-repeat :exit nil)
     ("s" smudge-controller-toggle-shuffle :exit nil)
 
-    ("+" smudge-controller-volume-up :exit nil)
-    ("-" smudge-controller-volume-down :exit nil)
+    ("SPC" smudge-controller-toggle-play :exit nil)
     ("0" smudge-controller-volume-mute-unmute :exit nil)
     ("d" smudge-select-device :exit nil))
 
 (defhydra hydra-mpv (:hint nil)
     "
- ^Player^
-----------------------------------------------
- [_SPC_]  /                       [_x_] Kill
- [_h_]  /  [_l_]  [_=_] Reset speed   [_f_] Play file
- [_[_]   /  [_]_]  [_S_] Seek to       [_v_] Play URL"
+      /                       _x_ → kill
+  _h_  /  _l_   _=_ → reset speed   _f_ → play file
+  _[_   /  _]_   _S_ → seek to       _v_ → play url"
     ("SPC" mpv-pause :exit nil)
 
     ("h" mpv-seek-backward :exit nil)
@@ -392,25 +380,23 @@
 
 (defhydra hydra-lsp (:exit t)
   "
- ^Buffer^               ^Session^                  ^Symbol^
--------------------------------------------------------------------------------------
- [_m_] imenu            [_M-s_] describe session   [_D_] Definition       [_T_] Type
- [_e_] diagnostics      [_M-r_] restart            [_R_] References       [_d_] documentation
- [_x_] execute action   [_S_] Shutdown             [_I_] Implementation   [_r_] rename"
-  ("m" lsp-ui-imenu)
-  ("e" flymake-show-diagnostics-buffer)
-  ("x" lsp-execute-code-action)
-
-  ("M-s" lsp-describe-session)
-  ("M-r" lsp-restart-workspace)
-  ("S" lsp-shutdown-workspace)
-
+  _D_efinition      _T_ype             _g_ → ripgrep         _M-s_ → session
+  _R_eferences      _d_ocumentation    _m_ → imenu           _M-r_ → restart
+  _I_mplementation  _r_ename           _x_ → execute action    _S_ → shutdown"
   ("D" lsp-ui-peek-find-definitions)
   ("R" lsp-ui-peek-find-references)
   ("I" lsp-ui-peek-find-implementation)
   ("T" lsp-find-type-definition)
   ("d" lsp-describe-thing-at-point)
-  ("r" lsp-rename))
+  ("r" lsp-rename)
+
+  ("g" counsel-rg)
+  ("m" lsp-ui-imenu)
+  ("x" lsp-execute-code-action)
+
+  ("M-s" lsp-describe-session)
+  ("M-r" lsp-restart-workspace)
+  ("S" lsp-shutdown-workspace))
 
 (use-package dired
   :ensure nil
