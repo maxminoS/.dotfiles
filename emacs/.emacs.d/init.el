@@ -601,13 +601,6 @@
   :custom
   (auth-sources '("~/.emacs.d/lisp/.authinfo.gpg")))
 
-(use-package projectile
-  :diminish projectile-mode
-  :config (projectile-mode)
-  :custom ((projectile-completion-system 'ivy))
-  :bind-keymap
-  ("C-c p" . projectile-command-map))
-
 (define-key evil-window-map (kbd "<left>") 'windmove-swap-states-left)
 (define-key evil-window-map (kbd "<down>") 'windmove-swap-states-down)
 (define-key evil-window-map (kbd "<up>") 'windmove-swap-states-up)

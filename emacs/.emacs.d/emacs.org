@@ -813,16 +813,6 @@ Requires: =git=
     (auth-sources '("~/.emacs.d/lisp/.authinfo.gpg")))
 #+END_SRC
 
-** Projectile
-#+BEGIN_SRC emacs-lisp
-  (use-package projectile
-    :diminish projectile-mode
-    :config (projectile-mode)
-    :custom ((projectile-completion-system 'ivy))
-    :bind-keymap
-    ("C-c p" . projectile-command-map))
-#+END_SRC
-
 ** Window Management
 | C-w h/j/k/l | Switch window                 |
 | C-w C-w     | Next window                   |
