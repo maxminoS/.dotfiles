@@ -404,7 +404,10 @@
   (setq dired-recursive-copies 'always)
   (setq dired-recursive-deletes 'always)
   (setq delete-by-moving-to-trash t)
-  :bind (("C-x d" . dired-jump))
+  (evil-define-key 'normal dired-mode-map "N" 'mkdir)
+  (evil-define-key 'normal dired-mode-map "," 'dired-hide-details-mode)
+  :bind (("C-x d" . dired-jump)
+         ("C-x w" . wdired-change-to-wdired-mode))
   :custom ((dired-listing-switches "-AgGh --group-directories-first")))
 
 (when (equal system-type 'darwin)

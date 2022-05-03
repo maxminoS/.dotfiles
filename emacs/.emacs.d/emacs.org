@@ -506,6 +506,7 @@ Requires Dropbox files
 | C-x d | Dired jump     | H | Hide dotfiles |
 | h     | Back directory | j | Next file     |
 | l     | Open directory | k | Previous file |
+| N     | New folder     | , | Toggle view   |
 
 |         | *Navigation*              |     | *Selection*    |
 | g O     | Open in other window      | U   | Unmark all     |
@@ -518,14 +519,14 @@ Requires Dropbox files
 | R   | Rename           | c | Compress               |
 | % R | Rename by regexp |   |                        |
 
-|         | *Others*                                            |
-| C-x C-q | Direct editor mode [Z Z] to confirm; [Z Q] to abort |
-| T       | Change timestamp                                    |
-| M       | Change file mode                                    |
-| O       | Change file owner                                   |
-| G       | Change file group                                   |
-| S       | Create symbolic link                                |
-| L       | Load Elisp file                                     |
+|       | *Others*                                            |
+| C-x w | Direct editor mode [Z Z] to confirm; [Z Q] to abort |
+| T     | Change timestamp                                    |
+| M     | Change file mode                                    |
+| O     | Change file owner                                   |
+| G     | Change file group                                   |
+| S     | Create symbolic link                                |
+| L     | Load Elisp file                                     |
 
 In macOS, you may need to add permission for Emacs (or ruby) to have file access to enable dired
 
@@ -536,7 +537,10 @@ In macOS, you may need to add permission for Emacs (or ruby) to have file access
     (setq dired-recursive-copies 'always)
     (setq dired-recursive-deletes 'always)
     (setq delete-by-moving-to-trash t)
-    :bind (("C-x d" . dired-jump))
+    (evil-define-key 'normal dired-mode-map "N" 'mkdir)
+    (evil-define-key 'normal dired-mode-map "," 'dired-hide-details-mode)
+    :bind (("C-x d" . dired-jump)
+           ("C-x w" . wdired-change-to-wdired-mode))
     :custom ((dired-listing-switches "-AgGh --group-directories-first")))
 
   (when (equal system-type 'darwin)
