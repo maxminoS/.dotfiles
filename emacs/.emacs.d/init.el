@@ -766,9 +766,9 @@
   (defadvice lsp-on-change (around lsp-on-change-hack activate)
     (when (> (- (float-time (current-time)) 0) 30)
       (setq lsp-on-touch-time (float-time (current-time))) ad-do-it))
+  (set-face-background 'lsp-face-highlight-textual "#1f1147")
   :custom
   (lsp-keymap-prefix "C-c l")
-  (lsp-ui-sideline-enable nil)
   (lsp-modeline-diagnostics-enable t)
   (lsp-before-save-edits nil)
   (lsp-log-io nil) ;; Disable log
@@ -777,6 +777,7 @@
   (lsp-enable-symbol-highlighting nil)
   (lsp-enable-links nil)
   (lsp-restart 'auto-restart)
+  (lsp-toggle-symbol-highlight t)
   (lsp-eslint-auto-fix-on-save t))
 
 (use-package lsp-ui
@@ -808,7 +809,15 @@
           (no-special-glyphs . t)
           (alpha . (100 . 100))
           (desktop-dont-save . t)))
+  ;; Make UI doc and peek more readable
+  (set-face-background 'markdown-code-face "#1f1147")
+  (set-face-foreground 'lsp-ui-peek-highlight "#cd00cd")
+  (set-face-background 'lsp-ui-peek-filename "#cd00cd")
+  (set-face-background 'lsp-ui-peek-selection "#8b008b")
   :custom
+  (lsp-ui-sideline-enable nil)
+  (lsp-ui-doc-show-with-cursor t)
+  (lsp-ui-doc-show-with-mouse nil)
   (lsp-ui-doc-delay 0.5)
   (lsp-ui-doc-position 'at-point))
 
