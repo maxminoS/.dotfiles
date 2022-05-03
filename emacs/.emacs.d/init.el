@@ -911,6 +911,11 @@
 (use-package lua-mode
   :mode "\\.lua\\'")
 
+(use-package flymake-shellcheck
+  :commands flymake-shellcheck-load
+  :hook ((sh-mode . flymake-shellcheck-load)
+         (sh-mode . flymake-mode)))
+
 (use-package json-mode
   :mode "\\.json\\'")
 

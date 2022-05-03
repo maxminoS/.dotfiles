@@ -1015,7 +1015,7 @@ Install the required Language Servers by:
 - Opening the appropriate files
 - =M-x lsp-install-server=
 
-*Language Servers*: =html-ls=, =css-ls=, =ts-ls=, =volar-api=, =pyright=, =gopls=, =rust-analyzer=, =lua-language-server=
+*Language Servers*: =html-ls=, =css-ls=, =ts-ls=, =volar-api=, =pyright=, =gopls=, =rust-analyzer=, =lua-language-server=, =shellcheck=
 #+BEGIN_SRC emacs-lisp
   (setq lsp-use-plists t)
   (use-package lsp-mode
@@ -1215,6 +1215,14 @@ Install the required Language Servers by:
 #+BEGIN_SRC emacs-lisp
   (use-package lua-mode
     :mode "\\.lua\\'")
+#+END_SRC
+
+*** Shell
+#+BEGIN_SRC emacs-lisp
+  (use-package flymake-shellcheck
+    :commands flymake-shellcheck-load
+    :hook ((sh-mode . flymake-shellcheck-load)
+           (sh-mode . flymake-mode)))
 #+END_SRC
 
 *** Configuration Files
