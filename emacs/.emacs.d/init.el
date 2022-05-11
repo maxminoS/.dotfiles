@@ -401,6 +401,7 @@
 (use-package dired
   :ensure nil
   :config
+  (add-hook 'dired-mode-hook (lambda () (dired-hide-details-mode)))
   (setq dired-recursive-copies 'always)
   (setq dired-recursive-deletes 'always)
   (setq delete-by-moving-to-trash t)
