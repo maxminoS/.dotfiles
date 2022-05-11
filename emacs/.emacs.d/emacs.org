@@ -569,7 +569,7 @@ In macOS, you may need to add permission for Emacs (or ruby) to have file access
   (use-package dired-subtree
     :bind (:map dired-mode-map
                 ("<tab>" . dired-subtree-toggle)
-                ("<S-iso-lefttab>" . dired-subtree-cycle)))
+                ("<backtab>" . dired-subtree-cycle)))
 #+END_SRC
 
 ** Dired Open

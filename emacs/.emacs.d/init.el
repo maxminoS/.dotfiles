@@ -431,7 +431,7 @@
 (use-package dired-subtree
   :bind (:map dired-mode-map
               ("<tab>" . dired-subtree-toggle)
-              ("<S-iso-lefttab>" . dired-subtree-cycle)))
+              ("<backtab>" . dired-subtree-cycle)))
 
 (use-package dired-open
   :custom
