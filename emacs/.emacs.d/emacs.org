@@ -586,11 +586,11 @@ In macOS, you may need to add permission for Emacs (or ruby) to have file access
 #+END_SRC
 
 ** Peep Dired
-| P | peep-dired |
+| SPC | peep-dired |
 #+BEGIN_SRC emacs-lisp
   (use-package peep-dired
     :config
-    (evil-define-key 'normal dired-mode-map "P" 'peep-dired)
+    (evil-define-key 'normal dired-mode-map (kbd "<SPC>") 'peep-dired)
     :custom
     (peep-dired-cleanup-on-disable t)
     (peep-dired-cleanup-eagerly t)

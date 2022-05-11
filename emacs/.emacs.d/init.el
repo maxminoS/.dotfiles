@@ -445,7 +445,7 @@
 
 (use-package peep-dired
   :config
-  (evil-define-key 'normal dired-mode-map "P" 'peep-dired)
+  (evil-define-key 'normal dired-mode-map (kbd "<SPC>") 'peep-dired)
   :custom
   (peep-dired-cleanup-on-disable t)
   (peep-dired-cleanup-eagerly t)
