@@ -6,7 +6,6 @@ export LANG='en_US.UTF-8'
 export PASSWORD_STORE_DIR="$XDG_DATA_HOME/.password-store"
 
 # Command Line
-export TERMINAL='/usr/bin/alacritty'
 export HISTFILE="$XDG_CACHE_HOME/zsh/history"
 export LESSHISTFILE="-"
 # GPG
