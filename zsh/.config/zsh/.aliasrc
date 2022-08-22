@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Aliases
-alias vi='vim'
+alias v='vim'
 alias ytdl='youtube-dl'
 
 # Verbosity
