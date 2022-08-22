@@ -10,7 +10,8 @@ export TERMINAL='/usr/bin/alacritty'
 export HISTFILE="$XDG_CACHE_HOME/zsh/history"
 export LESSHISTFILE="-"
 # GPG
-export GPG_TTY=$(tty)
+GPG_TTY=$(tty)
+export GPG_TTY
 export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 
 export PSQLRC="$XDG_CONFIG_HOME/pg/psqlrc"
@@ -36,27 +37,31 @@ export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
 export JENV_ROOT="$XDG_DATA_HOME/jenv"
 
 # Adds `~/.bin` and all subdirectories to PATH
-[ -d "$HOME/.bin" ] && export PATH="$(find "$HOME/.bin" -type d | paste -sd: - ):$PATH"
+[ -d "$HOME/.bin" ] && PATH="$(find "$HOME/.bin" -type d | paste -sd: - ):$PATH"
 # Adds Yarn binaries to PATH
-export PATH="$PATH:$(yarn global bin)"
+PATH="$PATH:$(yarn global bin)"
 # Adds Go binaries to PATH
-export PATH="$PATH:$GOPATH/bin"
+PATH="$PATH:$GOPATH/bin"
 # Add Java version management
-export PATH="$JENV_ROOT/bin:$PATH"
+PATH="$PATH:$JENV_ROOT/bin"
 
 # macOS
-if [ $OSTYPE != 'linux-gnu' ]; then
+if [ "$(uname)" = 'Darwin' ]; then
     # Adds GNU coreutils to PATH
-    export PATH="$(brew --prefix make)/libexec/gnubin:$PATH"
-    export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
-    export MANPATH="$(brew --prefix coreutils)/libexec/gnuman:$MANPATH"
+    PATH="$(brew --prefix make)/libexec/gnubin:$PATH"
+    PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
+    MANPATH="$(brew --prefix coreutils)/libexec/gnuman:$MANPATH"
+    export MANPATH
 
-    export PATH="$(brew --prefix llvm)/bin:$PATH"
+    PATH="$(brew --prefix llvm)/bin:$PATH"
     # Adds ssh-copy-id to PATH
-    export PATH="$(brew --prefix ssh-copy-id)/bin:$PATH"
+    PATH="$(brew --prefix ssh-copy-id)/bin:$PATH"
     # Adds Homebrew-installed Ruby to PATH
-    export PATH="$(brew --prefix ruby)/bin:$PATH"
+    PATH="$(brew --prefix ruby)/bin:$PATH"
 
     # Exports load path for mu
-    export MU_LOAD_PATH="$(brew --prefix mu)"
+    MU_LOAD_PATH="$(brew --prefix mu)"
+    export MU_LOAD_PATH
 fi
+
+export PATH

@@ -14,15 +14,15 @@ alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 
 # Cleanup
-alias gpg="gpg --homedir $XDG_DATA_HOME/gnupg"
-alias mbsync="mbsync -c $XDG_CONFIG_HOME/isync/mbsyncrc"
+alias gpg='gpg --homedir $XDG_DATA_HOME/gnupg'
+alias mbsync='mbsync -c $XDG_CONFIG_HOME/isync/mbsyncrc'
 alias mongo='mongo --norc'
-alias yarn="yarn --use-yarnrc $XDG_CONFIG_HOME/yarn/config"
-alias svn="svn --config-dir $XDG_CONFIG_HOME/subversion"
-alias mvn="mvn -gs $XDG_CONFIG_HOME/m2/settings.xml"
+alias yarn='yarn --use-yarnrc $XDG_CONFIG_HOME/yarn/config'
+alias svn='svn --config-dir $XDG_CONFIG_HOME/subversion'
+alias mvn='mvn -gs $XDG_CONFIG_HOME/m2/settings.xml'
 
 # macOS
-if [ $OSTYPE != 'linux-gnu' ]; then
+if [ "$(uname)" = 'Darwin' ]; then
     # Get macOS Software Updates
     alias updateos='sudo softwareupdate -i -a'
     # Update installed Ruby gems, Homebrew, npm, and their installed packages
