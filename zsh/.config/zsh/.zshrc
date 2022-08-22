@@ -62,15 +62,12 @@ preexec() { echo -ne '\e[5 q' ;}
 # ------
 # Git branch
 git_branch() {
-  branch=$(git symbolic-ref HEAD 2> /dev/null | awk 'BEGIN{FS="/"} {print $NF}')
-  if [[ $branch == "" ]];
-  then
-    :
-  else
-    if [[ $OSTYPE == "linux-gnu" ]]; then
-      echo '  '$branch''
+  branch=$(git branch 2> /dev/null | sed -n -e 's/^\* \(.*\)/\1/p')
+  if [ "$branch" != '' ]; then
+    if [ "$(uname)" != 'Darwin' ]; then
+      echo "  $branch"
     else
-      echo ' ⑂ '$branch''
+      echo " ⑂ $branch"
     fi
   fi
 }
