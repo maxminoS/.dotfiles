@@ -283,6 +283,7 @@ brew services start spacebar
 
 - Previous/Next session: =C-x (/)=
 - Previous/Next window: =C-x p/n=
+- Split/Vsplit window: =C-x s=/=C-x v=
 - Rename window: =C-x ,=
 
 ** Images
