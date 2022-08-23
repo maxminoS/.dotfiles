@@ -37,8 +37,8 @@ export JENV_ROOT="$XDG_DATA_HOME/jenv"
 
 # Adds `~/.bin` and all subdirectories to PATH
 [ -d "$HOME/.bin" ] && PATH="$(find "$HOME/.bin" -type d | paste -sd: - ):$PATH"
-# Adds Yarn binaries to PATH
-PATH="$PATH:$(yarn global bin)"
+# Adds Yarn binaries to PATH (prefix in `npmrc`)
+PATH="$PATH:${XDG_DATA_HOME}/npm/bin"
 # Adds Go binaries to PATH
 PATH="$PATH:$GOPATH/bin"
 # Add Java version management
