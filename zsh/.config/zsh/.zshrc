@@ -60,11 +60,13 @@ autoload -Uz add-zsh-hook
 add-zsh-hook precmd set_prompt
 
 set_prompt() {
-    PROMPT="%{$fg[cyan]%}"
-    PROMPT+="%M"
-    PROMPT+="%{$fg[white]%}:%{$reset_color%}%~"
-    PROMPT+="%{$fg[magenta]%}"
-    PROMPT+="$(git_branch)"
-    PROMPT+="%{$fg[green]%}
-λ%{$reset_color%} "
+    P_HOSTNAME="%{$fg[yellow]%}%M"
+    P_SEPARATOR="%{$reset_color%}:"
+    P_PWD="%{$fg[cyan]%}%~"
+    P_GIT="%{$fg[magenta]%}$(git_branch)"
+    P_NEWLINE="$(printf '\n ')" && P_NEWLINE="${P_NEWLINE% }"
+    P_PROMPT="${P_NEWLINE}%{$fg[red]%}%Bλ%b%{$reset_color%} "
+
+    PROMPT="${P_HOSTNAME}${P_SEPARATOR}${P_PWD}${P_GIT}${P_PROMPT}"
+    export PROMPT
 }
