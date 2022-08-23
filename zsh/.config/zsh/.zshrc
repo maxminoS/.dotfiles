@@ -1,7 +1,5 @@
 #!/usr/bin/env zsh
 
-# Settings
-# --------
 # Load aliases
 # shellcheck source=/dev/null
 [ -f "$ZDOTDIR/.aliasrc" ] && . "$ZDOTDIR/.aliasrc"
@@ -16,27 +14,13 @@ zmodload zsh/complist
 compinit
 _comp_options+=(globdots) # Include hidden files
 
-# Alt+Backspace
-alt-backspace-delete-word () {
-    local WORDCHARS='~!#$%^&*(){}[]<>?+;'
-    zle backward-delete-word
- }
-
- zle -N alt-backspace-delete-word
- bindkey    '\e^?' alt-backspace-delete-word
-
-# Vim Mode
-# --------
-# bindkey -v
+# Vim
 export KEYTIMEOUT=1
-
-# Use vim keys in tab complete menu:
+# Vim in tab autocompletion
 bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
-bindkey -v '^?' backward-delete-char
-
 # Vim cursor shapes
 zle-keymap-select() {
   if [ "$KEYMAP" = vicmd ] ||
@@ -58,8 +42,6 @@ zle -N zle-line-init
 printf '\e[5 q'
 preexec() { printf '\e[5 q' ;}
 
-# Prompt
-# ------
 # Git branch
 git_branch() {
   branch=$(git branch 2> /dev/null | sed -n -e 's/^\* \(.*\)/\1/p')
