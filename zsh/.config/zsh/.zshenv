@@ -45,21 +45,21 @@ PATH="$PATH:$GOPATH/bin"
 PATH="$PATH:$JENV_ROOT/bin"
 
 # macOS
-if [ "$(uname)" = 'Darwin' ]; then
+if [ "$UNAME" = 'Darwin' ]; then
     # Adds GNU coreutils to PATH
-    PATH="$(brew --prefix make)/libexec/gnubin:$PATH"
-    PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
-    MANPATH="$(brew --prefix coreutils)/libexec/gnuman:$MANPATH"
+    PATH="$HOMEBREW_PREFIX_VAR/opt/make/libexec/gnubin:$PATH"
+    PATH="$HOMEBREW_PREFIX_VAR/opt/coreutils/libexec/gnubin:$PATH"
+    MANPATH="$HOMEBREW_PREFIX_VAR/opt/coreutils/libexec/gnuman:$MANPATH"
     export MANPATH
 
-    PATH="$(brew --prefix llvm)/bin:$PATH"
+    PATH="$HOMEBREW_PREFIX_VAR/opt/llvm/bin:$PATH"
     # Adds ssh-copy-id to PATH
-    PATH="$(brew --prefix ssh-copy-id)/bin:$PATH"
+    PATH="$HOMEBREW_PREFIX_VAR/opt/ssh-copy-id/bin:$PATH"
     # Adds Homebrew-installed Ruby to PATH
-    PATH="$(brew --prefix ruby)/bin:$PATH"
+    PATH="$HOMEBREW_PREFIX_VAR/opt/ruby/bin:$PATH"
 
     # Exports load path for mu
-    MU_LOAD_PATH="$(brew --prefix mu)"
+    MU_LOAD_PATH="$HOMEBREW_PREFIX_VAR/opt/mu"
     export MU_LOAD_PATH
 fi
 

@@ -22,7 +22,7 @@ alias svn='svn --config-dir $XDG_CONFIG_HOME/subversion'
 alias mvn='mvn -gs $XDG_CONFIG_HOME/m2/settings.xml'
 
 # macOS
-if [ "$(uname)" = 'Darwin' ]; then
+if [ "$UNAME" = 'Darwin' ]; then
     # Get macOS Software Updates
     alias updateos='sudo softwareupdate -i -a'
     # Update installed Ruby gems, Homebrew, npm, and their installed packages

@@ -46,7 +46,7 @@ preexec() { printf '\e[5 q' ;}
 git_branch() {
   branch=$(git branch 2> /dev/null | sed -n -e 's/^\* \(.*\)/\1/p')
   if [ "$branch" != '' ]; then
-    if [ "$(uname)" != 'Darwin' ]; then
+    if [ "$UNAME" != 'Darwin' ]; then
       echo "  $branch"
     else
       echo " ⑂ $branch"
@@ -72,4 +72,4 @@ set_prompt() {
 }
 
 # Syntax highlighting
-[ "$(uname)" = 'Darwin' ] && . "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" 2>/dev/null
+[ "$UNAME" = 'Darwin' ] && . "$HOMEBREW_PREFIX_VAR/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" 2>/dev/null

@@ -8,8 +8,11 @@ export XDG_DATA_HOME="$HOME/.local/share"
 [ ! -w "${XDG_RUNTIME_DIR:="/run/user/$(id -u)"}" ] && XDG_RUNTIME_DIR=/tmp
 export XDG_RUNTIME_DIR
 
+UNAME="$(uname)"
+export UNAME
+
 # macOS
-if [ "$(uname)" = 'Darwin' ]; then
+if [ "$UNAME" = 'Darwin' ]; then
     # Adds Homebrew to PATH
     [ -e '/usr/local/bin/brew' ] && HOMEBREW_PREFIX_VAR='/usr/local'
     [ -e '/opt/homebrew/bin/brew' ] && HOMEBREW_PREFIX_VAR='/opt/homebrew'
@@ -18,9 +21,9 @@ if [ "$(uname)" = 'Darwin' ]; then
 
     # Load nvm
     # shellcheck source=/dev/null
-    [ -s "$(brew --prefix nvm)/nvm.sh" ] && . "$(brew --prefix nvm)/nvm.sh"
+    [ -s "$HOMEBREW_PREFIX_VAR/opt/nvm/nvm.sh" ] && . "$HOMEBREW_PREFIX_VAR/opt/nvm/nvm.sh"
     # shellcheck source=/dev/null
-    [ -s "$(brew --prefix nvm)/etc/bash_completion.d/nvm" ] && . "$(brew --prefix nvm)/etc/bash_completion.d/nvm"
+    [ -s "$HOMEBREW_PREFIX_VAR/opt/nvm/etc/bash_completion.d/nvm" ] && . "$HOMEBREW_PREFIX_VAR/opt/nvm/etc/bash_completion.d/nvm"
 
     # Load jenv
     if type jenv > /dev/null; then
