@@ -1,9 +1,10 @@
-#!/bin/sh
+#!/usr/bin/env zsh
 
 # Settings
 # --------
 # Load aliases
-[ -f "$ZDOTDIR/.aliasrc" ] && source "$ZDOTDIR/.aliasrc"
+# shellcheck source=/dev/null
+[ -f "$ZDOTDIR/.aliasrc" ] && . "$ZDOTDIR/.aliasrc"
 
 # History
 HISTSIZE=10000
@@ -36,27 +37,26 @@ bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 bindkey -v '^?' backward-delete-char
 
-# Change cursor shape for different vi modes.
-function zle-keymap-select {
-  if [[ ${KEYMAP} == vicmd ]] ||
-     [[ $1 = 'block' ]]; then
-    echo -ne '\e[1 q'
-  elif [[ ${KEYMAP} == main ]] ||
-       [[ ${KEYMAP} == viins ]] ||
-       [[ ${KEYMAP} = '' ]] ||
-       [[ $1 = 'beam' ]]; then
-    echo -ne '\e[5 q'
+# Vim cursor shapes
+zle-keymap-select() {
+  if [ "$KEYMAP" = vicmd ] ||
+     [ "$1" = 'block' ]; then
+    printf '\e[1 q'
+  elif [ "$KEYMAP" = main ] ||
+       [ "$KEYMAP" = viins ] ||
+       [ "$KEYMAP" = '' ] ||
+       [ "$1" = 'beam' ]; then
+    printf '\e[5 q'
   fi
 }
 zle -N zle-keymap-select
 zle-line-init() {
     zle -K viins
-    echo -ne "\e[5 q"
+    printf "\e[5 q"
 }
 zle -N zle-line-init
-echo -ne '\e[5 q'
-preexec() { echo -ne '\e[5 q' ;}
-
+printf '\e[5 q'
+preexec() { printf '\e[5 q' ;}
 
 # Prompt
 # ------
