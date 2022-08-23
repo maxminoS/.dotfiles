@@ -42,7 +42,7 @@
 
 ;; Disable external pin entry
 (setenv "GPG_AGENT_INFO" nil)
-(setq epa-pinentry-mode 'loopback)
+(setq epg-pinentry-mode 'loopback)
 
 ;; Set appropriate macOS key modifiers
 (setq mac-option-key-is-meta nil
