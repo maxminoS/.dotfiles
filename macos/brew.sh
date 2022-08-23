@@ -31,6 +31,7 @@ brew install pass
 
 # Command line
 brew install bash
+brew install zsh-syntax-highlighting
 
 # Networks
 brew install wget

@@ -70,3 +70,6 @@ set_prompt() {
     PROMPT="${P_HOSTNAME}${P_SEPARATOR}${P_PWD}${P_GIT}${P_PROMPT}"
     export PROMPT
 }
+
+# Syntax highlighting
+[ "$(uname)" = 'Darwin' ] && . "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" 2>/dev/null
