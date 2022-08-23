@@ -67,7 +67,6 @@ brew services start spotifyd
 
 # Casks
 # Workflow
-brew install --cask alacritty
 brew install --cask dropbox
 
 # Browsers
