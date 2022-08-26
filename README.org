@@ -281,10 +281,14 @@ brew services start spacebar
 - Rename session: =C-x $=
 - Detach: =C-x d=
 
+- Copy mode: =C-x <SPC>=
 - Previous/Next session: =C-x (/)=
 - Previous/Next window: =C-x p/n=
-- Split/Vsplit window: =C-x s=/=C-x v=
-- Rename window: =C-x ,=
+- Split/Vsplit window: =C-x s/v=
+- New window: =C-x t=
+- Rename window: =C-x r=
+
+- Configs: ~tmux show-options [-g|s|w]~
 
 ** Images
 #+BEGIN_SRC sh
