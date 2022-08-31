@@ -32,6 +32,9 @@ brew install pass
 # Command line
 brew install bash
 brew install zsh-syntax-highlighting
+brew install ripgrep
+brew install fd
+brew install jq
 
 # Networks
 brew install wget
@@ -60,7 +63,8 @@ brew install youtube-dl
 # Emacs
 brew tap d12frosted/emacs-plus
 brew install emacs-plus --HEAD --with-ctags --with-dbus --with-mailutils --with-no-titlebar --with-xwidgets
-
+git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.emacs.d
+~/.emacs.d/bin/doom install
 
 # Services
 brew services start dbus

@@ -18,6 +18,7 @@ export PSQL_HISTORY="$XDG_CACHE_HOME/pg/psql_history"
 export PGPASSFILE="$XDG_CONFIG_HOME/pg/pgpass"
 export PGSERVICEFILE="$XDG_CONFIG_HOME/pg/pg_service.conf"
 
+export LSP_USE_PLISTS=true
 export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
 export MACHINE_STORAGE_PATH="$XDG_DATA_HOME/docker-machine"
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
@@ -37,6 +38,8 @@ export JENV_ROOT="$XDG_DATA_HOME/jenv"
 
 # Adds `~/.bin` and all subdirectories to PATH
 [ -d "$HOME/.bin" ] && PATH="$(find "$HOME/.bin" -type d | paste -sd: - ):$PATH"
+# Adds Doom Emacs binaries to PATH
+[ -d "$HOME/.emacs.d/bin" ] && PATH="$PATH:$HOME/.emacs.d/bin"
 # Adds Yarn binaries to PATH (prefix in `npmrc`)
 PATH="$PATH:${XDG_DATA_HOME}/npm/bin"
 # Adds Go binaries to PATH
