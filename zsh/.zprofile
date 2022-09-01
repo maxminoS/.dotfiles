@@ -44,7 +44,7 @@ if [ "$UNAME" = 'Darwin' ]; then
 
     # Load jenv
     if type jenv > /dev/null; then
-	eval "$(jenv init -)"
+        eval "$(jenv init -)"
     fi
 fi
 
