@@ -43,7 +43,7 @@
 (add-load-path! "lisp/")
 
 (after! ivy
-  (setq ivy-extra-directories ())
+  (setq ivy-extra-directories '("./"))
 
   (map! :desc "swiper"
         :g "C-s" #'counsel-grep-or-swiper)

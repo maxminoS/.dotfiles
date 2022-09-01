@@ -61,7 +61,7 @@ Set the listed secrets in =~/.doom.d/lisp/.secret.el=
 ** Ivy and Counsel
 #+BEGIN_SRC emacs-lisp
 (after! ivy
-  (setq ivy-extra-directories ())
+  (setq ivy-extra-directories '("./"))
 
   (map! :desc "swiper"
         :g "C-s" #'counsel-grep-or-swiper)
