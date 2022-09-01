@@ -29,14 +29,14 @@ if [ "$UNAME" = 'Darwin' ]; then
     __NODE_GLOBALS+=(node nvm npm yarn)
 
     _load_nvm() {
-	# shellcheck source=/dev/null
-	[ -s "$HOMEBREW_PREFIX_VAR/opt/nvm/nvm.sh" ] && . "$HOMEBREW_PREFIX_VAR/opt/nvm/nvm.sh"
-	# shellcheck source=/dev/null
-	[ -s "$HOMEBREW_PREFIX_VAR/opt/nvm/etc/bash_completion.d/nvm" ] && . "$HOMEBREW_PREFIX_VAR/opt/nvm/etc/bash_completion.d/nvm"
+    # shellcheck source=/dev/null
+    [ -s "$HOMEBREW_PREFIX_VAR/opt/nvm/nvm.sh" ] && . "$HOMEBREW_PREFIX_VAR/opt/nvm/nvm.sh"
+    # shellcheck source=/dev/null
+    [ -s "$HOMEBREW_PREFIX_VAR/opt/nvm/etc/bash_completion.d/nvm" ] && . "$HOMEBREW_PREFIX_VAR/opt/nvm/etc/bash_completion.d/nvm"
     }
 
     for cmd in "${__NODE_GLOBALS[@]}"; do
-	eval "function ${cmd}(){ unset -f ${__NODE_GLOBALS[*]}; _load_nvm; unset -f _load_nvm; ${cmd} \"\$@\"; }"
+        eval "function ${cmd}(){ unset -f ${__NODE_GLOBALS[*]}; _load_nvm; unset -f _load_nvm; ${cmd} \"\$@\"; }"
     done
     unset cmd __NODE_GLOBALS
 
