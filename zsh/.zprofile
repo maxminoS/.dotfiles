@@ -18,10 +18,12 @@ export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 # macOS
 if [ "$UNAME" = 'Darwin' ]; then
     # Adds Homebrew to PATH
-    [ -e '/usr/local/bin/brew' ] && HOMEBREW_PREFIX_VAR='/usr/local'
-    [ -e '/opt/homebrew/bin/brew' ] && HOMEBREW_PREFIX_VAR='/opt/homebrew'
-    [ -z "$HOMEBREW_PREFIX_VAR" ] && echo 'Homebrew not found.'
-    export HOMEBREW_PREFIX_VAR
+    if [ -z "$HOMEBREW_PREFIX_VAR" ]; then
+        [ -e '/usr/local/bin/brew' ] && HOMEBREW_PREFIX_VAR='/usr/local'
+        [ -e '/opt/homebrew/bin/brew' ] && HOMEBREW_PREFIX_VAR='/opt/homebrew'
+        [ -z "$HOMEBREW_PREFIX_VAR" ] && echo 'Homebrew not found.'
+        export HOMEBREW_PREFIX_VAR
+    fi
     eval "$("$HOMEBREW_PREFIX_VAR"/bin/brew shellenv)"
 
     # Lazy-load nvm

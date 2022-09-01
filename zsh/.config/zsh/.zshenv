@@ -49,6 +49,12 @@ PATH="$PATH:$JENV_ROOT/bin"
 
 # macOS
 if [ "$UNAME" = 'Darwin' ]; then
+    if [ -z "$HOMEBREW_PREFIX_VAR" ]; then
+        [ -e '/usr/local/bin/brew' ] && HOMEBREW_PREFIX_VAR='/usr/local'
+        [ -e '/opt/homebrew/bin/brew' ] && HOMEBREW_PREFIX_VAR='/opt/homebrew'
+        [ -z "$HOMEBREW_PREFIX_VAR" ] && echo 'Homebrew not found.'
+        export HOMEBREW_PREFIX_VAR
+    fi
     # Adds GNU coreutils to PATH
     PATH="$HOMEBREW_PREFIX_VAR/opt/make/libexec/gnubin:$PATH"
     PATH="$HOMEBREW_PREFIX_VAR/opt/coreutils/libexec/gnubin:$PATH"
