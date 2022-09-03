@@ -375,6 +375,7 @@
   (setq lsp-before-save-edits nil
         lsp-enable-snippet nil
         lsp-restart 'auto-restart
+        lsp-headerline-breadcrumb-enable t
         lsp-eslint-auto-fix-on-save t))
 
 (after! lsp-ui
