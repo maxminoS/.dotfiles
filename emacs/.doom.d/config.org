@@ -109,15 +109,13 @@ Set the listed secrets in =~/.doom.d/lisp/.secret.el=
 #+BEGIN_SRC emacs-lisp
 (column-number-mode)
 (setq display-line-numbers-type 'visual)
-(dolist (mode '(text-mode-hook
-                prog-mode-hook
-                conf-mode-hook))
-  (add-hook mode (lambda () (display-line-numbers-mode 1))))
 
-(dolist (mode '(org-mode-hook))
-  (add-hook mode (lambda ()
-                   (display-line-numbers-mode -1)
-                   (company-mode -1))))
+(add-hook 'text-mode-hook #'(lambda () (company-mode -1)))
+(add-hook! '(text-mode-hook prog-mode-hook) #'display-line-numbers-mode #'yascroll-bar-mode)
+(add-hook 'org-mode-hook #'(lambda ()
+                                 (yascroll-bar-mode 1)
+                                 (display-line-numbers-mode -1)
+                                 (company-mode -1)))
 
 ;; Wrap lines
 (global-visual-line-mode)
@@ -295,7 +293,7 @@ In macOS, you may need to add permission for Emacs (or ruby) to have file access
 
 #+BEGIN_SRC emacs-lisp
 (after! dired
-  (add-hook 'dired-mode-hook (lambda () (dired-hide-details-mode)))
+  (add-hook 'dired-mode-hook #'(lambda () (dired-hide-details-mode)))
   (setq dired-recursive-deletes 'always)
 
   (map! :leader :desc "Dired Jump" :n "d" #'dired-jump)
@@ -488,10 +486,9 @@ Requires: =git=
                     (mode . debugger-mode)
                     (mode . Man-mode))))))
 
-  (add-hook 'ibuffer-mode-hook
-            (lambda ()
-              (ibuffer-auto-mode)
-              (ibuffer-switch-to-saved-filter-groups "Default"))))
+  (add-hook 'ibuffer-mode-hook #'(lambda ()
+                                   (ibuffer-auto-mode)
+                                   (ibuffer-switch-to-saved-filter-groups "Default"))))
 #+END_SRC
 
 ** VTerm
@@ -504,10 +501,7 @@ Requires: =cmake=, =libtool-bin=, =libvterm[-dev]=
 #+BEGIN_SRC emacs-lisp
 (setq lsp-use-plists t)
 (after! lsp-mode
-  (add-hook 'lsp-mode-hook (lambda ()
-                              (lsp-ui-mode)
-                              (lsp-headerline-breadcrumb-mode 1)
-                              (company-mode)))
+  (add-hook! 'lsp-mode-hook #'lsp-ui-mode #'lsp-headerline-breadcrumb-mode #'company-mode)
 
   (set-face-background 'lsp-face-highlight-textual "#1f1147")
   (setq lsp-before-save-edits nil
@@ -559,9 +553,9 @@ Requires: =cmake=, =libtool-bin=, =libvterm[-dev]=
 #+BEGIN_SRC emacs-lisp
 (after! company-mode
   (global-company-mode -1)
-  (setq custom-idle-delay 0.0)
-)
+  (setq custom-idle-delay 0.0))
 #+END_SRC
+
 ** Tabs
 | M-S-i | Insert tab |
 #+BEGIN_SRC emacs-lisp
@@ -607,9 +601,7 @@ Requires: =cmake=, =libtool-bin=, =libvterm[-dev]=
 (after! smartparens
   (show-paren-mode t)
   (smartparens-global-mode t)
-  (dolist (mode '(text-mode-hook
-                  prog-mode-hook))
-    (add-hook! mode (lambda () (smartparens-mode))))
+  (add-hook! '(text-mode-hook prog-mode-hook) #'smartparens-mode)
 
   (map! :leader
         (:map smartparens-mode-map

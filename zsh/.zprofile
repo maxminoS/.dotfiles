@@ -43,9 +43,9 @@ if [ "$UNAME" = 'Darwin' ]; then
     unset cmd __NODE_GLOBALS
 
     # Load jenv
-    if type jenv > /dev/null; then
-        eval "$(jenv init -)"
-    fi
+    # if type jenv > /dev/null; then
+    #     eval "$(jenv init -)"
+    # fi
 fi
 
 # Cache SSH Credentials

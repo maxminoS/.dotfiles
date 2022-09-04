@@ -88,15 +88,13 @@
 
 (column-number-mode)
 (setq display-line-numbers-type 'visual)
-(dolist (mode '(text-mode-hook
-                prog-mode-hook
-                conf-mode-hook))
-  (add-hook mode (lambda () (display-line-numbers-mode 1))))
 
-(dolist (mode '(org-mode-hook))
-  (add-hook mode (lambda ()
-                   (display-line-numbers-mode -1)
-                   (company-mode -1))))
+(add-hook 'text-mode-hook #'(lambda () (company-mode -1)))
+(add-hook! '(text-mode-hook prog-mode-hook) #'display-line-numbers-mode #'yascroll-bar-mode)
+(add-hook 'org-mode-hook #'(lambda ()
+                                 (yascroll-bar-mode 1)
+                                 (display-line-numbers-mode -1)
+                                 (company-mode -1)))
 
 ;; Wrap lines
 (global-visual-line-mode)
@@ -204,7 +202,7 @@
        "x" #'password-store-remove))
 
 (after! dired
-  (add-hook 'dired-mode-hook (lambda () (dired-hide-details-mode)))
+  (add-hook 'dired-mode-hook #'(lambda () (dired-hide-details-mode)))
   (setq dired-recursive-deletes 'always)
 
   (map! :leader :desc "Dired Jump" :n "d" #'dired-jump)
@@ -359,17 +357,13 @@
                     (mode . debugger-mode)
                     (mode . Man-mode))))))
 
-  (add-hook 'ibuffer-mode-hook
-            (lambda ()
-              (ibuffer-auto-mode)
-              (ibuffer-switch-to-saved-filter-groups "Default"))))
+  (add-hook 'ibuffer-mode-hook #'(lambda ()
+                                   (ibuffer-auto-mode)
+                                   (ibuffer-switch-to-saved-filter-groups "Default"))))
 
 (setq lsp-use-plists t)
 (after! lsp-mode
-  (add-hook 'lsp-mode-hook (lambda ()
-                              (lsp-ui-mode)
-                              (lsp-headerline-breadcrumb-mode 1)
-                              (company-mode)))
+  (add-hook! 'lsp-mode-hook #'lsp-ui-mode #'lsp-headerline-breadcrumb-mode #'company-mode)
 
   (set-face-background 'lsp-face-highlight-textual "#1f1147")
   (setq lsp-before-save-edits nil
@@ -418,8 +412,7 @@
 
 (after! company-mode
   (global-company-mode -1)
-  (setq custom-idle-delay 0.0)
-)
+  (setq custom-idle-delay 0.0))
 
 (setq tab-always-indent t)
 
@@ -442,9 +435,7 @@
 (after! smartparens
   (show-paren-mode t)
   (smartparens-global-mode t)
-  (dolist (mode '(text-mode-hook
-                  prog-mode-hook))
-    (add-hook! mode (lambda () (smartparens-mode))))
+  (add-hook! '(text-mode-hook prog-mode-hook) #'smartparens-mode)
 
   (map! :leader
         (:map smartparens-mode-map
