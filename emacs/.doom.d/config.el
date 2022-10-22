@@ -201,6 +201,13 @@
        :desc "Remove pass"
        "x" #'password-store-remove))
 
+;; Redefine password-store-otp-token-copy
+(defun password-store-otp-token-copy (entry)
+  "Copy an OTP token from ENTRY to clipboard."
+  (interactive (list (password-store-otp-completing-read)))
+  (password-store-otp--safe-copy (password-store-otp-token entry))
+  (message "Copied %s to the kill ring. Will clear in %s seconds." entry (password-store-timeout)))
+
 (after! dired
   (add-hook 'dired-mode-hook #'(lambda () (dired-hide-details-mode)))
   (setq dired-recursive-deletes 'always)
