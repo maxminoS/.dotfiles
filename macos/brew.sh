@@ -49,6 +49,7 @@ brew install node
 brew install yarn
 brew install typescript
 brew install go
+brew install fnm
 
 # Others
 brew install neofetch
