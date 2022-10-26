@@ -26,6 +26,11 @@ if [ "$UNAME" = 'Darwin' ]; then
     fi
     eval "$("$HOMEBREW_PREFIX_VAR"/bin/brew shellenv)"
 
+    # Load fnm
+    if type fnm > /dev/null; then
+        eval "$(fnm env --use-on-cd)"
+    fi
+
     # Load jenv
     # if type jenv > /dev/null; then
     #     eval "$(jenv init -)"
