@@ -610,25 +610,35 @@ Requires: =cmake=, =libtool-bin=, =libvterm[-dev]=
   (smartparens-global-mode t)
   (add-hook! '(text-mode-hook prog-mode-hook) #'smartparens-mode)
 
+  (defun emax/sp-wrap-with-char (char)
+    "Wrap the following expression with CHAR. If region is active and `use-region-p' returns true, wrap the region."
+    (when (use-region-p)
+      (let* ((rb (region-beginning))
+             (re (region-end)))
+        (goto-char re)
+        (insert char)
+        (goto-char rb)
+        (insert char))))
+
   (map! :leader
         (:map smartparens-mode-map
          (:prefix ("z" . "smartparens")
          ;; Wrap
-          "(" #'sp-wrap-round  ; ")"
+         "(" #'sp-wrap-round  ; ")"
          "[" #'sp-wrap-square ; "]""
          "{" #'sp-wrap-curly ; "}"
          :desc "Wrap quotes"
          "\"" #'(lambda (&optional args) (interactive "P") (sp-wrap-with-pair "\""))
          :desc "Wrap *"
-         "*" #'(lambda (&optional args) (interactive "P") (sp-wrap-with-pair "*"))
+         "*" #'(lambda (&optional args) (interactive "P") (emax/sp-wrap-with-char "*"))
          :desc "Wrap /"
-         "/" #'(lambda (&optional args) (interactive "P") (sp-wrap-with-pair "/"))
+         "/" #'(lambda (&optional args) (interactive "P") (emax/sp-wrap-with-char "/"))
          :desc "Wrap _"
-         "_" #'(lambda (&optional args) (interactive "P") (sp-wrap-with-pair "_"))
+         "_" #'(lambda (&optional args) (interactive "P") (emax/sp-wrap-with-char "_"))
          :desc "Wrap ="
-         "=" #'(lambda (&optional args) (interactive "P") (sp-wrap-with-pair "="))
+         "=" #'(lambda (&optional args) (interactive "P") (emax/sp-wrap-with-char "="))
          :desc "Wrap ~"
-         "~" #'(lambda (&optional args) (interactive "P") (sp-wrap-with-pair "~"))
+         "~" #'(lambda (&optional args) (interactive "P") (emax/sp-wrap-with-char "~"))
          ;; Unwrap
          "<" #'sp-backward-unwrap-sexp
          ">" #'sp-unwrap-sexp
