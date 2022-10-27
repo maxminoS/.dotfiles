@@ -44,6 +44,91 @@
 
 (setq initial-scratch-message ";; This buffer is for text that is not saved, and for Lisp evaluation.\n;; To create a file, visit it with C-x C-f and enter text in its buffer.\n\n"
       initial-major-mode 'lisp-interaction-mode)
+
+(map! :leader
+      ;; Buffer
+      "b c" nil
+      "b C" nil
+      "b n" nil
+      "b N" nil
+      "b p" nil
+      "b s" nil
+      "b S" nil
+      "b u" nil
+      ;; Code
+      "c j" nil
+      "c J" nil
+      "c w" nil
+      "c W" nil
+      ;; File
+      :desc "Copy file to" "f c" #'doom/copy-this-file
+      "f C" nil
+      :desc "Delete file" "f d" #'doom/delete-this-file
+      "f D" nil
+      "f e" nil
+      "f E" nil
+      "f F" nil
+      "f p" nil
+      "f P" nil
+      ;; Magit
+      "g D" nil
+      ;; Help
+      "h 4" nil
+      "h <f1>" nil
+      "h C-\\" nil
+      "h C-a" nil
+      "h C-c" nil
+      "h C-d" nil
+      "h C-e" nil
+      "h C-f" nil
+      "h C-k" nil
+      "h C-l" nil
+      "h C-n" nil
+      "h C-o" nil
+      "h C-p" nil
+      "h C-s" nil
+      "h C-t" nil
+      "h C-w" nil
+      "h <help>" nil
+      ;; Insert
+      "i p" nil
+      "i r" nil
+      ;; Open
+      "o A" nil
+      "o b" nil
+      "o i" nil
+      "o I" nil
+      "o l" nil
+      "o L" nil
+      "o u" nil
+      "o U" nil
+      ;; Notes
+      "n c" nil
+      "n C" nil
+      "n d" nil
+      "n l" nil
+      "n o" nil
+      "n v" nil
+      "n y" nil
+      "n Y" nil
+      ;; Quit
+      "q F" nil
+      "q Q" nil
+      ;; Search
+      :desc "Search all open buffers" "s b" #'swiper-all
+      "s B" nil
+      "s k" nil
+      "s K" nil
+      "s l" nil
+      "s L" nil
+      "s m" nil
+      :desc "Search other project" "s p" #'+default/search-other-project
+      "s P" nil
+      "s t" nil
+      "s T" nil
+      ;; Toggle
+      "t F" nil
+      "t g" nil)
 #+END_SRC
 
 ** Scripts
@@ -164,6 +249,17 @@ Set the listed secrets in =~/.doom.d/lisp/.secret.el=
 
 
 * Keybindings
+** Projectile
+#+BEGIN_SRC emacs-lisp
+(after! projectile
+  (map! :leader
+        "p ." nil
+        "p C" nil
+        "p D" nil
+        :desc "Find file in other project" "p f" #'doom/find-file-in-other-project
+        "p F" nil))
+#+END_SRC
+
 ** Evil
 #+BEGIN_SRC emacs-lisp
 (after! evil
@@ -172,7 +268,33 @@ Set the listed secrets in =~/.doom.d/lisp/.secret.el=
   (map! :m "j" #'evil-next-visual-line
         :m "k" #'evil-previous-visual-line
         :n "u" #'undo
-        :n "q" nil)) ;; Disable 'q' for macro
+        :n "q" nil ;; Disable 'q' for macro
+        ;; 'z'
+        :m "z RET" nil
+        :m "z <return>" nil
+        :m "z +" nil
+        :m "z -" nil
+        :m "z ." nil
+        :mnv "z =" nil
+        :m "z ^" nil
+        :m "z b" nil
+        :m "z F" nil
+        :m "z j" nil
+        :m "z k" nil
+        :m "z t" nil
+        :n "z x" nil
+        :m "z z" nil
+        :m "z <left>" nil
+        :m "z <right>" nil
+        ;; '[]'
+        :nm "[ o" nil
+        :nm "] o" nil
+        :m "[ u" nil
+        :m "] u" nil
+        :m "[ x" nil
+        :m "] x" nil
+        :m "[ y" nil
+        :m "] y" nil))
 
 (after! evil-collection
   (setq evil-collection-setup-minibuffer t))
@@ -341,6 +463,13 @@ In macOS, you may need to add permission for Emacs (or ruby) to have file access
         org-default-notes-file "~/Dropbox/org/scratch.org"
         org-agenda-files '("~/Dropbox/org/agenda")
         org-refile-targets '(("~/Dropbox/org/archive.org" :maxlevel . 1))))
+
+(after! evil-org
+  (map! (:map evil-org-mode-map
+         :n "zm" nil
+         :n "zM" nil
+         :n "zr" nil
+         :n "zR" nil)))
 #+END_SRC
 
 ** Org Capture
@@ -418,7 +547,47 @@ Requires: =git=
         "w <left>" #'windmove-swap-states-left
         "w <down>" #'windmove-swap-states-down
         "w <up>" #'windmove-swap-states-up
-        "w <right>" #'windmove-swap-states-right))
+        "w <right>" #'windmove-swap-states-right
+        "w b" nil
+        "w d" nil
+        "w H" nil
+        "w J" nil
+        "w K" nil
+        "w L" nil
+        "w m" nil
+        "w n" nil
+        "w p" nil
+        "w q" nil
+        "w t" nil
+        "w T" nil
+        "w u" nil
+        "w S" nil
+        "w V" nil
+        "w C-_" nil
+        "w C-b" nil
+        "w C-c" nil
+        "w C-f" nil
+        "w C-h" nil
+        "w C-j" nil
+        "w C-k" nil
+        "w C-l" nil
+        "w C-n" nil
+        "w C-o" nil
+        "w C-p" nil
+        "w C-r" nil
+        "w C-s" nil
+        "w C-t" nil
+        "w C-u" nil
+        "w C-v" nil
+        "w C-w" nil
+        "w C-S-h" nil
+        "w C-S-h" nil
+        "w C-S-j" nil
+        "w C-S-k" nil
+        "w C-S-l" nil
+        "w C-S-r" nil
+        "w C-S-s" nil
+        "w C-S-w" nil))
 #+END_SRC
 
 ** Monocle
