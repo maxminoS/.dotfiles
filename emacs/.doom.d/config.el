@@ -227,6 +227,60 @@
         :m "k" #'evil-previous-visual-line
         :n "u" #'undo
         :n "q" nil ;; Disable 'q' for macro
+        ;; 'g'
+        :n "g ;" nil
+        :m "g #" nil
+        :m "g $" nil
+        :n "g &" nil
+        :m "g *" nil
+        :n "g ," nil
+        :n "g -" nil
+        :m "g 0" nil
+        :n "g =" nil
+        :n "g 8" nil
+        :n "g ?" nil
+        :nv "g @" nil
+        :m "g ^" nil
+        :m "g _" nil
+        :n "g A" nil
+        :nv "g c" nil
+        :m "g e" nil
+        :m "g E" nil
+        :n "g F" nil
+        :nv "g i" #'+lookup/implementations
+        :nv "g I" nil
+        :m "g j" nil
+        :n "g J" nil
+        :m "g k" nil
+        :nv "g l" nil
+        :nv "g L" nil
+        :m "g M" nil
+        :m "g m" nil
+        :m "g n" nil
+        :m "g N" nil
+        :m "g o" nil
+        :nv "g o" #'counsel-imenu
+        :nv "g O" nil
+        :n "g p" nil
+        :n "g q" #'+format:region
+        :n "g Q" nil
+        :m "g s" nil
+        :n "g t" nil
+        :n "g T" nil
+        :nv "g u" nil
+        :nv "g U" nil
+        :m "g v" nil
+        :n "g w" nil
+        :nv "g x" nil
+        :nv "g y" nil
+        :nv "g z" nil
+        :n "g ~" nil
+        :m "g C-]" nil
+        :m "g C-g" nil
+        :m "g <down>" nil
+        :m "g <end>" nil
+        :m "g <home>" nil
+        :m "g <up>" nil
         ;; 'z'
         :m "z RET" nil
         :m "z <return>" nil
@@ -367,6 +421,15 @@
 
 (after! evil-org
   (map! (:map evil-org-mode-map
+         ; 'g'
+         :m "gh" nil
+         :m "gH" nil
+         :m "gsh" nil
+         :m "gj" nil
+         :m "gk" nil
+         :m "gl" nil
+         :n "gQ" nil
+         ; 'z'
          :n "zm" nil
          :n "zM" nil
          :n "zr" nil
