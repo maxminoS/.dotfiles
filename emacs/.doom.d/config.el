@@ -719,8 +719,8 @@
   (setq password-store-password-length 16))
 
 (after! password-store-otp
-   (defun emax/password-store-otp-insert-code" (entry issuer email otp-code)
-     Insert a new ENTRY with OTP-URI generated using the enterred ISSUER, EMAIL, and CODE."
+   (defun emax/password-store-otp-insert-code (entry issuer email otp-code)
+     "Insert a new ENTRY with OTP-URI generated using the enterred ISSUER, EMAIL, and CODE."
      (interactive (list (password-store-otp-completing-read)
                         (read-string "Issuer: ")
                         (read-string "Email: ")
