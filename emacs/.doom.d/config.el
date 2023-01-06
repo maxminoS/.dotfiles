@@ -351,6 +351,7 @@
        :desc "lists"
        "l" #'(lambda () (interactive) (find-file (concat emax/org-directory "/notes/others/lists.org")))))
 
+(require 'password-store-otp)
 (map! :leader
       (:prefix ("a" . "pass")
 
@@ -366,7 +367,7 @@
        :desc "Copy field"
        "C" #'password-store-copy-field
        :desc "Copy OTP"
-       "o" #'password-store-otp-token-copy
+       "o" #'emax/password-store-otp-token-copy
 
        :desc "Edit pass"
        "e" #'password-store-edit
@@ -374,13 +375,6 @@
        "r" #'password-store-rename
        :desc "Remove pass"
        "x" #'password-store-remove))
-
-;; Redefine password-store-otp-token-copy
-(defun password-store-otp-token-copy (entry)
-  "Copy an OTP token from ENTRY to clipboard."
-  (interactive (list (password-store-otp-completing-read)))
-  (password-store-otp--safe-copy (password-store-otp-token entry))
-  (message "Copied %s to the kill ring. Will clear in %s seconds." entry (password-store-timeout)))
 
 (after! dired
   (add-hook 'dired-mode-hook #'(lambda () (dired-hide-details-mode)))
@@ -720,14 +714,20 @@
   (setq password-store-password-length 16))
 
 (after! password-store-otp
-   (defun emax/password-store-otp-insert-code (entry issuer email otp-code)
-     "Insert a new ENTRY with OTP-URI generated using the enterred ISSUER, EMAIL, and CODE."
-     (interactive (list (password-store-otp-completing-read)
-                        (read-string "Issuer: ")
-                        (read-string "Email: ")
-                        (read-passwd "Code: " t)))
-     (password-store-otp-add-uri 'insert entry
-                                 (concat "otpauth://totp/" issuer ":" email "?secret=" otp-code "&issuer=" issuer))))
+  (defun emax/password-store-otp-token-copy (entry)
+    "Copy an OTP token from ENTRY to clipboard."
+    (interactive (list (password-store-otp-completing-read)))
+    (password-store-otp--safe-copy (password-store-otp-token entry))
+    (message "Copied %s to the kill ring. Will clear in %s seconds." entry (password-store-timeout)))
+
+  (defun emax/password-store-otp-insert-code (entry issuer email otp-code)
+    "Insert a new ENTRY with OTP-URI generated using the enterred ISSUER, EMAIL, and CODE."
+    (interactive (list (password-store-otp-completing-read)
+                       (read-string "Issuer: ")
+                       (read-string "Email: ")
+                       (read-passwd "Code: " t)))
+    (password-store-otp-add-uri 'insert entry
+                                (concat "otpauth://totp/" issuer ":" email "?secret=" otp-code "&issuer=" issuer))))
 
 (after! elfeed
   (setq elfeed-search-filter "@3-months-ago +unread ")

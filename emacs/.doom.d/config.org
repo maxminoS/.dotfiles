@@ -401,6 +401,7 @@ Requires Dropbox files
 
 ** Pass
 #+BEGIN_SRC emacs-lisp
+(require 'password-store-otp)
 (map! :leader
       (:prefix ("a" . "pass")
 
@@ -416,7 +417,7 @@ Requires Dropbox files
        :desc "Copy field"
        "C" #'password-store-copy-field
        :desc "Copy OTP"
-       "o" #'password-store-otp-token-copy
+       "o" #'emax/password-store-otp-token-copy
 
        :desc "Edit pass"
        "e" #'password-store-edit
@@ -424,13 +425,6 @@ Requires Dropbox files
        "r" #'password-store-rename
        :desc "Remove pass"
        "x" #'password-store-remove))
-
-;; Redefine password-store-otp-token-copy
-(defun password-store-otp-token-copy (entry)
-  "Copy an OTP token from ENTRY to clipboard."
-  (interactive (list (password-store-otp-completing-read)))
-  (password-store-otp--safe-copy (password-store-otp-token entry))
-  (message "Copied %s to the kill ring. Will clear in %s seconds." entry (password-store-timeout)))
 #+END_SRC
 
 
@@ -904,14 +898,20 @@ Requires: =gpg=, =pass[word-store]=
   (setq password-store-password-length 16))
 
 (after! password-store-otp
-   (defun emax/password-store-otp-insert-code (entry issuer email otp-code)
-     "Insert a new ENTRY with OTP-URI generated using the enterred ISSUER, EMAIL, and CODE."
-     (interactive (list (password-store-otp-completing-read)
-                        (read-string "Issuer: ")
-                        (read-string "Email: ")
-                        (read-passwd "Code: " t)))
-     (password-store-otp-add-uri 'insert entry
-                                 (concat "otpauth://totp/" issuer ":" email "?secret=" otp-code "&issuer=" issuer))))
+  (defun emax/password-store-otp-token-copy (entry)
+    "Copy an OTP token from ENTRY to clipboard."
+    (interactive (list (password-store-otp-completing-read)))
+    (password-store-otp--safe-copy (password-store-otp-token entry))
+    (message "Copied %s to the kill ring. Will clear in %s seconds." entry (password-store-timeout)))
+
+  (defun emax/password-store-otp-insert-code (entry issuer email otp-code)
+    "Insert a new ENTRY with OTP-URI generated using the enterred ISSUER, EMAIL, and CODE."
+    (interactive (list (password-store-otp-completing-read)
+                       (read-string "Issuer: ")
+                       (read-string "Email: ")
+                       (read-passwd "Code: " t)))
+    (password-store-otp-add-uri 'insert entry
+                                (concat "otpauth://totp/" issuer ":" email "?secret=" otp-code "&issuer=" issuer))))
 #+END_SRC
 
 ** Elfeed
