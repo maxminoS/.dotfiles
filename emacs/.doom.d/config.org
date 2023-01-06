@@ -136,6 +136,7 @@ Place custom scripts under =~/.doom.d/lisp=
 Set the listed secrets in =~/.doom.d/lisp/.secret.el=
 #+BEGIN_SRC emacs-lisp
 (defvar emax/elfeed-feeds nil)
+(defvar emax/org-directory "~/Dropbox/org")
 
 (load! "lisp/.secret.el")
 (add-load-path! "lisp/")
@@ -362,40 +363,40 @@ Requires Dropbox files
       (:prefix ("<DEL>" . "goto")
 
        :desc "scratch"
-       "<DEL>" #'(lambda () (interactive) (find-file "~/Dropbox/org/scratch.org"))
+       "<DEL>" #'(lambda () (interactive) (find-file (concat emax/org-directory "/scratch.org")))
        :desc "agenda-day"
-       "d" #'(lambda () (interactive) (find-file "~/Dropbox/org/agenda/day.org"))
+       "d" #'(lambda () (interactive) (find-file (concat emax/org-directory "/agenda/day.org")))
        :desc "agenda-month"
-       "m" #'(lambda () (interactive) (find-file "~/Dropbox/org/agenda/month.org"))
+       "m" #'(lambda () (interactive) (find-file (concat emax/org-directory "/agenda/month.org")))
        :desc "agenda-year"
-       "y" #'(lambda () (interactive) (find-file "~/Dropbox/org/agenda/year.org"))
+       "y" #'(lambda () (interactive) (find-file (concat emax/org-directory "/agenda/year.org")))
 
        :desc "review-film"
-       "F" #'(lambda () (interactive) (find-file "~/Dropbox/org/reviews/film.org"))
+       "F" #'(lambda () (interactive) (find-file (concat emax/org-directory "/reviews/film.org")))
        :desc "review-show"
-       "S" #'(lambda () (interactive) (find-file "~/Dropbox/org/reviews/show.org"))
+       "S" #'(lambda () (interactive) (find-file (concat emax/org-directory "/reviews/show.org")))
        :desc "review-music"
-       "M" #'(lambda () (interactive) (find-file "~/Dropbox/org/reviews/music.org"))
+       "M" #'(lambda () (interactive) (find-file (concat emax/org-directory "/reviews/music.org")))
        :desc "review-book"
-       "B" #'(lambda () (interactive) (find-file "~/Dropbox/org/reviews/book.org"))
+       "B" #'(lambda () (interactive) (find-file (concat emax/org-directory "/reviews/book.org")))
 
        :desc "notes"
-       "g" #'(lambda () (interactive) (counsel-find-file "~/Dropbox/org/notes/"))
+       "g" #'(lambda () (interactive) (counsel-find-file (concat emax/org-directory "/notes/")))
        :desc "notes-programming"
-       "p" #'(lambda () (interactive) (counsel-find-file "~/Dropbox/org/notes/programming/"))
+       "p" #'(lambda () (interactive) (counsel-find-file (concat emax/org-directory "/notes/programming/")))
        :desc "notes-recreation"
-       "r" #'(lambda () (interactive) (counsel-find-file "~/Dropbox/org/notes/recreation/"))
+       "r" #'(lambda () (interactive) (counsel-find-file (concat emax/org-directory "/notes/recreation/")))
        :desc "notes-technology"
-       "t" #'(lambda () (interactive) (counsel-find-file "~/Dropbox/org/notes/technology/"))
+       "t" #'(lambda () (interactive) (counsel-find-file (concat emax/org-directory "/notes/technology/")))
 
        :desc "bookmarks"
-       "b" #'(lambda () (interactive) (find-file "~/Dropbox/org/notes/others/bookmarks.org"))
+       "b" #'(lambda () (interactive) (find-file (concat emax/org-directory "/notes/others/bookmarks.org")))
        :desc "essays"
-       "e" #'(lambda () (interactive) (find-file "~/Dropbox/org/notes/others/essays.org"))
+       "e" #'(lambda () (interactive) (find-file (concat emax/org-directory "/notes/others/essays.org")))
        :desc "ideas"
-       "i" #'(lambda () (interactive) (find-file "~/Dropbox/org/notes/others/ideas.org"))
+       "i" #'(lambda () (interactive) (find-file (concat emax/org-directory "/notes/others/ideas.org")))
        :desc "lists"
-       "l" #'(lambda () (interactive) (find-file "~/Dropbox/org/notes/others/lists.org"))))
+       "l" #'(lambda () (interactive) (find-file (concat emax/org-directory "/notes/others/lists.org")))))
 #+END_SRC
 
 ** Pass
@@ -513,10 +514,10 @@ In macOS, you may need to add permission for Emacs (or ruby) to have file access
         org-todo-keywords '((sequence "TODO(t)" "DOING(d)" "|" "DONE(x)")
                             (sequence "WAITING(w)" "|" "CANCELED(c)"))
         org-agenda-span 'week
-        org-directory "~/Dropbox/org"
-        org-default-notes-file "~/Dropbox/org/scratch.org"
-        org-agenda-files '("~/Dropbox/org/agenda")
-        org-refile-targets '(("~/Dropbox/org/archive.org" :maxlevel . 1))))
+        org-directory emax/org-directory
+        org-default-notes-file (concat org-directory "/scratch.org")
+        org-agenda-files '((concat org-directory "/agenda"))
+        org-refile-targets '(((concat org-directory "/archive.org") :maxlevel . 1))))
 
 (after! evil-org
   (map! (:map evil-org-mode-map
