@@ -400,9 +400,6 @@
          :n "p" #'peep-dired)))
 
 (after! org
-  ;; Replace dashes to bullet
-  (font-lock-add-keywords 'org-mode
-     '(("^ *\\([-]\\) " (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
   ;; Resize headlines
   (set-face-attribute 'org-level-1 nil :height 1.25)
   (set-face-attribute 'org-level-2 nil :height 1.15)
@@ -418,7 +415,10 @@
         org-directory emax/org-directory
         org-default-notes-file (concat org-directory "/scratch.org")
         org-agenda-files '((concat org-directory "/agenda"))
-        org-refile-targets '(((concat org-directory "/archive.org") :maxlevel . 1))))
+        org-refile-targets '(((concat org-directory "/archive.org") :maxlevel . 1))
+        org-fontify-quote-and-verse-blocks nil
+        org-hide-leading-stars nil
+        org-startup-indented nil))
 
 (after! evil-org
   (map! (:map evil-org-mode-map
