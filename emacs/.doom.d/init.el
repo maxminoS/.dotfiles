@@ -34,7 +34,7 @@
        ;;doom-quit         ; DOOM quit-message prompts when you quit Emacs
        ;;(emoji +unicode)  ; 🙂
        ;;hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
-       hydra
+       ;;hydra
        ;;indent-guides     ; highlighted indent columns
        ;;ligatures         ; ligatures and symbols to make your code pretty again
        ;;minimap           ; show a map of the code on the side
@@ -48,7 +48,7 @@
        ;;unicode           ; extended unicode support for various languages
        (vc-gutter +pretty) ; vcs diff in the fringe
        ;;vi-tilde-fringe   ; fringe tildes to mark beyond EOB
-       window-select       ; visually switch windows
+       ;;window-select     ; visually switch windows
        ;;workspaces        ; tab emulation, persistence & separate workspaces
        ;;zen               ; distraction-free coding or writing
 
@@ -155,7 +155,7 @@
        ;;ocaml             ; an objective camel
        org                 ; organize your plain life in plain text
        ;;php               ; perl's insecure younger brother
-       plantuml            ; diagrams for confusing people more
+       ;;plantuml         ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
        (python +lsp +pyright +tree-sitter +pyenv)  ; beautiful is better than ugly
        ;;qt                ; the 'cutest' gui framework ever
