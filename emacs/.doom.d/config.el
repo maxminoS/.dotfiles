@@ -351,31 +351,6 @@
        :desc "lists"
        "l" #'(lambda () (interactive) (find-file (concat emax/org-directory "/notes/others/lists.org")))))
 
-(require 'password-store-otp)
-(map! :leader
-      (:prefix ("a" . "pass")
-
-       :desc "Insert pass"
-       "i" #'password-store-insert
-       :desc "Insert OTP"
-       "I" #'emax/password-store-otp-insert-code
-       :desc "Generate pass"
-       "g" #'password-store-generate
-
-       :desc "Copy pass"
-       "c" #'password-store-copy
-       :desc "Copy field"
-       "C" #'password-store-copy-field
-       :desc "Copy OTP"
-       "o" #'emax/password-store-otp-token-copy
-
-       :desc "Edit pass"
-       "e" #'password-store-edit
-       :desc "Rename pass"
-       "r" #'password-store-rename
-       :desc "Remove pass"
-       "x" #'password-store-remove))
-
 (after! dired
   (add-hook 'dired-mode-hook #'(lambda () (dired-hide-details-mode)))
   (setq dired-recursive-deletes 'always)
@@ -713,7 +688,32 @@
 (after! password-store
   (setq password-store-password-length 16))
 
+(require 'password-store-otp)
 (after! password-store-otp
+  (map! :leader
+        (:prefix ("r" . "pass")
+
+         :desc "Insert pass"
+         "i" #'password-store-insert
+         :desc "Insert OTP"
+         "I" #'emax/password-store-otp-insert-code
+         :desc "Generate pass"
+         "g" #'password-store-generate
+
+         :desc "Copy pass"
+         "c" #'password-store-copy
+         :desc "Copy field"
+         "C" #'password-store-copy-field
+         :desc "Copy OTP"
+         "o" #'emax/password-store-otp-token-copy
+
+         :desc "Edit pass"
+         "e" #'password-store-edit
+         :desc "Rename pass"
+         "r" #'password-store-rename
+         :desc "Remove pass"
+         "x" #'password-store-remove))
+
   (defun emax/password-store-otp-token-copy (entry)
     "Copy an OTP token from ENTRY to clipboard."
     (interactive (list (password-store-otp-completing-read)))
