@@ -386,8 +386,7 @@
         org-agenda-files '((concat org-directory "/agenda"))
         org-refile-targets '(((concat org-directory "/archive.org") :maxlevel . 1))
         org-fontify-quote-and-verse-blocks nil
-        org-hide-leading-stars nil
-        org-startup-indented nil))
+        org-hide-leading-stars nil))
 
 (after! evil-org
   (map! (:map evil-org-mode-map
