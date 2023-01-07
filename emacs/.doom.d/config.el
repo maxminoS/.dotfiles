@@ -128,49 +128,18 @@
 (load! "lisp/.secret.el")
 (add-load-path! "lisp/")
 
-(after! ivy
-  (setq ivy-extra-directories '("./"))
-
-  (map! :desc "swiper"
-        :g "C-s" #'counsel-grep-or-swiper)
-
-  (map! :desc "swiper-isearch"
-        :nv "/" #'swiper-isearch))
-
-(after! counsel
-  (setq counsel-find-file-ignore-regexp nil)
-  (setq counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only)
-  (setq counsel-grep-base-command "rg -i -M 120 --no-heading --line-number --color never %s %s")
-  (setq counsel-mode-override-describe-bindings t)
-
-  (map! :leader
-        :desc "counsel-switch-buffer"
-        "," #'counsel-switch-buffer
-        "b b" #'counsel-switch-buffer
-        "s s" #'counsel-rg)
-
-  (map! :desc "counsel-switch-buffer"
-        :g "C-x b" #'counsel-switch-buffer
-        :g "C-x s" #'counsel-rg))
-
-(defun emax/kill-buffer ()
-  "Wraps kill-buffer."
-  (interactive)
-  (ivy-read "Kill buffer: " #'internal-complete-buffer
-            :preselect (buffer-name)
-            :action #'kill-buffer
-            :matcher #'ivy--switch-buffer-matcher
-            :caller 'ivy-switch-buffer))
-
-(after! ivy-rich
-  (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line)
-
-  (map! :leader
-        :desc "Kill buffer"
-        "b k" #'emax/kill-buffer)
-
-  (map! :desc "Kill buffer"
-        :g "C-x k" #'emax/kill-buffer))
+(map! :desc "Search buffer"
+      :g "C-s" #'+default/search-buffer
+      :nv "/" #'+default/search-buffer
+      :desc "Kill buffer"
+      :g "C-x k" #'kill-buffer
+      :desc "something something search project (counsel-rg)"
+      "C-x s" #'+vertico/project-search
+      :leader
+      :desc "Kill buffer"
+      "b k" #'kill-buffer
+      :desc "something something search project (counsel-rg)"
+      "s s" #'+vertico/project-search)
 
 (column-number-mode)
 (setq display-line-numbers-type 'visual)
@@ -260,7 +229,7 @@
         :m "g n" nil
         :m "g N" nil
         :m "g o" nil
-        :nv "g o" #'counsel-imenu
+        :nv "g o" nil
         :nv "g O" nil
         :n "g p" nil
         :n "g q" #'+format:region
@@ -334,13 +303,13 @@
        "B" #'(lambda () (interactive) (find-file (concat emax/org-directory "/reviews/book.org")))
 
        :desc "notes"
-       "g" #'(lambda () (interactive) (counsel-find-file (concat emax/org-directory "/notes/")))
+       "g" #'(lambda () (interactive) (find-file (concat emax/org-directory "/notes/")))
        :desc "notes-programming"
-       "p" #'(lambda () (interactive) (counsel-find-file (concat emax/org-directory "/notes/programming/")))
+       "p" #'(lambda () (interactive) (find-file (concat emax/org-directory "/notes/programming/")))
        :desc "notes-recreation"
-       "r" #'(lambda () (interactive) (counsel-find-file (concat emax/org-directory "/notes/recreation/")))
+       "r" #'(lambda () (interactive) (find-file (concat emax/org-directory "/notes/recreation/")))
        :desc "notes-technology"
-       "t" #'(lambda () (interactive) (counsel-find-file (concat emax/org-directory "/notes/technology/")))
+       "t" #'(lambda () (interactive) (find-file (concat emax/org-directory "/notes/technology/")))
 
        :desc "bookmarks"
        "b" #'(lambda () (interactive) (find-file (concat emax/org-directory "/notes/others/bookmarks.org")))
