@@ -575,9 +575,9 @@
 
   ;; Make UI doc and peek more readable
   (set-face-background 'markdown-code-face "#1f1147")
-                                        ;(set-face-foreground 'lsp-ui-peek-highlight "#cd00cd")
-                                        ;(set-face-background 'lsp-ui-peek-filename "#cd00cd")
-                                        ;(set-face-background 'lsp-ui-peek-selection "#8b008b")
+  ;(set-face-foreground 'lsp-ui-peek-highlight "#cd00cd")
+  ;(set-face-background 'lsp-ui-peek-filename "#cd00cd")
+  ;(set-face-background 'lsp-ui-peek-selection "#8b008b")
 
   (setq lsp-ui-sideline-enable nil
         lsp-ui-doc-show-with-cursor t
