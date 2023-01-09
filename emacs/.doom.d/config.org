@@ -448,8 +448,8 @@ In macOS, you may need to add permission for Emacs (or ruby) to have file access
         org-agenda-span 'week
         org-directory emax/org-directory
         org-default-notes-file (concat org-directory "/scratch.org")
-        org-agenda-files '((concat org-directory "/agenda"))
-        org-refile-targets '(((concat org-directory "/archive.org") :maxlevel . 1))
+        org-agenda-files `(,(concat org-directory "/agenda"))
+        org-refile-targets `((,(concat org-directory "/archive.org") :maxlevel . 1))
         org-fontify-quote-and-verse-blocks nil
         org-hide-leading-stars nil))
 
