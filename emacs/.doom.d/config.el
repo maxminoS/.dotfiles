@@ -632,10 +632,11 @@
 
 (defun emax/save-without-formatting ()
   (interactive)
-  (if (equal format-all-mode t)
-    (progn (format-all-mode -1)
-           (save-buffer)
-           (format-all-mode 1))
+  (if (equal apheleia-mode t)
+    (progn
+      (apheleia-mode -1)
+      (save-buffer)
+      (apheleia-mode 1))
     (save-buffer)))
 
 (map! :leader
