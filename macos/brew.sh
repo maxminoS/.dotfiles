@@ -63,7 +63,7 @@ brew install youtube-dl
 
 # Emacs
 brew tap d12frosted/emacs-plus
-brew install emacs-plus --HEAD --with-ctags --with-dbus --with-mailutils --with-no-titlebar --with-xwidgets
+brew install emacs-plus --with-ctags --with-dbus --with-mailutils --with-xwidgets --with-imagemagick --with-native-comp --with-modern-doom3-icon
 git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.emacs.d
 ~/.emacs.d/bin/doom install
 
