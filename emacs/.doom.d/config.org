@@ -131,6 +131,14 @@
       "t g" nil)
 #+END_SRC
 
+** Faces
+#+BEGIN_SRC emacs-lisp
+(custom-set-faces
+  ;; Unitalicize line number
+  '(line-number ((t (:slant normal))))
+  '(line-number-current-line ((t (:slant normal)))))
+#+END_SRC
+
 ** Scripts
 Place custom scripts under =~/.doom.d/lisp=
 Set the listed secrets in =~/.doom.d/lisp/.secret.el=

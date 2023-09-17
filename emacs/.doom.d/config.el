@@ -122,6 +122,11 @@
       "t F" nil
       "t g" nil)
 
+(custom-set-faces
+  ;; Unitalicize line number
+  '(line-number ((t (:slant normal))))
+  '(line-number-current-line ((t (:slant normal)))))
+
 (defvar emax/elfeed-feeds nil)
 (defvar emax/org-directory "~/Dropbox/org")
 
