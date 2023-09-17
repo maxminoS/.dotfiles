@@ -137,14 +137,45 @@
       :g "C-s" #'+default/search-buffer
       :nv "/" #'+default/search-buffer
       :desc "Kill buffer"
-      :g "C-x k" #'kill-buffer
+      :g "C-x k" #'emax/kill-buffer
       :desc "Ripgrep project"
       "C-x s" #'+vertico/project-search
       :leader
       :desc "Kill buffer"
-      "b k" #'kill-buffer
+      "b k" #'emax/kill-buffer
       :desc "Ripgrep project"
       "s s" #'+vertico/project-search)
+
+(defvar emax/consult--source-buffer
+  `(:name     "Buffer"
+    :narrow   ?b
+    :category buffer
+    :face     consult-buffer
+    :history  buffer-name-history
+    :state    ,#'consult--buffer-state
+    :default  t
+    :items
+    ,(lambda ()
+       (let* ((buffer-query (consult--buffer-query :sort 'visibility :as #'buffer-name))
+             (curr-buffer (last buffer-query))
+             (rest-buffers (reverse (cdr (reverse buffer-query)))))
+         (append curr-buffer rest-buffers))))
+  "Buffers for `consult-buffer' source with current buffer first.")
+
+(defvar emax/kill-buffer-sources '(emax/consult--source-buffer
+                                   consult--source-hidden-buffer
+                                   consult--source-modified-buffer
+                                   consult--source-file-register
+                                   consult--source-project-buffer-hidden))
+
+(defun emax/kill-buffer ()
+  "Enhanced `kill-buffer' command with support for virtual buffers."
+  (interactive)
+  (let ((selected (consult--multi emax/kill-buffer-sources
+                                  :prompt "Kill buffer: "
+                                  :history 'consult--buffer-history
+                                  :sort nil)))
+    (kill-buffer (car selected))))
 
 (column-number-mode)
 (setq display-line-numbers-type 'visual)
