@@ -133,12 +133,12 @@
       :nv "/" #'+default/search-buffer
       :desc "Kill buffer"
       :g "C-x k" #'kill-buffer
-      :desc "something something search project (counsel-rg)"
+      :desc "Ripgrep project"
       "C-x s" #'+vertico/project-search
       :leader
       :desc "Kill buffer"
       "b k" #'kill-buffer
-      :desc "something something search project (counsel-rg)"
+      :desc "Ripgrep project"
       "s s" #'+vertico/project-search)
 
 (column-number-mode)
