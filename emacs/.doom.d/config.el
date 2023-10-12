@@ -586,7 +586,7 @@
   (setq lsp-ui-sideline-enable nil
         lsp-ui-doc-show-with-cursor t
         lsp-ui-doc-show-with-mouse nil
-        lsp-ui-doc-delay 0.5))
+        lsp-ui-doc-delay 0.2))
 
 (after! company-mode
   (global-company-mode -1))
