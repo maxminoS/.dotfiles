@@ -589,8 +589,7 @@
         lsp-ui-doc-delay 0.5))
 
 (after! company-mode
-  (global-company-mode -1)
-  (setq custom-idle-delay 0.0))
+  (global-company-mode -1))
 
 (setq tab-always-indent t)
 

@@ -726,8 +726,7 @@ Requires: =cmake=, =libtool-bin=, =libvterm[-dev]=
 ** Autocompletion
 #+BEGIN_SRC emacs-lisp
 (after! company-mode
-  (global-company-mode -1)
-  (setq custom-idle-delay 0.0))
+  (global-company-mode -1))
 #+END_SRC
 
 ** Tabs
