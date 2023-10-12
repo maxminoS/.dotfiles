@@ -583,7 +583,7 @@
   ;(set-face-background 'lsp-ui-peek-filename "#cd00cd")
   ;(set-face-background 'lsp-ui-peek-selection "#8b008b")
 
-  (setq lsp-ui-sideline-enable nil
+  (setq lsp-ui-sideline-enable t
         lsp-ui-doc-show-with-cursor t
         lsp-ui-doc-show-with-mouse nil
         lsp-ui-doc-delay 0.2))
