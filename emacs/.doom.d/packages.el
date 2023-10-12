@@ -1,5 +1,3 @@
-(package! yascroll)
-
 (package! dired-hide-dotfiles)
 (package! dired-single)
 (package! dired-subtree)

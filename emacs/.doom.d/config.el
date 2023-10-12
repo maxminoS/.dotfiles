@@ -181,9 +181,8 @@
 (setq display-line-numbers-type 'visual)
 
 (add-hook 'text-mode-hook #'(lambda () (company-mode -1)))
-(add-hook! '(text-mode-hook prog-mode-hook) #'display-line-numbers-mode #'yascroll-bar-mode)
+(add-hook! '(text-mode-hook prog-mode-hook) #'display-line-numbers-mode)
 (add-hook 'org-mode-hook #'(lambda ()
-                                 (yascroll-bar-mode 1)
                                  (display-line-numbers-mode -1)
                                  (company-mode -1)))
 
@@ -212,11 +211,6 @@
   (setq doom-modeline-buffer-encoding nil
         doom-modeline-workspace-name t)
   (add-hook! 'size-indication-mode-hook (setq size-indication-mode nil)))
-
-(after! yascroll
-  (global-yascroll-bar-mode 1)
-  (setq yascroll:delay-to-hide nil
-        yascroll:scroll-bar 'right-fringe))
 
 (after! projectile
   (map! :leader
