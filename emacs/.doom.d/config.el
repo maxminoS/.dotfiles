@@ -569,7 +569,6 @@
 (after! lsp-mode
   (add-hook! 'lsp-mode-hook #'lsp-ui-mode #'lsp-headerline-breadcrumb-mode #'company-mode)
 
-  (set-face-background 'lsp-face-highlight-textual "#1f1147")
   (setq lsp-before-save-edits nil
         lsp-enable-snippet nil
         lsp-restart 'auto-restart
@@ -578,31 +577,6 @@
         lsp-eslint-auto-fix-on-save t))
 
 (after! lsp-ui
-  (setq lsp-ui-doc-frame-parameters '((left . -3)
-                                      (no-focus-on-map . t)
-                                      (min-width . 15)
-                                      (width . 0)
-                                      (min-height . 0)
-                                      (height . 0)
-                                      (internal-border-width . 1)
-                                      (vertical-scroll-bars . nil)
-                                      (horizontal-scroll-bars . nil)
-                                      (right-fringe . 0)
-                                      (menu-bar-lines . 0)
-                                      (tool-bar-lines . 0)
-                                      (line-spacing . 0)
-                                      (unsplittable . t)
-                                      (undecorated . t)
-                                      (top . -1)
-                                      (visibility . nil)
-                                      (mouse-wheel-frame . nil)
-                                      (no-other-frame . t)
-                                      (inhibit-double-buffering . t)
-                                      (drag-internal-border . t)
-                                      (no-special-glyphs . t)
-                                      (alpha . (100 . 100))
-                                      (desktop-dont-save . t)))
-
   ;; Make UI doc and peek more readable
   (set-face-background 'markdown-code-face "#1f1147")
   ;(set-face-foreground 'lsp-ui-peek-highlight "#cd00cd")
